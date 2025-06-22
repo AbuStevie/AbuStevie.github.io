@@ -27,7 +27,9 @@ function updateTabIndex(swiper) {
     });
 }
 
+// --- Initialize Swiper.js with advanced touch controls ---
 const swiper = new Swiper('.swiper', {
+    // --- Basic Navigation ---
     direction: 'horizontal',
     navigation: {
         nextEl: '.swiper-button-next',
@@ -35,7 +37,23 @@ const swiper = new Swiper('.swiper', {
     },
     mousewheel: false,
     rewind: false,
-    allowTouchMove: true,
+
+    // --- FIX FOR UNRESPONSIVE SWIPES ---
+    // These settings make the swipe feel more "grippy" and less accidental.
+    longSwipesRatio: 0.1,    // A smaller ratio means the swipe is easier to initiate.
+    shortSwipes: false,      // Prevents tiny, accidental drags from changing the slide.
+    grabCursor: true,        // Shows a "grab" hand cursor on desktop for better UX.
+    threshold: 5,            // User must drag at least 5px before a swipe starts.
+
+    // --- FIX FOR SLIDER HIJACKING ---
+    // This tells Swiper to NOT start a swipe if the touch begins on these elements.
+    noSwiping: true, // This enables the noSwipingClass feature.
+    noSwipingClass: 'swiper-no-swiping', // Any element with this class won't trigger a slide.
+    
+    // We also tell it to ignore swipes on the specific range input type.
+    noSwipingSelector: 'input[type="range"]',
+
+    // --- TabIndex management (from previous fix) ---
     on: {
         init: updateTabIndex,
         slideChange: updateTabIndex
