@@ -27,7 +27,7 @@ function updateTabIndex(swiper) {
     });
 }
 
-// --- Initialize Swiper.js with advanced touch controls ---
+// --- Initialize Swiper.js with FINE-TUNED touch controls ---
 const swiper = new Swiper('.swiper', {
     // --- Basic Navigation ---
     direction: 'horizontal',
@@ -38,20 +38,17 @@ const swiper = new Swiper('.swiper', {
     mousewheel: false,
     rewind: false,
 
-    // --- FIX FOR UNRESPONSIVE SWIPES ---
-    // These settings make the swipe feel more "grippy" and less accidental.
-    longSwipesRatio: 0.1,    // A smaller ratio means the swipe is easier to initiate.
-    shortSwipes: false,      // Prevents tiny, accidental drags from changing the slide.
-    grabCursor: true,        // Shows a "grab" hand cursor on desktop for better UX.
-    threshold: 5,            // User must drag at least 5px before a swipe starts.
+    // --- NEW, MORE SENSITIVE SWIPE SETTINGS ---
+    longSwipesRatio: 0.04, // TWEAKED: Very sensitive. User only needs to drag 3% of the screen width.
+    shortSwipes: true,     // TWEAKED: Allow short, fast flicks to also change the slide.
+    threshold: 5,            // User must drag at least 5px before a swipe starts (good for preventing accidental taps).
+    grabCursor: true,        // Shows a "grab" hand cursor on desktop.
 
-    // --- FIX FOR SLIDER HIJACKING ---
-    // This tells Swiper to NOT start a swipe if the touch begins on these elements.
-    noSwiping: true, // This enables the noSwipingClass feature.
-    noSwipingClass: 'swiper-no-swiping', // Any element with this class won't trigger a slide.
-    
-    // We also tell it to ignore swipes on the specific range input type.
-    noSwipingSelector: 'input[type="range"]',
+    // --- FIX FOR SLUGGISH RANGE SLIDER ON TOUCH LAPTOPS ---
+    touchStartPreventDefault: false, // TWEAKED: Tells Swiper not to interfere with the initial touch on elements like range sliders.
+
+    // --- FIX FOR SLIDER HIJACKING (from before) ---
+    noSwipingSelector: 'input[type="range"]', // This remains crucial.
 
     // --- TabIndex management (from previous fix) ---
     on: {
@@ -59,7 +56,6 @@ const swiper = new Swiper('.swiper', {
         slideChange: updateTabIndex
     }
 });
-
 
 // --- 3. UI INTERACTION LOGIC FOR "OTHER" OPTIONS ---
 document.querySelectorAll('.radio-other-group').forEach(group => {
