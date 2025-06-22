@@ -10,7 +10,7 @@ const submitButton = document.getElementById('submit-button');
 const formStatus = document.getElementById('form-status');
 const thankYouMessage = document.getElementById('thank-you-message');
 // !!! PASTE YOUR NEW SCRIPT URL FROM THE DEPLOYMENT HERE !!!
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwfvGUo2uJNFgZS0CnONVGfQAkh5IlTeIk-xJVjQEBPZX4ijYTnx6nWAaBf3m2kS8ILHg/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby10OR8nyUlRPImqJ53GNevrfjEcQgtlEECMePuP8VpIalQhHM9vIDVh106zF2s15kbag/exec';
 
 
 // --- 2. INITIALIZE LIBRARIES ---
@@ -85,6 +85,8 @@ function prepareDataForSubmission() {
         }
     });
 }
+// --- 5. FORM SUBMISSION LOGIC ---
+// // Replace your form submission code with this:
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -97,6 +99,9 @@ form.addEventListener('submit', (event) => {
     prepareDataForSubmission();
     submitButton.disabled = true;
     submitButton.innerText = 'שולח...';
+    formStatus.innerText = 'שולח נתונים...';
+    formStatus.style.color = 'blue';
+    
     const formData = new FormData(form);
     const data = {};
     const keys = [...new Set(formData.keys())];
@@ -105,32 +110,73 @@ form.addEventListener('submit', (event) => {
         data[key] = (values.length === 1) ? values[0] : values.join(', ');
     });
 
-    // The Fetch Call
+    console.log('Sending data:', data);
+
+    // Try a simpler fetch approach
     fetch(SCRIPT_URL, {
         method: 'POST',
-        mode: 'cors', // Essential for cross-origin requests
-        cache: 'no-cache',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(data),
     })
-    .then(res => {
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        return res.json();
+    .then(response => {
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
     })
     .then(responseData => {
         console.log('Success:', responseData);
         form.style.display = 'none';
         thankYouMessage.style.display = 'block';
+        formStatus.innerText = '';
     })
     .catch((error) => {
-        console.error('Error during fetch:', error);
+        console.error('Fetch error details:', error);
         submitButton.disabled = false;
         submitButton.innerText = 'שלח את כל התשובות';
         formStatus.innerText = `שגיאה: ${error.message}. אנא נסה שוב.`;
         formStatus.style.color = 'red';
+        
+        // Try alternative approach if CORS fails
+        if (error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
+            console.log('CORS error detected, trying alternative method...');
+            tryAlternativeSubmission(data);
+        }
     });
 });
 
-if (document.getElementById('participantID')) {
-    document.getElementById('participantID').value = 'P' + Date.now();
+// Alternative submission method using a form POST (bypasses CORS)
+function tryAlternativeSubmission(data) {
+    formStatus.innerText = 'מנסה שיטה חלופית...';
+    formStatus.style.color = 'orange';
+    
+    // Create a hidden form for direct POST submission
+    const hiddenForm = document.createElement('form');
+    hiddenForm.method = 'POST';
+    hiddenForm.action = SCRIPT_URL;
+    hiddenForm.style.display = 'none';
+    
+    // Add all data as hidden inputs
+    Object.keys(data).forEach(key => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = data[key];
+        hiddenForm.appendChild(input);
+    });
+    
+    document.body.appendChild(hiddenForm);
+    hiddenForm.submit();
+    
+    // Show success message after a delay (since we can't get response from form submit)
+    setTimeout(() => {
+        form.style.display = 'none';
+        thankYouMessage.style.display = 'block';
+        formStatus.innerText = '';
+    }, 2000);
 }
