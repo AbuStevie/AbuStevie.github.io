@@ -1,8 +1,7 @@
 // ==================================================================
-// == CORRECT & FINAL HEBREW (RTL) JAVASCRIPT FILE (script.js) ==
-// == FINAL VERSION                                              ==
+// == IMPROVED HEBREW (RTL) JAVASCRIPT FILE (script.js) ==
+// == OPTIMIZED FOR BETTER SWIPE GESTURES ON MOBILE & TOUCH LAPTOPS ==
 // ==================================================================
-
 
 // --- 1. SETUP: GET ELEMENTS & CONFIGURATION ---
 const form = document.getElementById('research-form');
@@ -11,7 +10,6 @@ const formStatus = document.getElementById('form-status');
 const thankYouMessage = document.getElementById('thank-you-message');
 // !!! PASTE YOUR NEW SCRIPT URL FROM THE DEPLOYMENT HERE !!!
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzAnQPuQmQumQ_DaE1U6iRtRe0ZPseUpHJLF8MzfhhSphrQorwCFnFcLZ7J5FDwn7_PTQ/exec';
-
 
 // --- 2. INITIALIZE LIBRARIES ---
 Fancybox.bind("[data-fancybox]", {
@@ -27,7 +25,7 @@ function updateTabIndex(swiper) {
     });
 }
 
-// --- Initialize Swiper.js with FINE-TUNED touch controls ---
+// --- Initialize Swiper.js with OPTIMIZED touch controls ---
 const swiper = new Swiper('.swiper', {
     // --- Basic Navigation ---
     direction: 'horizontal',
@@ -35,26 +33,128 @@ const swiper = new Swiper('.swiper', {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
     },
+    
+    // --- DISABLE CONFLICTING FEATURES ---
     mousewheel: false,
     rewind: false,
-
-    // --- NEW, MORE SENSITIVE SWIPE SETTINGS ---
-    longSwipesRatio: 0.04, // TWEAKED: Very sensitive. User only needs to drag 3% of the screen width.
-    shortSwipes: true,     // TWEAKED: Allow short, fast flicks to also change the slide.
-    threshold: 5,            // User must drag at least 5px before a swipe starts (good for preventing accidental taps).
-    grabCursor: true,        // Shows a "grab" hand cursor on desktop.
-
-    // --- FIX FOR SLUGGISH RANGE SLIDER ON TOUCH LAPTOPS ---
-    touchStartPreventDefault: false, // TWEAKED: Tells Swiper not to interfere with the initial touch on elements like range sliders.
-
-    // --- FIX FOR SLIDER HIJACKING (from before) ---
-    noSwipingSelector: 'input[type="range"]', // This remains crucial.
-
-    // --- TabIndex management (from previous fix) ---
+    
+    // --- OPTIMIZED SWIPE SETTINGS FOR BETTER RESPONSIVENESS ---
+    touchRatio: 1,              // Full touch sensitivity (default but explicit)
+    touchAngle: 45,             // Allow swipes within 45 degrees of horizontal
+    
+    // --- CRITICAL: More sensitive thresholds ---
+    longSwipesRatio: 0.15,      // User needs to drag only 15% of screen width
+    shortSwipes: true,          // Enable quick flick gestures
+    longSwipesMs: 300,          // Reduce time threshold for long swipes
+    
+    // --- VERY IMPORTANT: Lower resistance for better feel ---
+    resistance: true,
+    resistanceRatio: 0.15,      // Less resistance when reaching edges
+    
+    // --- GESTURE DETECTION IMPROVEMENTS ---
+    threshold: 3,               // Very low threshold - start detecting swipe after 3px
+    touchStartPreventDefault: false,  // Don't prevent default on touch start
+    
+    // --- SPEED AND RESPONSIVENESS ---
+    speed: 300,                 // Faster transition speed
+    followFinger: true,         // Slide follows finger during drag
+    grabCursor: true,           // Show grab cursor on desktop
+    
+    // --- CRITICAL: Prevent conflicts with range sliders ---
+    noSwiping: true,            // Enable the noSwiping feature
+    noSwipingClass: 'swiper-no-swiping',
+    noSwipingSelector: 'input[type="range"], .range-slider-container, input[type="text"], textarea, select, button',
+    
+    // --- TOUCH EVENTS OPTIMIZATION ---
+    touchEventsTarget: 'wrapper', // Better touch event handling
+    simulateTouch: true,          // Enable mouse simulation of touch
+    allowTouchMove: true,         // Allow touch move events
+    
+    // --- PREVENT BOUNCE/OVERFLOW ---
+    preventClicks: false,         // Don't prevent clicks after swipe
+    preventClicksPropagation: false,
+    
+    // --- IMPROVED EDGE DETECTION ---
+    watchOverflow: true,          // Watch for overflow and disable navigation if needed
+    
+    // --- TabIndex management and custom event handling ---
     on: {
-        init: updateTabIndex,
-        slideChange: updateTabIndex
+        init: function(swiper) {
+            updateTabIndex(swiper);
+            console.log('Swiper initialized');
+        },
+        slideChange: function(swiper) {
+            updateTabIndex(swiper);
+            console.log('Slide changed to:', swiper.activeIndex);
+        },
+        touchStart: function(swiper, event) {
+            // Additional logging for debugging
+            console.log('Touch start detected');
+        },
+        touchMove: function(swiper, event) {
+            // Check if we're touching a slider or input
+            const target = event.target;
+            if (target && (
+                target.type === 'range' || 
+                target.closest('.range-slider-container') ||
+                target.type === 'text' ||
+                target.type === 'textarea' ||
+                target.tagName === 'TEXTAREA'
+            )) {
+                swiper.allowTouchMove = false;
+            } else {
+                swiper.allowTouchMove = true;
+            }
+        },
+        touchEnd: function(swiper) {
+            swiper.allowTouchMove = true; // Re-enable touch move after touch ends
+        }
     }
+});
+
+// --- ADDITIONAL FIX: Prevent swiper interference with range sliders ---
+document.addEventListener('DOMContentLoaded', function() {
+    // Add no-swiping class to all range slider containers
+    const rangeContainers = document.querySelectorAll('.range-slider-container');
+    rangeContainers.forEach(container => {
+        container.classList.add('swiper-no-swiping');
+    });
+    
+    // Add event listeners to range inputs for additional protection
+    const rangeInputs = document.querySelectorAll('input[type="range"]');
+    rangeInputs.forEach(input => {
+        input.addEventListener('touchstart', function(e) {
+            e.stopPropagation();
+            swiper.allowTouchMove = false;
+        });
+        
+        input.addEventListener('touchend', function(e) {
+            setTimeout(() => {
+                swiper.allowTouchMove = true;
+            }, 100);
+        });
+        
+        input.addEventListener('mousedown', function(e) {
+            e.stopPropagation();
+        });
+    });
+    
+    // Same protection for text inputs and textareas
+    const textInputs = document.querySelectorAll('input[type="text"], textarea');
+    textInputs.forEach(input => {
+        input.classList.add('swiper-no-swiping');
+        input.addEventListener('touchstart', function(e) {
+            e.stopPropagation();
+        });
+        input.addEventListener('focus', function() {
+            swiper.allowTouchMove = false;
+        });
+        input.addEventListener('blur', function() {
+            setTimeout(() => {
+                swiper.allowTouchMove = true;
+            }, 100);
+        });
+    });
 });
 
 // --- 3. UI INTERACTION LOGIC FOR "OTHER" OPTIONS ---
@@ -66,7 +166,10 @@ document.querySelectorAll('.radio-other-group').forEach(group => {
         otherText.classList.toggle('hidden', !otherRadio.checked);
         if (!otherRadio.checked) otherText.value = '';
     });
-    otherText.addEventListener('input', () => { otherRadio.value = otherText.value.trim(); otherRadio.checked = true; });
+    otherText.addEventListener('input', () => { 
+        otherRadio.value = otherText.value.trim(); 
+        otherRadio.checked = true; 
+    });
 });
 
 document.querySelectorAll('.checkbox-other-group').forEach(group => {
@@ -84,7 +187,6 @@ document.querySelectorAll('.checkbox-other-group').forEach(group => {
     });
 });
 
-
 // --- 4. DATA PREPARATION & SUBMISSION ---
 function prepareDataForSubmission() {
     document.querySelectorAll('.checkbox-other-group').forEach(group => {
@@ -94,14 +196,12 @@ function prepareDataForSubmission() {
         if (!parentOption) return;
         const otherCheckbox = parentOption.querySelector('input[type="checkbox"]');
         if (otherCheckbox && otherCheckbox.checked && otherText.value.trim() !== '') {
-            // BUG FIX: Set the *value* of the checkbox to the text content
             otherCheckbox.value = otherText.value.trim();
         }
     });
 }
-// --- 5. FORM SUBMISSION LOGIC ---
-// Replace your form.addEventListener('submit', ...) section with this:
 
+// --- 5. FORM SUBMISSION LOGIC ---
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     const activeElement = document.activeElement;
