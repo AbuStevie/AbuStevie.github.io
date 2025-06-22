@@ -1,0 +1,93 @@
+/* Make the slider take up the full screen */
+html, body {
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    /* overflow: hidden;  <-- ADD THIS LINE. IT'S THE MAGIC. */
+    overscroll-behavior-y: contain; /* <-- THE NEW, BETTER FIX */
+}
+
+/* The main swiper container */
+.swiper {
+    width: 100%;
+    height: 100%;
+    touch-action: pan-y !important; 
+}
+
+/* Add this new rule */
+.swiper-wrapper {
+    touch-action: pan-y !important;
+}
+
+/* Individual slide styling */
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Content within a slide. We use this for scrolling on small screens */
+.slide-content {
+    width: 100%;
+    max-width: 800px;
+    max-height: 100%;
+    overflow-y: auto; /* Allows vertical scrolling if content is too long */
+    padding: 20px;
+}
+
+/* Question and Image Styles (mostly the same as before) */
+.question-label {
+    font-weight: bold;
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 15px;
+}
+.question-image {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.options { margin-top: 15px; }
+.option { display: flex; align-items: center; margin-bottom: 10px; }
+.option input[type="radio"] { margin-right: 10px; }
+textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; box-sizing: border-box; }
+
+/* Swiper Navigation Button Styling */
+.swiper-button-next, .swiper-button-prev {
+    color: #007aff; /* A nice blue color */
+}
+
+/* Final Submit Button */
+#submit-button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+#submit-button:disabled { background-color: #ccc; }
+#form-status { margin-top: 15px; text-align: center; }
+
+/* Final thank you message styling */
+#thank-you-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}

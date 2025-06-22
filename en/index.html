@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Research Questionnaire</title>
+
+    <!-- Link to Swiper.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- Link to Fancybox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+    <!-- Link to our main CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Main form tag now wraps the entire slider -->
+    <form id="research-form">
+
+        <!-- Swiper Container -->
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+
+                <!-- SLIDE 1: Welcome Screen -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <h1>Welcome to the Study</h1>
+                        <p>Thank you for participating. Please swipe left or use the "Next" button to begin.</p>
+                        <p>You can tap on any image to view it in full-screen.</p>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2: Example Image Question -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <label class="question-label">1. Based on the detailed chart, which trend is most significant?</label>
+                        <a href="/images/detailed-chart.png" data-fancybox="gallery1" data-caption="Detailed Trend Chart">
+                            <img src="/images/detailed-chart.png" alt="A detailed chart showing trends" class="question-image">
+                        </a>
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q1a" name="question1" value="Trend A" required><label for="q1a">Trend A</label></div>
+                            <div class="option"><input type="radio" id="q1b" name="question1" value="Trend B"><label for="q1b">Trend B</label></div>
+                            <div class="option"><input type="radio" id="q1c" name="question1" value="Trend C"><label for="q1c">Trend C</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 3: Example Text Question -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <label for="q2" class="question-label">2. Please describe your reasoning for the choice above.</label>
+                        <textarea id="q2" name="question2" rows="4" placeholder="Enter your detailed response here..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- SLIDE 4: Final Submission Screen -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <h2>Thank you!</h2>
+                        <p>You have reached the end of the questionnaire. Please press the button below to submit your responses.</p>
+                        <!-- The main submit button is only on the last slide -->
+                        <button type="submit" id="submit-button">Submit All Responses</button>
+                        <div id="form-status"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Swiper Navigation Buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        
+        <!-- Hidden field for participant ID -->
+        <input type="hidden" name="participantID" id="participantID">
+
+    </form>
+    
+    <!-- This is the final thank you message, hidden by default -->
+    <div id="thank-you-message" style="display:none;">
+        <h2>Thank you!</h2>
+        <p>Your responses have been recorded successfully.</p>
+    </div>
+
+    <!-- Link to Swiper.js JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <!-- Link to Fancybox JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <!-- Link to our custom JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>

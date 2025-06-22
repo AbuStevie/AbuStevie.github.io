@@ -1,0 +1,96 @@
+// Initialize Fancybox for our images (no changes here)
+Fancybox.bind("[data-fancybox]", {});
+
+// Initialize Swiper.js
+const swiper = new Swiper('.swiper', {
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+
+    // Disable swiping with the mouse to prevent accidental swipes on desktop
+    mousewheel: false,
+    
+    // Make it so you can't swipe past the first or last slide
+    rewind: false,
+
+    // IMPORTANT: Allow touch-based swiping on mobile
+    allowTouchMove: true,
+
+    // Make it so a user cannot swipe to the next slide if a question
+    // on the current slide is required and unanswered. (Advanced, for later)
+    // on: {
+    //     slideChangeTransitionStart: function () { ... }
+    // }
+});
+
+
+// --- Form Submission Logic ---
+const form = document.getElementById('research-form');
+const submitButton = document.getElementById('submit-button');
+const formStatus = document.getElementById('form-status');
+const thankYouMessage = document.getElementById('thank-you-message');
+
+// !!! IMPORTANT: PASTE YOUR WEB APP URL HERE (if you haven't already)
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzd23PYS99sVlhykLKSkvo618bP8OeKPGqdpDwMjVJRnkmrxkxtkEFg-_rW0V3I6L_7OA/exec';
+
+// Generate a simple unique ID for the participant
+document.getElementById('participantID').value = 'P' + Date.now();
+
+// Form submission event listener
+form.addEventListener('submit', (e) => {
+    e.preventDefault(); // Stop the default form submission
+
+    submitButton.disabled = true;
+    submitButton.innerText = 'Submitting...';
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log('Success:', data);
+        // On success, hide the entire form/slider and show the thank you message
+        form.style.display = 'none';
+        thankYouMessage.style.display = 'block';
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        submitButton.disabled = false;
+        submitButton.innerText = 'Submit All Responses';
+        formStatus.innerText = 'Error: Could not submit. Please try again.';
+        formStatus.style.color = 'red';
+    });
+});
+
+// --- PREVENT PULL-TO-REFRESH ---
+// This code should be at the end of your script.js file
+/*
+let startY = 0;
+
+document.body.addEventListener('touchstart', (e) => {
+    // Check if we are at the top of the scrollable content
+    const scrollableContent = e.target.closest('.slide-content');
+    if (window.scrollY === 0 && (!scrollableContent || scrollableContent.scrollTop === 0)) {
+        startY = e.touches[0].pageY;
+    }
+}, { passive: true });
+
+document.body.addEventListener('touchmove', (e) => {
+    const y = e.touches[0].pageY;
+    // If we are scrolling down from the top, prevent the default browser action
+    if (window.scrollY === 0 && y > startY) {
+        e.preventDefault();
+    }
+}, { passive: false }); 
+*/

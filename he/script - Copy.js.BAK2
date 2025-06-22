@@ -1,0 +1,117 @@
+// ==================================================================
+// == CORRECT & FINAL HEBREW (RTL) JAVASCRIPT FILE (script.js) ==
+// ==================================================================
+
+
+// --- 1. SETUP: INITIALIZE LIBRARIES ---
+
+// Initialize Fancybox with RTL support
+Fancybox.bind("[data-fancybox]", {
+    l10n: {
+        CLOSE: "סגירה",
+        NEXT: "הבא",
+        PREV: "הקודם",
+    },
+    rtl: true,
+});
+
+// Initialize Swiper.js for the slider functionality
+const swiper = new Swiper('.swiper', {
+    direction: 'horizontal',
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    mousewheel: false,
+    rewind: false,
+    allowTouchMove: true,
+});
+
+
+// --- 2. SETUP: GET ELEMENTS & CONFIGURATION ---
+// We must declare all constants at the top so they exist before we use them.
+const form = document.getElementById('research-form');
+const submitButton = document.getElementById('submit-button');
+const formStatus = document.getElementById('form-status');
+const thankYouMessage = document.getElementById('thank-you-message');
+
+// !!! IMPORTANT: This is your Web App URL
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzd23PYS99sVlhykLKSkvo618bP8OeKPGqdpDwMjVJRnkmrxkxtkEFg-_rW0V3I6L_7OA/exec';
+
+// Generate a unique ID for the participant if the element exists
+if (document.getElementById('participantID')) {
+    document.getElementById('participantID').value = 'P' + Date.now();
+}
+
+
+// --- 3. THE MAIN EVENT LISTENER FOR THE ENTIRE FORM ---
+// This single listener handles BOTH the keyboard "Next" button and the final "Submit" button.
+// It uses an if/else block to decide which action to take.
+
+form.addEventListener('submit', (event) => {
+    // This is the most important line: it stops the form from submitting right away.
+    event.preventDefault();
+
+    // Check which element was active when the "submit" event was triggered.
+    const activeElement = document.activeElement;
+    const isTriggeredFromInput = activeElement.matches('input[type="text"], input[type="number"], textarea');
+
+    // --- SCENARIO A: Keyboard "Next" button was pressed from an input field ---
+    if (isTriggeredFromInput) {
+        
+        // For debugging, you can check the console on your phone.
+        console.log("Keyboard 'Next' detected. Advancing to next slide.");
+        
+        // Instead of submitting, we just go to the next slide.
+        swiper.slideNext();
+
+    } 
+    // --- SCENARIO B: The real "Submit" button was clicked ---
+    else {
+
+        console.log("Final Submit button clicked. Sending data...");
+
+        // Disable the button to prevent multiple submissions
+        submitButton.disabled = true;
+        submitButton.innerText = 'שולח...';
+
+        // Collect all form data, including multiple checkbox answers
+        const formData = new FormData(form);
+        const data = {};
+        const keys = [...new Set(formData.keys())];
+
+        keys.forEach(key => {
+            const values = formData.getAll(key);
+            if (values.length === 1) {
+                data[key] = values[0];
+            } else {
+                data[key] = values.join(', '); // Join checkbox values
+            }
+        });
+
+        // Send the data to your Google Apps Script
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(res => res.json())
+        .then(responseData => {
+            console.log('Success:', responseData);
+            form.style.display = 'none'; // Hide the form
+            thankYouMessage.style.display = 'block'; // Show thank you message
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            // Re-enable the button and show an error if submission fails
+            submitButton.disabled = false;
+            submitButton.innerText = 'שלח את כל התשובות';
+            formStatus.innerText = 'שגיאה: לא ניתן היה לשלוח את הטופס. אנא נסה שוב.';
+            formStatus.style.color = 'red';
+        });
+    }
+});

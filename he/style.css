@@ -1,0 +1,241 @@
+/* Make the slider take up the full screen */
+html, body {
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    /* overflow: hidden;  <-- ADD THIS LINE. IT'S THE MAGIC. */
+    overscroll-behavior-y: contain; /* <-- THE NEW, BETTER FIX */
+}
+
+h1 {
+    font-size: 1.5em; /* Example size */
+    color: #0c0c0c;
+    text-align: center;
+    margin-bottom: 10px;
+}
+h2 {
+    font-size: 1.3em;
+    color: #1e1e1e;
+}
+
+#q1 {
+    font-size: 1.2em; /* Slightly larger font */
+    padding: 8px 12px; /* Good amount of internal spacing */
+    width: 40px; /* Set a comfortable width */
+    height: 40px; /* You can also set a fixed height if needed, though padding/font-size usually suffice */
+    border: 1px solid #ccc; /* Make sure borders are visible, adjust as needed */
+    border-radius: 4px; /* Optional: slightly rounded corners */
+}
+
+/* --- Styling for the "Other" text input --- */
+.other-text-input {
+    margin-right: 5px; /* In LTR, this would be margin-left */
+    margin-left: 5px;
+    border: none;
+    border-bottom: 1px solid #999;
+    background: transparent;
+    outline: none;
+}
+.hidden {
+    display: none;
+}
+
+/* The main swiper container */
+.swiper {
+    width: 100%;
+    height: 100%;
+    touch-action: pan-y !important; 
+}
+
+/* Add this new rule */
+.swiper-wrapper {
+    touch-action: pan-y !important;
+}
+
+/* Individual slide styling */
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Content within a slide. */
+.slide-content {
+    width: 100%;
+    max-width: 800px;
+    max-height: 100%;
+    overflow-y: auto; /* Allows vertical scrolling */
+    padding: 20px;
+    text-align: right; /* <-- ADDED: Ensure text aligns to the right */
+}
+
+/* Question and Image Styles */
+.question-label {
+    font-weight: bold;
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 15px;
+}
+.question-image {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.options { margin-top: 15px; }
+.option { display: flex; align-items: center; margin-bottom: 10px; }
+
+/* --- RTL SPECIFIC CHANGE FOR RADIO BUTTONS & CHECKBOXES --- */
+.option input[type="radio"],
+.option input[type="checkbox"] { 
+    /* Move the box to the other side of the text */
+    margin-left: 10px; 
+    margin-right: 0;
+    /* Optional: make them slightly larger for easier tapping */
+    width: 18px;
+    height: 18px;
+}
+
+/* --- Range Slider Styling --- */
+
+.range-slider-container {
+    padding: 20px 10px;
+}
+
+/* The labels for "highest" and "lowest" */
+.range-labels {
+    display: flex;
+    justify-content: space-between; /* Pushes labels to the ends */
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 10px;
+    flex-direction: row-reverse; /* <-- ADD THIS LINE TO FLIP THE LABELS */
+}
+
+/* Styling the slider track */
+input[type=range] {
+    -webkit-appearance: none; /* Override default look on Chrome/Safari */
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    /* transform: scaleX(-1);  <-- ADD THIS LINE TO FLIP IT HORIZONTALLY */
+}
+
+/* Styling the slider thumb (the draggable circle) */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #007aff; /* Same blue as the nav arrows */
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+input[type=range]::-moz-range-thumb {
+    /* Same styles for Firefox */
+    width: 24px;
+    height: 24px;
+    background: #007aff;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+/* --- Tick Mark Styling for Range Slider --- */
+
+/* This targets the datalist itself and positions the ticks correctly */
+.range-slider-container datalist {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px; /* Aligns ticks with the slider ends */
+    box-sizing: border-box;
+    color: #aaa; /* Color of the tick marks */
+}
+
+/* This styles the individual tick marks */
+.range-slider-container option {
+    position: relative;
+    top: -20px; /* Position them just above the slider track */
+    border-left: 1px solid currentColor; /* Creates the vertical line */
+    height: 27px;
+    padding: 0;
+}
+
+textarea { 
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 1em; 
+    box-sizing: border-box; 
+    text-align: right; /* <-- ADDED: Ensure typed text is right-aligned */
+}
+
+/* Swiper Navigation Button Styling */
+.swiper-button-next, .swiper-button-prev {
+    color: #007aff; 
+}
+
+/* Final Submit Button */
+#submit-button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+#submit-button:disabled { background-color: #ccc; }
+#form-status { margin-top: 15px; text-align: center; }
+
+/* Final thank you message styling */
+#thank-you-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* --- RTL Arrow Position Override --- */
+/* This block should only be in /he/style.css */
+
+.swiper-button-next, .swiper-button-prev {
+    top: 50%; /* Keep vertical alignment */
+}
+
+/* Move the "Next" button (which has the > icon) to the LEFT */
+.swiper-button-next {
+    right: auto; /* Unset the default right position */
+    left: 10px;  /* Position it on the left */
+    transform: rotate(180deg); /* Flip the > icon to be < */
+}
+
+/* Move the "Prev" button (which has the < icon) to the RIGHT */
+.swiper-button-prev {
+    left: auto;   /* Unset the default left position */
+    right: 10px;  /* Position it on the right */
+    transform: rotate(180deg); /* Flip the < icon to be > */
+}

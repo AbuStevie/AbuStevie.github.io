@@ -1,0 +1,369 @@
+<!-- File: /he/index.html -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שאלון מפיקים מוזיקליים</title> <!-- You can translate the title too -->
+
+    <!-- Link to Swiper.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- Link to Fancybox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+    <!-- Link to our main CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Main form tag now wraps the entire slider -->
+    <form id="research-form" novalidate>
+
+        <!-- Swiper Container -->
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+
+                <!-- SLIDE 1: Welcome Screen -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        <h1>חשיבה חישובית בקרב מפיקי מוזיקה אלקטרונית</h1>
+                        <img src="/images/Welcome_GIF.gif" alt="Welcome GIF" class="question-image">
+                        <p>שאלון זה מיועד לבעלי רקע בהפקה מוזיקלית אלקטרונית (עם תוכנות DAW), ונועד למדוד את עמדותיך וכישוריך בנוגע לפתרון בעיות מורכבות.</p>
+                        <ul>
+                            <li>השאלון אנונימי לחלוטין, אין כאן פרטים מזהים</li>
+                            <li>משך הזמן המוערך הוא כ-30 דקות</li>
+                            <li>השאלון מותאם גם לטלפון וטאבלטים</li>
+                        </ul>
+                        <p>כאשר מוצגות בפניך שאלות רבות ברירה אנא סמן/י את התשובה הנכונה ביותר לדעתך.<br>
+                        בחלק מהשאלות בשאלון האישי ניתן לסמן יותר מתשובה אחת.</p>
+                        
+                        <p>השאלון מועבר במסגרת מחקר שנערך בבית הספר לחינוך באוניברסיטת תל אביב, בהנחיית פרופ' ארנון הרשקוביץ. מילוי השאלון מהווה הסכמה להשתתפות במחקר.</p>
+                        <p>לפרטים נוספים, ניתן לפנות לאופיר ונדר ofirvander@gmail.com</p>    
+                        
+                    </div>
+                </div>
+
+                <!-- SLIDE 2: Header Personal Details + Q01 Age -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        <h2>פרטים אישיים</h2>
+                        <img src="/images/Personal_FKJ_GIF.gif" alt="Personal GIF" class="question-image">
+                        <p></p>
+                        <label for="q1" class="question-label">1. מה גילך?</label>
+                        <input type="number" id="q1" name="Q01 Age" placeholder="גיל" inputmode="numeric" min="1" max="120" enterkeyhint="next">
+                        
+                    </div>
+                </div>
+
+                <!-- SLIDE 3: Q02 Gender + Q03 Education -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        <label class="question-label">2. מגדר</label>
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q2a" name="Q02 Gender Identity" value="זכר" required><label for="q2a">זכר</label></div>
+                            <div class="option"><input type="radio" id="q2b" name="Q02 Gender Identity" value="נקבה"><label for="q2b">נקבה</label></div>
+                            <div class="option"><input type="radio" id="q2c" name="Q02 Gender Identity" value="אחר"><label for="q2c">אחר</label></div>
+                            <div class="option"><input type="radio" id="q2d" name="Q02 Gender Identity" value="מעדיף לא לענות"><label for="q2d">מעדיף לא לענות</label></div>
+                        </div>
+                        <p></p>
+
+                        <label class="question-label">3. השכלה (ניתן לסמן יותר מאפשרות אחת)</label>
+                        <div class="options-group checkbox-other-group">
+                            <!-- Note: All checkboxes have the same 'name' -->
+                            <div class="option">
+                                <input type="checkbox" id="q3a" name="Q03 Education" value="תיכון">
+                                <label for="q3a">תיכון</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="q3b" name="Q03 Education" value="במהלך תואר ראשון">
+                                <label for="q3b">במהלך תואר ראשון</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="q3c" name="Q03 Education" value="מכללה לסאונד / הפקה">
+                                <label for="q3c">מכללה לסאונד / הפקה</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="q3d" name="Q03 Education" value="תואר ראשון ומעלה">
+                                <label for="q3d">תואר ראשון ומעלה</label>
+                            </div>
+                                       
+                            <!-- The "Other" Option for Checkboxes -->
+                            <div class="option">
+                                <!-- NOTE: This checkbox's value will be dynamically set -->
+                                <input type="checkbox" id="q3e" name="Q03 Education" value="Other">
+                                <label for="q3e">אחר:</label>
+                                <input type="text" id="q3e_text" class="other-text-input" placeholder="נא לפרט..." disabled>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 4: Header Music and Programming Background + Q04 musical education -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        <h2>רקע מוזיקלי ותוכנות</h2>
+                        <img src="/images/Programming_GIF.gif" alt="Programming GIF" class="question-image">
+                        <p></p>
+
+                        <label class="question-label">4. חינוך מוזיקלי (ניתן לסמן יותר מאפשרות אחת)</label>
+                        <div class="options-group checkbox-other-group">
+                            <!-- Note: All checkboxes have the same 'name' -->
+                            <div class="option">
+                                <input type="checkbox" id="q4a" name="Q04 Musical Education" value="לימודים בקונסרבטוריון">
+                                <label for="q4a">לימודים בקונסרבטוריון</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="q4b" name="Q04 Musical Education" value="מגמת מוזיקה בתיכון">
+                                <label for="q4b">מגמת מוזיקה בתיכון</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="q4c" name="Q04 Musical Education" value="לימודי מוזיקה על תיכוניים (מכללה / אקדמיה)">
+                                <label for="q4c">לימודי מוזיקה על תיכוניים (מכללה / אקדמיה)</label>
+                            </div>
+                                                                   
+                            <!-- The "Other" Option for Checkboxes -->
+                            <div class="option">
+                                <!-- NOTE: This checkbox's value will be dynamically set -->
+                                <input type="checkbox" id="q4d" name="Q04 Musical Education" value="Other">
+                                <label for="q4d">אחר:</label>
+                                <input type="text" id="q4d_text" class="other-text-input" placeholder="נא לפרט..." disabled>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- SLIDE 5 Q05 + Q06 + Q07 -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <label for="q05_slider" class="question-label">5. האם מנגנ/ת בכלי נגינה?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q05_slider"
+                                name="Q05 Play Instrument" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q05_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q05_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>ברמה גבוהה</span>  <!-- Left label for RTL -->
+                                <span>לא</span>  <!-- Right label for RTL -->
+                            </div>
+                        </div>
+                        
+                        <label for="q06_slider" class="question-label">6. מה הרקע בהרמוניה ותיאוריה מוזיקלית?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q06_slider"
+                                name="Q06 Theory Background" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q06_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q06_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>שולט\ת</span>  <!-- Left label for RTL -->
+                                <span>בסיסי</span>  <!-- Right label for RTL -->
+                            </div>
+                        </div>
+
+                        <label for="q07_slider" class="question-label">7. איך היית מדרג/ת את השליטה שלך בתוכנות מקצועיות ליצירת תוכן ?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q07_slider"
+                                name="Q07 Pro Apps Mastery" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q07_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q07_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>שולט\ת</span>  <!-- Left label for RTL -->
+                                <span>מתקשה</span>  <!-- Right label for RTL -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SLIDE 3: Q02 Gender Identity -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <label class="question-label">1. בהתבסס על התמונה מהי דעתך?</label>
+                        <a href="/images/detailed-chart.png" data-fancybox="gallery1" data-caption="Detailed Trend Chart">
+                            <img src="/images/detailed-chart.png" alt="A detailed chart showing trends" class="question-image">
+                        </a>
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q1a" name="question1" value="Trend A" required><label for="q1a">מעולה</label></div>
+                            <div class="option"><input type="radio" id="q1b" name="question1" value="Trend B"><label for="q1b">ככה-ככה</label></div>
+                            <div class="option"><input type="radio" id="q1c" name="question1" value="Trend C"><label for="q1c">על הפנים</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 3: Example Text Question -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <label for="q2" class="question-label">2. מדוע בחרת כך בשאלה הקודמת?</label>
+                        <textarea id="q2" name="question2" rows="4" placeholder="הזן את תשובתך כאן..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- SLIDE with a 5-Step Range Slider -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <label for="innovation-slider" class="question-label">5. דרג את רמת החדשנות של העיצוב:</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="innovation-slider"
+                                name="Q05_Innovation_Rating" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>הגבוהה ביותר</span>  <!-- Left label for RTL -->
+                                <span>הנמוכה ביותר</span>  <!-- Right label for RTL -->
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- SLIDE with a Checkbox Group -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <label class="question-label">6. אילו מהמאפיינים הבאים זיהית במהלך השימוש? (ניתן לבחור יותר מתשובה אחת)</label>
+                        
+                        <div class="options-group">
+                            <!-- Note: All checkboxes have the same 'name' -->
+                            <div class="option">
+                                <input type="checkbox" id="feature-a" name="Identified_Features" value="Search Bar">
+                                <label for="feature-a">סרגל חיפוש</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="feature-b" name="Identified_Features" value="User Profile">
+                                <label for="feature-b">פרופיל משתמש</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="feature-c" name="Identified_Features" value="Dark Mode Toggle">
+                                <label for="feature-c">כפתור מצב לילה</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="feature-d" name="Identified_Features" value="Help Section">
+                                <label for="feature-d">אזור עזרה</label>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- SLIDE 4: Final Submission Screen -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <h2>תודה על השתתפותך</h2>
+                        <p>זהו סוף השאלון. לחץ על הכפתור כדי לשלוח את התשובות.</p>
+                        <!-- The main submit button is only on the last slide -->
+                        <button type="submit" id="submit-button">שלח את התשובות</button>
+                        <div id="form-status"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Swiper Navigation Buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        
+        <!-- Hidden field for participant ID -->
+        <input type="hidden" name="participantID" id="participantID">
+
+    </form>
+    
+    <!-- This is the final thank you message, hidden by default -->
+    <div id="thank-you-message" style="display:none;">
+        <h2>תודה רבה!</h2>
+        <p>התשובות נשלחו בהצלחה.</p>
+    </div>
+
+    <!-- Link to Swiper.js JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <!-- Link to Fancybox JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <!-- Link to our custom JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>

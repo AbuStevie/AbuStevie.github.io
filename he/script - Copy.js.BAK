@@ -1,0 +1,178 @@
+// Initialize Fancybox for our images, now with RTL support
+Fancybox.bind("[data-fancybox]", {
+    // This makes the UI elements (like captions and close buttons) align correctly for RTL
+    l10n: {
+        CLOSE: "סגירה",
+        NEXT: "הבא",
+        PREV: "הקודם",
+        // You can add more translations if needed
+    },
+    rtl: true,
+});
+
+// Initialize Swiper.js
+const swiper = new Swiper('.swiper', {
+    // Tell Swiper to work in RTL mode. This reverses swipe directions
+    // and correctly maps the next/prev buttons.
+    direction: 'horizontal', // It's still horizontal, but the 'dir' attribute handles the rest
+    
+    // Swiper is smart and will automatically detect dir="rtl" on the container.
+    // So you might not even need a change here, but it's good practice to be aware of it.
+    // The most important change was in the HTML file.
+
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    
+    // Disable swiping with the mouse
+    mousewheel: false,
+    
+    // Make it so you can't swipe past the first or last slide
+    rewind: false,
+
+    // Allow touch-based swiping on mobile
+    allowTouchMove: true,
+});
+
+// --- NEW, MORE ROBUST KEYBOARD FIX ---
+
+// Listen for keydown events on the entire form
+form.addEventListener('keydown', function(event) {
+    // We only care about the "Enter" key
+    if (event.key !== 'Enter') {
+        return; // If it's not Enter, do nothing.
+    }
+
+    // Check if the key was pressed inside one of our text/number fields
+    const target = event.target;
+    const isTargetInput = target.matches('input[type="text"], input[type="number"], textarea');
+
+    if (isTargetInput) {
+        // This is the most important line: stop the browser's default behavior!
+        event.preventDefault();
+
+        // Now, manually command Swiper to go to the next slide.
+        swiper.slideNext();
+    }
+});
+
+// --- NEW - KEYBOARD "NEXT" AS A SUBMIT EVENT FIX ---
+
+// Listen for the 'submit' event on the form.
+// This will fire before your other submit listener does.
+form.addEventListener('submit', function(event) {
+    
+    // We only want to run this special logic if the "submit" event
+    // was triggered by a user pressing "Next" on the keyboard,
+    // NOT by them clicking the final submit button.
+    
+    // We check which element was active when the form was submitted.
+    const activeElement = document.activeElement;
+    
+    // Check if the active element is one of our text/number fields.
+    const isTriggeredFromInput = activeElement.matches('input[type="text"], input[type="number"], textarea');
+
+    // If the submission came from a text/number field...
+    if (isTriggeredFromInput) {
+        
+        // This is the most important line! Stop the form from actually submitting.
+        event.preventDefault();
+        
+        // For debugging, let's confirm this code is running.
+        console.log("Form 'submit' event was intercepted from an input field!");
+        
+        // Instead of submitting, command Swiper to go to the next slide.
+        swiper.slideNext();
+    }
+    
+    // If the trigger was NOT a text field (i.e., it was the real submit button),
+    // this 'if' block is skipped, and the form submission will proceed to your
+    // other 'submit' event listener that sends the data to Google Sheets.
+});
+
+// --- Form Submission Logic (No changes needed here) ---
+const form = document.getElementById('research-form');
+const submitButton = document.getElementById('submit-button');
+const formStatus = document.getElementById('form-status');
+const thankYouMessage = document.getElementById('thank-you-message');
+
+// !!! IMPORTANT: PASTE YOUR WEB APP URL HERE
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzd23PYS99sVlhykLKSkvo618bP8OeKPGqdpDwMjVJRnkmrxkxtkEFg-_rW0V3I6L_7OA/exec';
+
+// Generate a simple unique ID for the participant
+document.getElementById('participantID').value = 'P' + Date.now();
+
+// --- New, Upgraded Form Submission Logic ---
+form.addEventListener('submit', (e) => {
+    e.preventDefault(); // Stop the default form submission
+
+    submitButton.disabled = true;
+    submitButton.innerText = 'שולח...';
+
+    // This is the new, smarter way to collect form data
+    const formData = new FormData(form);
+    const data = {};
+    const keys = [...new Set(formData.keys())]; // Get all unique field names
+
+    keys.forEach(key => {
+        const values = formData.getAll(key); // Use .getAll() to get all values for a name
+        
+        // If there's only one value, it's a regular field (text, radio, etc.)
+        if (values.length === 1) {
+            data[key] = values[0];
+        } 
+        // If there are multiple values, it's our checkbox group!
+        else {
+            // We join them into a single string, separated by a comma and space.
+            data[key] = values.join(', '); 
+        }
+    });
+
+    // The rest of the fetch call is the same as before
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(responseData => {
+        console.log('Success:', responseData);
+        form.style.display = 'none';
+        thankYouMessage.style.display = 'block';
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        submitButton.disabled = false;
+        submitButton.innerText = 'שלח את כל התשובות';
+        formStatus.innerText = 'שגיאה: לא ניתן היה לשלוח את הטופס. אנא נסה שוב.';
+        formStatus.style.color = 'red';
+    });
+});
+
+// --- PREVENT PULL-TO-REFRESH ---
+// This code should be at the end of your script.js file
+/*
+let startY = 0;
+
+document.body.addEventListener('touchstart', (e) => {
+    // Check if we are at the top of the scrollable content
+    const scrollableContent = e.target.closest('.slide-content');
+    if (window.scrollY === 0 && (!scrollableContent || scrollableContent.scrollTop === 0)) {
+        startY = e.touches[0].pageY;
+    }
+}, { passive: true });
+
+document.body.addEventListener('touchmove', (e) => {
+    const y = e.touches[0].pageY;
+    // If we are scrolling down from the top, prevent the default browser action
+    if (window.scrollY === 0 && y > startY) {
+        e.preventDefault();
+    }
+}, { passive: false });
+*/
