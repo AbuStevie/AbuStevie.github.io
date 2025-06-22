@@ -10,7 +10,7 @@ const submitButton = document.getElementById('submit-button');
 const formStatus = document.getElementById('form-status');
 const thankYouMessage = document.getElementById('thank-you-message');
 // !!! PASTE YOUR NEW SCRIPT URL FROM THE DEPLOYMENT HERE !!!
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby10OR8nyUlRPImqJ53GNevrfjEcQgtlEECMePuP8VpIalQhHM9vIDVh106zF2s15kbag/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzAnQPuQmQumQ_DaE1U6iRtRe0ZPseUpHJLF8MzfhhSphrQorwCFnFcLZ7J5FDwn7_PTQ/exec';
 
 
 // --- 2. INITIALIZE LIBRARIES ---
@@ -86,7 +86,7 @@ function prepareDataForSubmission() {
     });
 }
 // --- 5. FORM SUBMISSION LOGIC ---
-// // Replace your form submission code with this:
+// Replace your form.addEventListener('submit', ...) section with this:
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -111,57 +111,33 @@ form.addEventListener('submit', (event) => {
     });
 
     console.log('Sending data:', data);
-
-    // Try a simpler fetch approach
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-    .then(response => {
-        console.log('Response status:', response.status);
-        console.log('Response headers:', response.headers);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(responseData => {
-        console.log('Success:', responseData);
-        form.style.display = 'none';
-        thankYouMessage.style.display = 'block';
-        formStatus.innerText = '';
-    })
-    .catch((error) => {
-        console.error('Fetch error details:', error);
-        submitButton.disabled = false;
-        submitButton.innerText = 'שלח את כל התשובות';
-        formStatus.innerText = `שגיאה: ${error.message}. אנא נסה שוב.`;
-        formStatus.style.color = 'red';
-        
-        // Try alternative approach if CORS fails
-        if (error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
-            console.log('CORS error detected, trying alternative method...');
-            tryAlternativeSubmission(data);
-        }
-    });
+    
+    // Use iframe method to bypass CORS
+    submitViaIframe(data);
 });
 
-// Alternative submission method using a form POST (bypasses CORS)
-function tryAlternativeSubmission(data) {
-    formStatus.innerText = 'מנסה שיטה חלופית...';
-    formStatus.style.color = 'orange';
+function submitViaIframe(data) {
+    // Create a hidden iframe
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.name = 'submitFrame';
+    document.body.appendChild(iframe);
     
-    // Create a hidden form for direct POST submission
+    // Create a form that targets the iframe
     const hiddenForm = document.createElement('form');
     hiddenForm.method = 'POST';
     hiddenForm.action = SCRIPT_URL;
+    hiddenForm.target = 'submitFrame';
     hiddenForm.style.display = 'none';
     
-    // Add all data as hidden inputs
+    // Create a hidden input with JSON data
+    const jsonInput = document.createElement('input');
+    jsonInput.type = 'hidden';
+    jsonInput.name = 'data';
+    jsonInput.value = JSON.stringify(data);
+    hiddenForm.appendChild(jsonInput);
+    
+    // Add all form data as individual inputs (backup method)
     Object.keys(data).forEach(key => {
         const input = document.createElement('input');
         input.type = 'hidden';
@@ -171,12 +147,48 @@ function tryAlternativeSubmission(data) {
     });
     
     document.body.appendChild(hiddenForm);
-    hiddenForm.submit();
     
-    // Show success message after a delay (since we can't get response from form submit)
-    setTimeout(() => {
+    // Handle iframe load event
+    iframe.onload = function() {
+        console.log('Form submitted successfully');
         form.style.display = 'none';
         thankYouMessage.style.display = 'block';
         formStatus.innerText = '';
-    }, 2000);
+        
+        // Clean up
+        setTimeout(() => {
+            if (document.body.contains(iframe)) document.body.removeChild(iframe);
+            if (document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
+        }, 1000);
+    };
+    
+    // Handle iframe error
+    iframe.onerror = function() {
+        console.error('Form submission failed');
+        submitButton.disabled = false;
+        submitButton.innerText = 'שלח את כל התשובות';
+        formStatus.innerText = 'שגיאה בשליחה. אנא נסה שוב.';
+        formStatus.style.color = 'red';
+        
+        // Clean up
+        if (document.body.contains(iframe)) document.body.removeChild(iframe);
+        if (document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
+    };
+    
+    // Submit the form
+    hiddenForm.submit();
+    
+    // Fallback timeout (in case onload doesn't fire)
+    setTimeout(() => {
+        if (document.body.contains(iframe)) {
+            console.log('Submission completed (timeout fallback)');
+            form.style.display = 'none';
+            thankYouMessage.style.display = 'block';
+            formStatus.innerText = '';
+            
+            // Clean up
+            if (document.body.contains(iframe)) document.body.removeChild(iframe);
+            if (document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
+        }
+    }, 5000);
 }
