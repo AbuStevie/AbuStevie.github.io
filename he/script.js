@@ -244,32 +244,64 @@ function prepareDataForSubmission() {
     });
 }
 
-// --- 5. FORM SUBMISSION LOGIC ---
+// --- 5. This is the main submission listener. ---
 form.addEventListener('submit', (event) => {
     event.preventDefault();
+
+    // Check for keyboard "Next" button press
     const activeElement = document.activeElement;
     if (activeElement && activeElement.matches('input:not([type=submit]), textarea')) {
         swiper.slideNext();
-        return;
+        return; // Stop here, do not submit
     }
+
+    // --- If we get here, it was a real submission. ---
     
+    // Prepare the data from the "Other" fields first.
     prepareDataForSubmission();
+
     submitButton.disabled = true;
     submitButton.innerText = 'שולח...';
-    formStatus.innerText = 'שולח נתונים...';
-    formStatus.style.color = 'blue';
     
-    const formData = new FormData(form);
+    // --- NEW, MORE ROBUST DATA COLLECTION METHOD ---
     const data = {};
-    const keys = [...new Set(formData.keys())];
-    keys.forEach(key => {
-        const values = formData.getAll(key);
-        data[key] = (values.length === 1) ? values[0] : values.join(', ');
-    });
+    const elements = form.elements; // Get all elements in the form.
 
+    for (let i = 0; i < elements.length; i++) {
+        const field = elements[i];
+        
+        // Skip buttons and fields without a name
+        if (!field.name || field.type === 'button' || field.type === 'submit') {
+            continue;
+        }
+
+        // Handle checkboxes
+        if (field.type === 'checkbox') {
+            if (field.checked) {
+                // If the key already exists, append the new value (for multi-select)
+                if (data[field.name]) {
+                    data[field.name] += ', ' + field.value;
+                } else {
+                    data[field.name] = field.value;
+                }
+            }
+        } 
+        // Handle radio buttons
+        else if (field.type === 'radio') {
+            if (field.checked) {
+                data[field.name] = field.value;
+            }
+        } 
+        // Handle all other fields (text, number, hidden, etc.)
+        else {
+            data[field.name] = field.value;
+        }
+    }
+    // --- END OF NEW DATA COLLECTION METHOD ---
+    
     console.log('Sending data:', data);
     
-    // Use iframe method to bypass CORS
+    // The iframe submission method remains the same and will now work correctly.
     submitViaIframe(data);
 });
 
