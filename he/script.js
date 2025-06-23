@@ -241,30 +241,112 @@ document.querySelectorAll('.checkbox-other-group').forEach(group => {
     });
 });
 
-// --- NEW, SIMPLER FIX FOR CHECKBOX DOUBLE-TOGGLE ---
+// --- IMPROVED FIX FOR CHECKBOX TOUCH ISSUES ---
+// Replace your current checkbox fix with this improved version
 
 document.querySelectorAll('.option input[type="checkbox"]').forEach(checkbox => {
-    let isLocked = false;
+    let touchHandled = false;
+    let lastClickTime = 0;
 
+    // Handle touch events
+    checkbox.addEventListener('touchstart', (e) => {
+        touchHandled = false;
+        console.log(`Touch start on checkbox ${checkbox.id}`);
+    });
+
+    checkbox.addEventListener('touchend', (e) => {
+        // Prevent the synthetic click that browsers generate after touchend
+        e.preventDefault();
+        
+        // Only toggle if we haven't already handled this touch
+        if (!touchHandled) {
+            touchHandled = true;
+            
+            // Manually toggle the checkbox
+            checkbox.checked = !checkbox.checked;
+            
+            // Trigger change event for any listeners that depend on it
+            checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+            
+            console.log(`Checkbox ${checkbox.id} toggled via touch to: ${checkbox.checked}`);
+        }
+    });
+
+    // Handle mouse clicks (for desktop)
     checkbox.addEventListener('click', (e) => {
-        // If the checkbox is currently locked, prevent this click entirely.
-        if (isLocked) {
+        const currentTime = Date.now();
+        
+        // If this click is too close to the last one, it's probably a duplicate
+        if (currentTime - lastClickTime < 300) {
             e.preventDefault();
-            e.stopPropagation();
+            console.log(`Duplicate click prevented on ${checkbox.id}`);
+            return;
+        }
+        
+        // If touch was handled, prevent the click
+        if (touchHandled) {
+            e.preventDefault();
+            touchHandled = false; // Reset for next interaction
+            console.log(`Click prevented after touch on ${checkbox.id}`);
+            return;
+        }
+        
+        lastClickTime = currentTime;
+        console.log(`Checkbox ${checkbox.id} clicked with mouse to: ${checkbox.checked}`);
+    });
+
+    // Reset touch state when focus moves away
+    checkbox.addEventListener('blur', () => {
+        touchHandled = false;
+    });
+});
+
+// Alternative approach - even simpler
+// If the above doesn't work perfectly, try this approach instead:
+
+/*
+document.querySelectorAll('.option input[type="checkbox"]').forEach(checkbox => {
+    let isProcessing = false;
+
+    const handleToggle = (e, source) => {
+        if (isProcessing) {
+            e.preventDefault();
             return;
         }
 
-        // Lock the checkbox immediately after the first successful click.
-        isLocked = true;
-        console.log(`Checkbox ${checkbox.id} was clicked and is now locked.`);
+        isProcessing = true;
+        console.log(`Checkbox ${checkbox.id} toggled via ${source}`);
 
-        // After a very short delay, unlock it.
+        // Reset processing flag after a short delay
         setTimeout(() => {
-            isLocked = false;
-            console.log(`Checkbox ${checkbox.id} is now unlocked.`);
-        }, 300); // 300ms is a safe value to ignore ghost clicks.
-    });
+            isProcessing = false;
+        }, 200);
+    };
+
+    // For touch devices, use touchend instead of click
+    if ('ontouchstart' in window) {
+        checkbox.addEventListener('touchend', (e) => {
+            e.preventDefault(); // Prevent synthetic click
+            
+            if (!isProcessing) {
+                checkbox.checked = !checkbox.checked;
+                checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+                handleToggle(e, 'touch');
+            }
+        });
+        
+        // Prevent clicks on touch devices
+        checkbox.addEventListener('click', (e) => {
+            e.preventDefault();
+        });
+    } else {
+        // For mouse devices, use click
+        checkbox.addEventListener('click', (e) => {
+            handleToggle(e, 'mouse');
+        });
+    }
 });
+*/
 
 // --- 4. DATA PREPARATION & SUBMISSION ---
 function prepareDataForSubmission() {
