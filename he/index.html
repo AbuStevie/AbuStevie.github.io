@@ -245,16 +245,16 @@
                     <div class="slide-content"  tabindex="-1">
                         <label class="question-label">8. מהי תוכנת ה-DAW העיקרית בה את/ה משתמש/ת?</label>
                         <div class="options-group radio-other-group">
-                            <div class="option"><input type="radio" id="q8a" name="Q08 DAW Preference " value="Ableton Live"><label for="q8a">Ableton Live</label></div>
-                            <div class="option"><input type="radio" id="q8b" name="Q08 DAW Preference " value="FL Studio"><label for="q8b">FL Studio</label></div>
-                            <div class="option"><input type="radio" id="q8c" name="Q08 DAW Preference " value="Cubase"><label for="q8c">Cubase</label></div>
-                            <div class="option"><input type="radio" id="q8d" name="Q08 DAW Preference " value="Logic Pro"><label for="q8d">Logic Pro</label></div>
-                            <div class="option"><input type="radio" id="q8e" name="Q08 DAW Preference " value="Pro Tools"><label for="q8e">Pro Tools</label></div>
-                            <div class="option"><input type="radio" id="q8f" name="Q08 DAW Preference " value="Studio One"><label for="q8f">Studio One</label></div>
-                            <div class="option"><input type="radio" id="q8f" name="Q08 DAW Preference " value="GarageBand"><label for="q8g">GarageBand</label></div>
-                            <div class="option"><input type="radio" id="q8h" name="Q08 DAW Preference " value="Reaper"><label for="q8h">Reaper</label></div>
-                            <div class="option"><input type="radio" id="q8i" name="Q08 DAW Preference " value="Bitwig Studio"><label for="q8i">Bitwig Studio</label></div>
-                            <div class="option"><input type="radio" id="q8j" name="Q08 DAW Preference " value="Other"><label for="q8j">אחר:</label><input type="text" id="q8_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
+                            <div class="option"><input type="radio" id="q8a" name="Q08 DAW Preference" value="Ableton Live"><label for="q8a">Ableton Live</label></div>
+                            <div class="option"><input type="radio" id="q8b" name="Q08 DAW Preference" value="FL Studio"><label for="q8b">FL Studio</label></div>
+                            <div class="option"><input type="radio" id="q8c" name="Q08 DAW Preference" value="Cubase"><label for="q8c">Cubase</label></div>
+                            <div class="option"><input type="radio" id="q8d" name="Q08 DAW Preference" value="Logic Pro"><label for="q8d">Logic Pro</label></div>
+                            <div class="option"><input type="radio" id="q8e" name="Q08 DAW Preference" value="Pro Tools"><label for="q8e">Pro Tools</label></div>
+                            <div class="option"><input type="radio" id="q8f" name="Q08 DAW Preference" value="Studio One"><label for="q8f">Studio One</label></div>
+                            <div class="option"><input type="radio" id="q8f" name="Q08 DAW Preference" value="GarageBand"><label for="q8g">GarageBand</label></div>
+                            <div class="option"><input type="radio" id="q8h" name="Q08 DAW Preference" value="Reaper"><label for="q8h">Reaper</label></div>
+                            <div class="option"><input type="radio" id="q8i" name="Q08 DAW Preference" value="Bitwig Studio"><label for="q8i">Bitwig Studio</label></div>
+                            <div class="option"><input type="radio" id="q8j" name="Q08 DAW Preference" value="Other"><label for="q8j">אחר:</label><input type="text" id="q8_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
                         </div>
                     </div>
                 </div>
@@ -292,10 +292,10 @@
                 <div class="swiper-slide">
                     <div class="slide-content"  tabindex="-1">
                         <label for="q10" class="question-label">10. כמה שנות נסיון יש לך בעבודה עם תוכנות DAW?</label>
-                        <input type="number" id="q10" name="Q10 DAW Experience" placeholder="שנות נסיון" inputmode="numeric" min="1" max="100" enterkeyhint="next">
+                        <input type="number" id="q10" name="Q10 DAW Experience" placeholder="מספר שנים" inputmode="numeric" min="1" max="100" enterkeyhint="next">
                         <p></p>
                         <label for="q11" class="question-label">11. באיזה גיל התחלת לעבוד עם תוכנות DAW?</label>
-                        <input type="number" id="q11" name="Q11 DAW Start Age" placeholder="גיל שהתחלת" inputmode="numeric" min="1" max="100" enterkeyhint="next">
+                        <input type="number" id="q11" name="Q11 DAW Start Age" placeholder="גיל" inputmode="numeric" min="1" max="100" enterkeyhint="next">
                     </div>
                 </div>
 
@@ -310,6 +310,137 @@
                             <div class="option"><input type="radio" id="q12a" name="Q12 Producer at Present" value="כן" required><label for="q12a">כן</label></div>
                             <div class="option"><input type="radio" id="q12b" name="Q12 Producer at Present" value="לא"><label for="q12b">לא</label></div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 10 Q13 + Q14 + Q15 -->
+                <div class="swiper-slide has-range-slider">
+                    <div class="slide-content" tabindex="-1">
+                        <label for="q13_slider" class="question-label">13. האם את/ה מתפרנס/ת מהפקה מוזיקלית?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q13_slider"
+                                name="Q13 Producer Livelihood" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q13_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q13_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>פרנסה עיקרית</span>  <!-- Left label for RTL -->
+                                <span>לא</span>  <!-- Right label for RTL -->
+                            </div>
+                        </div>
+                        
+                        <label for="q14" class="question-label">14. האם את/ה חתומ/ה בלייבל / חברת הפצה? </label>
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q14a" name="Q14 Label Sign" value="כן" required><label for="q14a">כן</label></div>
+                            <div class="option"><input type="radio" id="q14b" name="Q14 Label Sign" value="לא"><label for="q14b">לא</label></div>
+                        </div>
+
+                        <label for="q15_slider" class="question-label">15. האם הקטעים שלך זכו להרבה השמעות במצטבר?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q15_slider"
+                                name="Q15 Total Streams" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q15_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q15_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>מעל 1,000,000</span>  <!-- Left label for RTL -->
+                                <span>לא</span>  <!-- Right label for RTL -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SLIDE 11: Q16 + Q17 -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        <label class="question-label">16. מה מתאר אותך בצורה הטובה ביותר?</label>
+                        <div class="options-group radio-other-group">
+                            <div class="option"><input type="radio" id="q16a" name="Q16 Role Description" value="יוצר/ת סקיצות ומישהו מפיק עבורי"><label for="q16a">יוצר/ת סקיצות ומישהו מפיק עבורי</label></div>
+                            <div class="option"><input type="radio" id="q16b" name="Q16 Role Description" value="מפיק/ה מוזיקה מקורית"><label for="q16b">מפיק/ה מוזיקה מקורית</label></div>
+                            <div class="option"><input type="radio" id="q16c" name="Q16 Role Description" value="מפיק/ה מוזיקה עבור אחרים"><label for="q16c">מפיק/ה מוזיקה עבור אחרים</label></div>
+                            <div class="option"><input type="radio" id="q16d" name="Q16 Role Description" value="נגנ/ית"><label for="q16d">נגנ/ית</label></div>
+                            <div class="option"><input type="radio" id="q16e" name="Q16 Role Description" value="סאונד מיקס ומאסטרינג"><label for="q16e">סאונד מיקס ומאסטרינג</label></div>
+                            <div class="option"><input type="radio" id="q16f" name="Q16 Role Description" value="דיג'יי"><label for="q16f">דיג'יי</label></div>
+                            <div class="option"><input type="radio" id="q16j" name="Q16 Role Description" value="Other"><label for="q16j">אחר:</label><input type="text" id="q16_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
+                        </div>
+                 
+                        <label class="question-label">17. מה הכי מאפיין את תהליך העבודה שלך?</label>
+                        <div class="options-group radio-other-group">
+                            <div class="option"><input type="radio" id="q17a" name="Q17 WorkFlow" value="הרבה דגימות ולופים"><label for="q17a">הרבה דגימות ולופים</label></div>
+                            <div class="option"><input type="radio" id="q17b" name="Q17 WorkFlow" value="מתכנת מידי"><label for="q17b">מתכנת מידי</label></div>
+                            <div class="option"><input type="radio" id="q17c" name="Q17 WorkFlow" value="מנגן מקליט ועורך"><label for="q17c">מנגן מקליט ועורך</label></div>
+                            <div class="option"><input type="radio" id="q17d" name="Q17 WorkFlow" value="פרומפטים ב-AI"><label for="q17d">פרומפטים ב-AI</label></div>
+                            <div class="option"><input type="radio" id="q17j" name="Q17 WorkFlow" value="Other"><label for="q17j">אחר:</label><input type="text" id="q17_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- SLIDE 12: Q18 + Q19 + Q20 -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        
+                        <label class="question-label">18. מה בדרך כלל מניע את התחלת תהליך היצירה שלך? (ניתן לסמן יותר מתשובה אחת)</label>
+                        <div class="options-group checkbox-other-group">
+                            <div class="option"><input type="checkbox" id="q18a" name="Q18 Creativity Initiation" value="סימפול מלודי"><label for="q18a">סימפול מלודי</label></div>
+                            <div class="option"><input type="checkbox" id="q18b" name="Q18 Creativity Initiation" value="ביט"><label for="q18b">ביט</label></div>
+                            <div class="option"><input type="checkbox" id="q18c" name="Q18 Creativity Initiation" value="סאונד בסינתי"><label for="q18c">סאונד בסינתי</label></div>
+                            <div class="option"><input type="checkbox" id="q18d" name="Q18 Creativity Initiation" value="טקסט"><label for="q18d">טקסט</label></div>
+                            <div class="option"><input type="checkbox" id="q18e" name="Q18 Creativity Initiation" value="לחן"><label for="q18e">לחן</label></div>
+                            <div class="option"><input type="checkbox" id="q18f" name="Q18 Creativity Initiation" value="מהלך הרמוני"><label for="q18f">מהלך הרמוני</label></div>
+                            <div class="option"><input type="checkbox" id="q18g" name="Q18 Creativity Initiation" value="ג'אם עד שיוצא משהו"><label for="q18g">ג'אם עד שיוצא משהו</label></div>
+                            
+                            <!-- The "Other" Option for Checkboxes -->
+                            <div class="option">
+                                <!-- NOTE: This checkbox's value will be dynamically set -->
+                                <input type="checkbox" id="q18k" name="Q18 Creativity Initiation" value="Other">
+                                <label for="q18k">אחר:</label>
+                                <input type="text" id="q18_text" class="other-text-input" placeholder="נא לפרט..." disabled>
+                            </div>
+
+                        </div>
+                        
                     </div>
                 </div>
                 
