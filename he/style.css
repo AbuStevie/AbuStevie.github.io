@@ -354,3 +354,30 @@ textarea {
     cursor: not-allowed;
     opacity: 0.6;
 }
+
+/* ================================================= */
+/* == FANCYBOX CAPTION CUSTOM STYLING           == */
+/* ================================================= */
+
+/* This targets the main container for the caption text */
+.fancybox__caption {
+    /* --- 1. הגדלת הפונט והדגשתו --- */
+    font-size: 1.2rem !important;  /* הגדלת גודל הפונט (שנה את הערך לפי הצורך) */
+    font-weight: bold !important; /* הדגשת הטקסט */
+    /* color: #FFFFFF !important;     צבע טקסט לבן לניגודיות טובה */
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.7); /* הוספת צל לטקסט לקריאות טובה יותר */
+
+    /* --- 2. מיקום וריווח --- */
+    padding: 15px !important;      /* ריווח פנימי נדיב יותר */
+    max-width: 80% !important;     /* הגבלת הרוחב כדי שלא ייצמד לקצוות */
+    margin: 0 auto !important;     /* ממקם את ה-caption במרכז אופקית */
+    
+    /* --- 3. יישור ומיקום בתחתית --- */
+    text-align: center !important; /* ממורכז את הטקסט עצמו */
+    
+    /* מיקום מוחלט בתחתית המסך */
+    bottom: 15px !important;       /* מרווח מהקצה התחתון של המסך */
+    left: 0;
+    right: 0;
+    transform: none !important;    /* איפוס טרנספורמציות קיימות */
+}

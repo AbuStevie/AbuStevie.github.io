@@ -20,6 +20,7 @@ if (document.getElementById('user-agent-field')) {
 Fancybox.bind("[data-fancybox]", {
     l10n: { CLOSE: "סגירה", NEXT: "הבא", PREV: "הקודם" },
     rtl: true,
+    Hash: false // <-- זה התיקון הקריטי. מונע מ-Fancybox לשנות את היסטוריית הדפדפן
 });
 
 function updateTabIndex(swiper) {
