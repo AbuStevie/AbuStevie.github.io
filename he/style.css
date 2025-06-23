@@ -305,7 +305,7 @@ textarea {
 /* --- 1. Fix for Inline Icons --- */
 /* This makes sure any inline icon is sized relative to the text around it. */
 .inline-icon {
-    height: 1.2em;  /* Set height relative to the font size (1.2x taller) */
+    height: 1.4em;  /* Set height relative to the font size (1.2x taller) */
     width: auto;      /* Let width adjust automatically */
     vertical-align: -0.2em; /* Lower the icon slightly to better align with text baseline */
     margin: 0 0.2em;  /* Add a little horizontal space */
@@ -339,8 +339,8 @@ textarea {
 
 /* --- 5. Size the Image --- */
 .image-answer-options .option .question-image {
-    width: 40%;
-    max-width: 20px;
+    width: 50%;
+    max-width: 200px;
     display: block; /* Important for margin:auto to work */
     margin: 0 auto; /* Center the image within the label */
 }
