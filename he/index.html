@@ -494,7 +494,68 @@
                     </div>
                 </div>
 
+                <!-- SLIDE 14: Read-Only Example Question -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
 
+                        <!-- 1. The Question Label with a Clickable Image and Inline Icons -->
+                        <label class="question-label">
+                            שאלה לדוגמה: בתמונה הבאה <img src="/images/icon-magnifying-glass.png" alt="돋보기 아이콘" class="inline-icon">, 
+                            ניתן ללחוץ על התמונה הראשית כדי להגדיל אותה. 
+                            לאחר מכן, בחרו בתשובה המתאימה ביותר <img src="/images/icon-checkmark.png" alt="확인 표시 아이콘" class="inline-icon">.
+                        </label>
+
+                        <!-- The main clickable image for the question -->
+                        <a href="/images/main-example-image.png" data-fancybox="example-gallery" data-caption="תמונה ראשית להגדלה">
+                            <img src="/images/main-example-image.png" alt="תמונה ראשית לדוגמה" class="question-image">
+                        </a>
+
+                        <!-- 2. The Answer Options -->
+                        <div class="options readonly-example">
+                            
+                            <!-- Answer 1 - Incorrect, Disabled -->
+                            <div class="option">
+                                <label>
+                                    <input type="radio" name="ReadOnlyExample" disabled>
+                                    <a href="/images/answer-image-1.png" data-fancybox="example-gallery" data-caption="תשובה 1">
+                                        <img src="/images/answer-image-1.png" alt="תשובת תמונה 1" class="question-image">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <!-- Answer 2 - Incorrect, Disabled -->
+                            <div class="option">
+                                <label>
+                                    <input type="radio" name="ReadOnlyExample" disabled>
+                                    <a href="/images/answer-image-2.png" data-fancybox="example-gallery" data-caption="תשובה 2">
+                                        <img src="/images/answer-image-2.png" alt="תשובת תמונה 2" class="question-image">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <!-- Answer 3 - CORRECT, Pre-checked, and Disabled -->
+                            <div class="option">
+                                <label>
+                                    <input type="radio" name="ReadOnlyExample" checked disabled>
+                                    <a href="/images/answer-image-3.png" data-fancybox="example-gallery" data-caption="תשובה 3 (נכונה)">
+                                        <img src="/images/answer-image-3.png" alt="תשובת תמונה 3" class="question-image">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <!-- Answer 4 - Incorrect, Disabled -->
+                            <div class="option">
+                                <label>
+                                    <input type="radio" name="ReadOnlyExample" disabled>
+                                    <a href="/images/answer-image-4.png" data-fancybox="example-gallery" data-caption="תשובה 4">
+                                        <img src="/images/answer-image-4.png" alt="תשובת תמונה 4" class="question-image">
+                                    </a>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
                 <!-- SLIDE 3: Q02 Gender Identity -->
                 <div class="swiper-slide">
@@ -508,81 +569,6 @@
                             <div class="option"><input type="radio" id="q1b" name="question1" value="Trend B"><label for="q1b">ככה-ככה</label></div>
                             <div class="option"><input type="radio" id="q1c" name="question1" value="Trend C"><label for="q1c">על הפנים</label></div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- SLIDE 3: Example Text Question -->
-                <div class="swiper-slide">
-                    <div class="slide-content">
-                        <label for="q2" class="question-label">2. מדוע בחרת כך בשאלה הקודמת?</label>
-                        <textarea id="q2" name="question2" rows="4" placeholder="הזן את תשובתך כאן..." required></textarea>
-                    </div>
-                </div>
-
-                <!-- SLIDE with a 5-Step Range Slider -->
-                <div class="swiper-slide has-range-slider">
-                    <div class="slide-content">
-                        <label for="innovation-slider" class="question-label">5. דרג את רמת החדשנות של העיצוב:</label>
-                        
-                        <div class="range-slider-container">
-                            <!-- The actual slider input -->
-                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
-                            <input 
-                                type="range" 
-                                id="innovation-slider"
-                                name="Q05_Innovation_Rating" 
-                                min="1" 
-                                max="5" 
-                                step="1" 
-                                value="3"  
-                                list="tickmarks" 
-                            >
-                            <!-- The 'list' attribute connects the slider to the datalist below -->
-
-                             <!-- 2. Add the datalist with the matching id -->
-                            <datalist id="tickmarks">
-                                <option value="1"></option>
-                                <option value="2"></option>
-                                <option value="3"></option>
-                                <option value="4"></option>
-                                <option value="5"></option>
-                            </datalist>
-                            
-                            <!-- The labels for min and max -->
-                            <div class="range-labels">
-                                <span>הגבוהה ביותר</span>  <!-- Left label for RTL -->
-                                <span>הנמוכה ביותר</span>  <!-- Right label for RTL -->
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <!-- SLIDE with a Checkbox Group -->
-                <div class="swiper-slide">
-                    <div class="slide-content">
-                        <label class="question-label">6. אילו מהמאפיינים הבאים זיהית במהלך השימוש? (ניתן לבחור יותר מתשובה אחת)</label>
-                        
-                        <div class="options-group">
-                            <!-- Note: All checkboxes have the same 'name' -->
-                            <div class="option">
-                                <input type="checkbox" id="feature-a" name="Identified_Features" value="Search Bar">
-                                <label for="feature-a">סרגל חיפוש</label>
-                            </div>
-                            <div class="option">
-                                <input type="checkbox" id="feature-b" name="Identified_Features" value="User Profile">
-                                <label for="feature-b">פרופיל משתמש</label>
-                            </div>
-                            <div class="option">
-                                <input type="checkbox" id="feature-c" name="Identified_Features" value="Dark Mode Toggle">
-                                <label for="feature-c">כפתור מצב לילה</label>
-                            </div>
-                            <div class="option">
-                                <input type="checkbox" id="feature-d" name="Identified_Features" value="Help Section">
-                                <label for="feature-d">אזור עזרה</label>
-                            </div>
-                        </div>
-                        
                     </div>
                 </div>
 
