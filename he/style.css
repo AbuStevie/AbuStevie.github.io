@@ -64,6 +64,8 @@ h2 {
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
+    overflow: hidden;         /* ADD THIS: Prevents the slide from interfering with its content. */
+    touch-action: pan-y;      /* ADD THIS: Makes the "background" swipeable. */
 }
 
 /* Content within a slide. */
@@ -74,7 +76,7 @@ h2 {
     overflow-y: auto; /* Allows vertical scrolling */
     padding: 20px;
     text-align: right; /* <-- ADDED: Ensure text aligns to the right */
-    touch-action: pan-y; /* <-- ADD THIS ONE LINE */
+    touch-action: pan-y; /* KEEP THIS: Makes the content area swipeable. */
 }
 
 /* Question and Image Styles */
