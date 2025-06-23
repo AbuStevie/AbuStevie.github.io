@@ -239,23 +239,56 @@ textarea {
     text-align: center;
 }
 
-/* --- RTL Arrow Position Override --- */
-/* This block should only be in /he/style.css */
+/* --- UPDATED RTL Arrow Position Override --- */
+/* Replace your existing arrow CSS with this updated version */
 
 .swiper-button-next, .swiper-button-prev {
-    top: 50%; /* Keep vertical alignment */
+    /* FIXED POSITIONING - This is the key change */
+    position: fixed !important; /* Changed from default absolute to fixed */
+    top: 50% !important; /* Keep vertical alignment */
+    transform: translateY(-50%) !important; /* Perfect vertical centering */
+    z-index: 1000 !important; /* Ensure they stay on top of content */
+    
+    /* Keep your existing styling */
+    color: #007aff;
 }
 
 /* Move the "Next" button (which has the > icon) to the LEFT */
 .swiper-button-next {
-    right: auto; /* Unset the default right position */
-    left: 10px;  /* Position it on the left */
-    transform: rotate(180deg); /* Flip the > icon to be < */
+    right: auto !important; /* Unset the default right position */
+    left: 10px !important;  /* Position it on the left */
+    transform: translateY(-50%) rotate(180deg) !important; /* Combine centering and rotation */
 }
 
 /* Move the "Prev" button (which has the < icon) to the RIGHT */
 .swiper-button-prev {
-    left: auto;   /* Unset the default left position */
-    right: 10px;  /* Position it on the right */
-    transform: rotate(180deg); /* Flip the < icon to be > */
+    left: auto !important;   /* Unset the default left position */
+    right: 10px !important;  /* Position it on the right */
+    transform: translateY(-50%) rotate(180deg) !important; /* Combine centering and rotation */
+}
+
+/* Optional: Add some visual improvements for better visibility */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 18px !important; /* Make arrows slightly larger */
+    font-weight: bold !important;
+}
+
+/* Optional: Add background for better visibility when scrolling over content */
+.swiper-button-next,
+.swiper-button-prev {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 50% !important;
+    width: 44px !important;
+    height: 44px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Hover effect for desktop */
+@media (hover: hover) {
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+        background: rgba(255, 255, 255, 0.95) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+    }
 }
