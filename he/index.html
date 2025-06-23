@@ -497,18 +497,30 @@
                 <!-- SLIDE 14: Read-Only Example Question -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
-
+                        <h2>שאלות חשיבה חישובית אבחונית</h2>
+                        <h3>הוראות:</h3>
+                        <p>לעשר השאלות הבאות יש 4 תשובות אפשריות, מהן רק אחת נכונה. אם אינך יודע/ת את התשובה לשאלה, הזן/הזיני את הניחוש הטוב ביותר שלך.</p>
+                        <p>ניתן ללחוץ על התמונה המרכזית, וכל אחת מהתשובות, כדי להגדיל אותן.</p>
+                        <p>לפני שנתחיל בחלק זה, אנו מציגים לך דוגמה כדי שתוכל/י להכיר את סוג השאלות שיוצגו בהמשך.</p>
                         <!-- 1. The Question Label with a Clickable Image and Inline Icons -->
-                        <label class="question-label">
-                            שאלה לדוגמה: בתמונה הבאה <img src="/images/icon-magnifying-glass.png" alt="돋보기 아이콘" class="inline-icon">, 
-                            ניתן ללחוץ על התמונה הראשית כדי להגדיל אותה. 
-                            לאחר מכן, בחרו בתשובה המתאימה ביותר <img src="/images/icon-checkmark.png" alt="확인 표시 아이콘" class="inline-icon">.
-                        </label>
+                        <label class="question-label">שאלה לדוגמה:</label>
+                        <p> בדוגמה הבאה אתה נשאל אחרי אילו הוראות פקמן  
+                            <img src="/images/PacMan.png" alt="פקמן" class="inline-icon">, 
+                            צריך לעקוב כדי להגיע לרוח הרפאים 
+                            <img src="/images/Ghost.png" alt="רוח הרפאים" class="inline-icon">.</p>
+                        <p>ההוראה                               
+                            <img src="/images/move forward.png" alt="move forward" class="inline-icon"> 
+                            מציינת שפקמן צריך לצעוד צעד אחד בכיוון שאליו הוא פונה כרגע.<br>
+                            פקמן יכול לפנות ימינה, שמאלה, למעלה או למטה. כרגע פקמן נמצא בריבוע A1 על גבי הלוח.</p>
+                            <a href="/images/example grid.png" data-fancybox="example-gallery" data-caption="לוח להגדלה">
+                            <img src="/images/example grid.png" alt="תמונה ראשית לדוגמה" class="question-image">
+                            </a>
+                        <p>אלו הוראות תיתן לפקמן כדי שיגיע לרוח הרפאים שבריבוע C3?<br>
+                        בחר את התשובה הנכונה (בדוגמה זו התשובה הנכונה היא 3).</p>
+                        
 
                         <!-- The main clickable image for the question -->
-                        <a href="/images/main-example-image.png" data-fancybox="example-gallery" data-caption="תמונה ראשית להגדלה">
-                            <img src="/images/main-example-image.png" alt="תמונה ראשית לדוגמה" class="question-image">
-                        </a>
+                        
 
                         <!-- 2. The Answer Options -->
                         <div class="options readonly-example">
@@ -517,8 +529,8 @@
                             <div class="option">
                                 <label>
                                     <input type="radio" name="ReadOnlyExample" disabled>
-                                    <a href="/images/answer-image-1.png" data-fancybox="example-gallery" data-caption="תשובה 1">
-                                        <img src="/images/answer-image-1.png" alt="תשובת תמונה 1" class="question-image">
+                                    <a href="/images/example A.png" data-fancybox="example-gallery" data-caption="תשובה 1">
+                                        <img src="/images/example A.png" alt="תשובה 1" class="question-image">
                                     </a>
                                 </label>
                             </div>
@@ -527,8 +539,8 @@
                             <div class="option">
                                 <label>
                                     <input type="radio" name="ReadOnlyExample" disabled>
-                                    <a href="/images/answer-image-2.png" data-fancybox="example-gallery" data-caption="תשובה 2">
-                                        <img src="/images/answer-image-2.png" alt="תשובת תמונה 2" class="question-image">
+                                    <a href="/images/example B.png" data-fancybox="example-gallery" data-caption="תשובה 2">
+                                        <img src="/images/example B.png" alt="תשובה 2" class="question-image">
                                     </a>
                                 </label>
                             </div>
@@ -537,8 +549,8 @@
                             <div class="option">
                                 <label>
                                     <input type="radio" name="ReadOnlyExample" checked disabled>
-                                    <a href="/images/answer-image-3.png" data-fancybox="example-gallery" data-caption="תשובה 3 (נכונה)">
-                                        <img src="/images/answer-image-3.png" alt="תשובת תמונה 3" class="question-image">
+                                    <a href="/images/example C.png" data-fancybox="example-gallery" data-caption="תשובה 3 (נכונה)">
+                                        <img src="/images/example C.png" alt="תשובה 3" class="question-image">
                                     </a>
                                 </label>
                             </div>
@@ -547,8 +559,8 @@
                             <div class="option">
                                 <label>
                                     <input type="radio" name="ReadOnlyExample" disabled>
-                                    <a href="/images/answer-image-4.png" data-fancybox="example-gallery" data-caption="תשובה 4">
-                                        <img src="/images/answer-image-4.png" alt="תשובת תמונה 4" class="question-image">
+                                    <a href="/images/example D.png" data-fancybox="example-gallery" data-caption="תשובה 4">
+                                        <img src="/images/example D.png" alt="תשובה 4" class="question-image">
                                     </a>
                                 </label>
                             </div>
