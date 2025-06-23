@@ -9,6 +9,7 @@ html, body {
     color: #333;
     /* overflow: hidden;  <-- ADD THIS LINE. IT'S THE MAGIC. */
     overscroll-behavior-y: contain; /* <-- THE NEW, BETTER FIX */
+    overscroll-behavior-x: contain; /* <-- ADD THIS LINE to prevent left/right edge swipe navigation */
 }
 
 h1 {

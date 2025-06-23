@@ -2,7 +2,7 @@
 // == IMPROVED HEBREW (RTL) JAVASCRIPT FILE (script.js) ==
 // == OPTIMIZED FOR BETTER SWIPE GESTURES ON MOBILE & TOUCH LAPTOPS ==
 // ==================================================================
-
+// adding some comment
 // --- 1. SETUP: GET ELEMENTS & CONFIGURATION ---
 const form = document.getElementById('research-form');
 const submitButton = document.getElementById('submit-button');
@@ -25,6 +25,15 @@ function updateTabIndex(swiper) {
     });
 }
 
+// log swipe listeners to detect conflicting listeners
+document.addEventListener('touchstart', e => {
+  console.log('TOUCHSTART:', e.target);
+}, { capture: true });
+
+document.addEventListener('touchmove', e => {
+  console.log('TOUCHMOVE:', e.target);
+}, { capture: true });
+
 // --- Initialize Swiper.js with OPTIMIZED touch controls ---
 const swiper = new Swiper('.swiper', {
     // --- Basic Navigation ---
@@ -39,20 +48,20 @@ const swiper = new Swiper('.swiper', {
     rewind: false,
     
     // --- OPTIMIZED SWIPE SETTINGS FOR BETTER RESPONSIVENESS ---
-    touchRatio: 1,              // Full touch sensitivity (default but explicit)
+    touchRatio: 1.4,              // Full touch sensitivity (default but explicit)
     touchAngle: 45,             // Allow swipes within 45 degrees of horizontal
     
     // --- CRITICAL: More sensitive thresholds ---
-    longSwipesRatio: 0.15,      // User needs to drag only 15% of screen width
+    longSwipesRatio: 0.1,      // User needs to drag only 15% of screen width
     shortSwipes: true,          // Enable quick flick gestures
-    longSwipesMs: 300,          // Reduce time threshold for long swipes
+    longSwipesMs: 200,          // Reduce time threshold for long swipes
     
     // --- VERY IMPORTANT: Lower resistance for better feel ---
     resistance: true,
-    resistanceRatio: 0.15,      // Less resistance when reaching edges
+    resistanceRatio: 0.25,      // Less resistance when reaching edges
     
     // --- GESTURE DETECTION IMPROVEMENTS ---
-    threshold: 3,               // Very low threshold - start detecting swipe after 3px
+    threshold: 5,               // Very low threshold - start detecting swipe after 3px
     touchStartPreventDefault: false,  // Don't prevent default on touch start
     
     // --- SPEED AND RESPONSIVENESS ---
