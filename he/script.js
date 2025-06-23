@@ -30,15 +30,26 @@ function updateTabIndex(swiper) {
     });
 }
 
-// log swipe listeners to detect conflicting listeners
-document.addEventListener('touchstart', e => {
-  console.log('TOUCHSTART:', e.target);
-}, { capture: true });
+// --- NEW, COMPREHENSIVE EVENT LOGGING FOR DEBUGGING ---
+// We will listen for all relevant events on the entire document to see the sequence.
 
-document.addEventListener('touchmove', e => {
-  console.log('TOUCHMOVE:', e.target);
-}, { capture: true });
+console.log("Debug listeners are active. Tap a checkbox to see the event sequence.");
 
+const eventsToLog = ['touchstart', 'touchend', 'click'];
+
+eventsToLog.forEach(eventName => {
+    document.addEventListener(eventName, e => {
+        // We only care about events happening inside an ".option" container
+        if (e.target.closest('.option')) {
+            console.log(
+                `EVENT: ${eventName.toUpperCase()}`, // e.g., "TOUCHSTART"
+                `| TARGET: ${e.target.tagName}`,      // e.g., "INPUT" or "LABEL"
+                `| ID: ${e.target.id || 'none'}`         // The ID of the element, if it has one
+            );
+        }
+    }, { capture: true }); // Use 'capture: true' to log events in the order they happen.
+});
+// --- 2.1. Swiper.js Initialization ---
 // Replace your old Swiper initialization with this new one.
 
 const swiper = new Swiper('.swiper', {

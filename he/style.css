@@ -34,15 +34,15 @@ h2 {
 #q10 {
     font-size: 1.2em; /* Slightly larger font */
     padding: 8px 12px; /* Good amount of internal spacing */
-    width: 80px; /* Set a comfortable width */
+    width: 120px; /* Set a comfortable width */
     height: 40px; /* You can also set a fixed height if needed, though padding/font-size usually suffice */
     border: 1px solid #ccc; /* Make sure borders are visible, adjust as needed */
     border-radius: 4px; /* Optional: slightly rounded corners */
 }
-#q111 {
+#q11 {
     font-size: 1.2em; /* Slightly larger font */
     padding: 8px 12px; /* Good amount of internal spacing */
-    width: 80px; /* Set a comfortable width */
+    width: 120px; /* Set a comfortable width */
     height: 40px; /* You can also set a fixed height if needed, though padding/font-size usually suffice */
     border: 1px solid #ccc; /* Make sure borders are visible, adjust as needed */
     border-radius: 4px; /* Optional: slightly rounded corners */
