@@ -137,7 +137,7 @@
 
                 <!-- SLIDE 5 Q05 + Q06 + Q07 -->
                 <div class="swiper-slide has-range-slider">
-                    <div class="slide-content">
+                    <div class="slide-content" tabindex="-1">
                         <label for="q05_slider" class="question-label">5. האם מנגנ/ת בכלי נגינה?</label>
                         
                         <div class="range-slider-container">
@@ -240,6 +240,54 @@
                     </div>
                 </div>
 
+                <!-- SLIDE 6: Q08 DAW -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        <label class="question-label">8. מהי תוכנת ה-DAW העיקרית בה את/ה משתמש/ת?</label>
+                        <div class="options-group radio-other-group">
+                            <div class="option"><input type="radio" id="q8a" name="Q08 DAW Preference " value="Ableton Live"><label for="q8a">Ableton Live</label></div>
+                            <div class="option"><input type="radio" id="q8b" name="Q08 DAW Preference " value="FL Studio"><label for="q8b">FL Studio</label></div>
+                            <div class="option"><input type="radio" id="q8c" name="Q08 DAW Preference " value="Cubase"><label for="q8c">Cubase</label></div>
+                            <div class="option"><input type="radio" id="q8d" name="Q08 DAW Preference " value="Logic Pro"><label for="q8d">Logic Pro</label></div>
+                            <div class="option"><input type="radio" id="q8e" name="Q08 DAW Preference " value="Pro Tools"><label for="q8e">Pro Tools</label></div>
+                            <div class="option"><input type="radio" id="q8f" name="Q08 DAW Preference " value="Studio One"><label for="q8f">Studio One</label></div>
+                            <div class="option"><input type="radio" id="q8f" name="Q08 DAW Preference " value="GarageBand"><label for="q8g">GarageBand</label></div>
+                            <div class="option"><input type="radio" id="q8h" name="Q08 DAW Preference " value="Reaper"><label for="q8h">Reaper</label></div>
+                            <div class="option"><input type="radio" id="q8i" name="Q08 DAW Preference " value="Bitwig Studio"><label for="q8i">Bitwig Studio</label></div>
+                            <div class="option"><input type="radio" id="q8j" name="Q08 DAW Preference " value=""><label for="q8j">אחר:</label><input type="text" id="q8_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 7: Q09 Genre -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        
+                        <label class="question-label">9. איזה סגנונות מוזיקליים את/ה מפיק/ה? (ניתן לסמן יותר מתשובה אחת)</label>
+                        <div class="options-group checkbox-other-group">
+                            <div class="option"><input type="checkbox" id="q9a" name="Q09 Musical Genre" value="Hiphop / Trap"><label for="q9a">Hiphop / Trap</label></div>
+                            <div class="option"><input type="checkbox" id="q9b" name="Q09 Musical Genre" value="Trance / Psy / Goa"><label for="q9b">Trance / Psy / Goa</label></div>
+                            <div class="option"><input type="checkbox" id="q9c" name="Q09 Musical Genre" value="Tech / House / Deep / Progressive"><label for="q9c">Tech / House / Deep / Progressive</label></div>
+                            <div class="option"><input type="checkbox" id="q9d" name="Q09 Musical Genre" value="DownTempo / Ambient / Neo Soul"><label for="q9d">DownTempo / Ambient / Neo Soul</label></div>
+                            <div class="option"><input type="checkbox" id="q9e" name="Q09 Musical Genre" value="Dubstep / Drum and Bass / Glitch"><label for="q9e">Dubstep / Drum and Bass / Glitch</label></div>
+                            <div class="option"><input type="checkbox" id="q9f" name="Q09 Musical Genre" value="פופ / רוק"><label for="q9f">פופ / רוק</label></div>
+                            <div class="option"><input type="checkbox" id="q9g" name="Q09 Musical Genre" value="פופ ים תיכוני"><label for="q9g">פופ ים תיכוני</label></div>
+                            <div class="option"><input type="checkbox" id="q9h" name="Q09 Musical Genre" value="מטאל / פרוג"><label for="q9h">מטאל / פרוג</label></div>
+                            <div class="option"><input type="checkbox" id="q9i" name="Q09 Musical Genre" value="מוזיקה לסרטים / תיאטרון"><label for="q9i">מוזיקה לסרטים / תיאטרון</label></div>
+                            <div class="option"><input type="checkbox" id="q9j" name="Q09 Musical Genre" value="אקוסטי / ג'אז / קלאסי"><label for="q9j">אקוסטי / ג'אז / קלאסי</label></div>
+                            <!-- The "Other" Option for Checkboxes -->
+                            <div class="option">
+                                <!-- NOTE: This checkbox's value will be dynamically set -->
+                                <input type="checkbox" id="q9k" name="Q09 Musical Genre" value="Other">
+                                <label for="q9k">אחר:</label>
+                                <input type="text" id="q9_text" class="other-text-input" placeholder="נא לפרט..." disabled>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+                
                 <!-- SLIDE 3: Q02 Gender Identity -->
                 <div class="swiper-slide">
                     <div class="slide-content">
