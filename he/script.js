@@ -11,6 +11,11 @@ const thankYouMessage = document.getElementById('thank-you-message');
 // !!! PASTE YOUR NEW SCRIPT URL FROM THE DEPLOYMENT HERE !!!
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzAnQPuQmQumQ_DaE1U6iRtRe0ZPseUpHJLF8MzfhhSphrQorwCFnFcLZ7J5FDwn7_PTQ/exec';
 
+// NEW: User Agent data collection
+if (document.getElementById('user-agent-field')) {
+    document.getElementById('user-agent-field').value = navigator.userAgent;
+}
+
 // --- 2. INITIALIZE LIBRARIES ---
 Fancybox.bind("[data-fancybox]", {
     l10n: { CLOSE: "סגירה", NEXT: "הבא", PREV: "הקודם" },
