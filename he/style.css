@@ -74,6 +74,7 @@ h2 {
     overflow-y: auto; /* Allows vertical scrolling */
     padding: 20px;
     text-align: right; /* <-- ADDED: Ensure text aligns to the right */
+    touch-action: pan-y; /* <-- ADD THIS ONE LINE */
 }
 
 /* Question and Image Styles */

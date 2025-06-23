@@ -34,6 +34,35 @@ document.addEventListener('touchmove', e => {
   console.log('TOUCHMOVE:', e.target);
 }, { capture: true });
 
+// Replace your old Swiper initialization with this new one.
+
+const swiper = new Swiper('.swiper', {
+    // --- Basic Navigation ---
+    direction: 'horizontal',
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    mousewheel: false,
+    rewind: false,
+
+    // --- Balanced Swipe Feel Settings ---
+    // These work well with the CSS `touch-action` fix.
+    grabCursor: true,   // Shows a "grab" hand cursor on desktop.
+    threshold: 10,      // User must drag at least 10px to start a swipe.
+    longSwipesRatio: 0.1, // A drag of 10% of the screen width will change the slide.
+
+    // --- This is what lets your range slider work correctly ---
+    // It tells Swiper: "Do not start a page swipe if the touch starts on a range slider."
+    noSwipingSelector: 'input[type="range"]',
+
+    // --- This keeps your keyboard navigation fix working ---
+    on: {
+        init: updateTabIndex,
+        slideChange: updateTabIndex
+    }
+});
+/*
 // --- Initialize Swiper.js with OPTIMIZED touch controls ---
 const swiper = new Swiper('.swiper', {
     // --- Basic Navigation ---
@@ -120,7 +149,7 @@ const swiper = new Swiper('.swiper', {
         }
     }
 });
-
+*/
 // --- ADDITIONAL FIX: Prevent swiper interference with range sliders ---
 document.addEventListener('DOMContentLoaded', function() {
     // Add no-swiping class to all range slider containers
