@@ -297,3 +297,60 @@ textarea {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
     }
 }
+
+/* ================================================= */
+/* == STYLING FOR IMAGE-BASED ANSWER OPTIONS      == */
+/* ================================================= */
+
+/* --- 1. Fix for Inline Icons --- */
+/* This makes sure any inline icon is sized relative to the text around it. */
+.inline-icon {
+    height: 1.2em;  /* Set height relative to the font size (1.2x taller) */
+    width: auto;      /* Let width adjust automatically */
+    vertical-align: -0.2em; /* Lower the icon slightly to better align with text baseline */
+    margin: 0 0.2em;  /* Add a little horizontal space */
+}
+
+
+/* --- 2. Main Container for Image Answer Options --- */
+.image-answer-options .option {
+    display: flex;
+    align-items: center;  /* Vertically center-aligns the radio button and the label */
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* --- 3. Position the Radio Button --- */
+.image-answer-options .option input[type="radio"] {
+    margin-left: 15px; /* For RTL: space between radio and label */
+    margin-right: 0;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+/* --- 4. Style the Label (which now only holds the image) --- */
+.image-answer-options .option label {
+    flex-grow: 1; /* Make the label take up the remaining space */
+    cursor: default; /* The label itself isn't clickable, only the image inside */
+}
+
+/* --- 5. Size the Image --- */
+.image-answer-options .option .question-image {
+    width: 40%;
+    max-width: 20px;
+    display: block; /* Important for margin:auto to work */
+    margin: 0 auto; /* Center the image within the label */
+}
+
+/* --- 6. Read-Only Styling (For your example question) --- */
+/* This will only apply if you add the 'disabled' attribute to the input in your HTML */
+.image-answer-options .option input:disabled {
+    opacity: 0.6;
+}
+.image-answer-options .option input:disabled + label a {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
