@@ -17,10 +17,39 @@ if (document.getElementById('user-agent-field')) {
 }
 
 // --- 2. INITIALIZE LIBRARIES ---
+
 Fancybox.bind("[data-fancybox]", {
+    // --- הגדרות קיימות ---
     l10n: { CLOSE: "סגירה", NEXT: "הבא", PREV: "הקודם" },
     rtl: true,
-    Hash: false // <-- זה התיקון הקריטי. מונע מ-Fancybox לשנות את היסטוריית הדפדפן
+    Hash: false, // אנחנו עדיין רוצים שההגדרה הזו תהיה כבויה
+
+    // --- הוספת לוגיקה חדשה עם אירועים (events) ---
+    on: {
+        // אירוע שרץ רגע לפני ש-Fancybox מופיע
+        init: (fancybox) => {
+            // הוספת "מצב" להיסטוריית הדפדפן באופן ידני
+            // זה יוצר "עמוד" מזויף שהכפתור "Back" יוכל לחזור ממנו
+            window.history.pushState({ fancybox: true }, "");
+
+            // יצירת "מאזין" לאירוע של שינוי בהיסטוריה (כמו לחיצה על "Back")
+            window.onpopstate = (event) => {
+                // אם המשתמש לחץ "Back", פשוט נסגור את Fancybox
+                fancybox.close();
+            };
+        },
+
+        // אירוע שרץ אחרי ש-Fancybox נסגר
+        destroy: (fancybox) => {
+            // אם המשתמש סגר את Fancybox (עם כפתור ה-X או Esc),
+            // אנחנו צריכים "לנקות" את המצב המזויף שהוספנו להיסטוריה
+            if (window.history.state && window.history.state.fancybox) {
+                window.history.back(); // זה מנקה את ה-pushState שעשינו
+            }
+            // מנקים את המאזין כדי שלא יפריע לפעולות אחרות
+            window.onpopstate = null;
+        }
+    }
 });
 
 function updateTabIndex(swiper) {

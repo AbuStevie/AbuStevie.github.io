@@ -364,7 +364,7 @@ textarea {
     /* --- 1. הגדלת הפונט והדגשתו --- */
     font-size: 1.2rem !important;  /* הגדלת גודל הפונט (שנה את הערך לפי הצורך) */
     font-weight: bold !important; /* הדגשת הטקסט */
-    /* color: #FFFFFF !important;     צבע טקסט לבן לניגודיות טובה */
+    color: #FFFFFF !important;    /* צבע טקסט לבן לניגודיות טובה */
     text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.7); /* הוספת צל לטקסט לקריאות טובה יותר */
 
     /* --- 2. מיקום וריווח --- */
