@@ -241,6 +241,31 @@ document.querySelectorAll('.checkbox-other-group').forEach(group => {
     });
 });
 
+// --- NEW, SIMPLER FIX FOR CHECKBOX DOUBLE-TOGGLE ---
+
+document.querySelectorAll('.option input[type="checkbox"]').forEach(checkbox => {
+    let isLocked = false;
+
+    checkbox.addEventListener('click', (e) => {
+        // If the checkbox is currently locked, prevent this click entirely.
+        if (isLocked) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
+
+        // Lock the checkbox immediately after the first successful click.
+        isLocked = true;
+        console.log(`Checkbox ${checkbox.id} was clicked and is now locked.`);
+
+        // After a very short delay, unlock it.
+        setTimeout(() => {
+            isLocked = false;
+            console.log(`Checkbox ${checkbox.id} is now unlocked.`);
+        }, 300); // 300ms is a safe value to ignore ghost clicks.
+    });
+});
+
 // --- 4. DATA PREPARATION & SUBMISSION ---
 function prepareDataForSubmission() {
     document.querySelectorAll('.checkbox-other-group').forEach(group => {
