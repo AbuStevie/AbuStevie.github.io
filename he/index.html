@@ -354,6 +354,7 @@
                             <div class="option"><input type="radio" id="q14a" name="Q14 Label Sign" value="כן" required><label for="q14a">כן</label></div>
                             <div class="option"><input type="radio" id="q14b" name="Q14 Label Sign" value="לא"><label for="q14b">לא</label></div>
                         </div>
+                        <p></p>
 
                         <label for="q15_slider" class="question-label">15. האם הקטעים שלך זכו להרבה השמעות במצטבר?</label>
                         
@@ -404,7 +405,8 @@
                             <div class="option"><input type="radio" id="q16f" name="Q16 Role Description" value="דיג'יי"><label for="q16f">דיג'יי</label></div>
                             <div class="option"><input type="radio" id="q16j" name="Q16 Role Description" value="Other"><label for="q16j">אחר:</label><input type="text" id="q16_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
                         </div>
-                 
+                        <p></p>
+
                         <label class="question-label">17. מה הכי מאפיין את תהליך העבודה שלך?</label>
                         <div class="options-group radio-other-group">
                             <div class="option"><input type="radio" id="q17a" name="Q17 WorkFlow" value="הרבה דגימות ולופים"><label for="q17a">הרבה דגימות ולופים</label></div>
@@ -444,6 +446,56 @@
                     </div>
                 </div>
                 
+                <!-- SLIDE 13 Q19 + Q20  -->
+                <div class="swiper-slide has-range-slider">
+                    <div class="slide-content" tabindex="-1">
+                        <label for="q19_slider" class="question-label">19. האם יש לך נסיון בתכנות (מחשבים)?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q19_slider"
+                                name="Q19 Programming Experience" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q19_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q19_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>נסיון רב</span>  <!-- Left label for RTL -->
+                                <span>לא</span>  <!-- Right label for RTL -->
+                            </div>
+                        </div>
+                        <p></p>
+
+                        <label class="question-label">20. PC / Mac ?</label>
+                        <div class="options-group radio-other-group">
+                            <div class="option"><input type="radio" id="q20a" name="Q20 PC Mac" value="פיסי"><label for="q20a">פיסי</label></div>
+                            <div class="option"><input type="radio" id="q20b" name="Q20 PC Mac" value="מק"><label for="q20b">מק</label></div>
+                            <div class="option"><input type="radio" id="q20c" name="Q20 PC Mac" value="שניהם"><label for="q20c">שניהם</label></div>
+                            
+                            <div class="option"><input type="radio" id="q20j" name="Q20 PC Mac" value="Other"><label for="q20j">אחר:</label><input type="text" id="q20_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <!-- SLIDE 3: Q02 Gender Identity -->
                 <div class="swiper-slide">
                     <div class="slide-content">

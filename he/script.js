@@ -211,21 +211,48 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// --- 3. UI INTERACTION LOGIC FOR "OTHER" OPTIONS ---
+// --- CORRECTED LOGIC FOR RADIO BUTTON "OTHER" ---
 document.querySelectorAll('.radio-other-group').forEach(group => {
-    const otherRadio = group.querySelector('input[type="radio"][value=""]');
+    
+    // Find the "Other" text input first, as it's unique.
     const otherText = group.querySelector('.other-text-input');
-    if (!otherRadio || !otherText) return;
+    if (!otherText) return;
+
+    // Find its parent '.option' container.
+    const parentOption = otherText.closest('.option');
+    if (!parentOption) return;
+
+    // Now, precisely find the radio button inside that specific container.
+    const otherRadio = parentOption.querySelector('input[type="radio"]');
+    if (!otherRadio) return;
+
+    // --- The logic below is now attached to the CORRECT radio button ---
+
+    // Ensure the text input is hidden initially.
+    otherText.classList.add('hidden');
+
+    // Listen for changes on ANY radio button in the group.
     group.addEventListener('change', () => {
-        otherText.classList.toggle('hidden', !otherRadio.checked);
-        if (!otherRadio.checked) otherText.value = '';
+        // If the "Other" radio button is the one that's checked...
+        if (otherRadio.checked) {
+            otherText.classList.remove('hidden'); // Show the text input.
+        } 
+        // If any other radio button was checked...
+        else {
+            otherText.classList.add('hidden');    // Hide the text input.
+            otherText.value = '';               // And clear its text.
+        }
     });
-    otherText.addEventListener('input', () => { 
-        otherRadio.value = otherText.value.trim(); 
-        otherRadio.checked = true; 
+
+    // Listen for typing in the text box.
+    otherText.addEventListener('input', () => {
+        // As the user types, dynamically update the VALUE of the "Other" radio button.
+        otherRadio.value = otherText.value.trim();
+        // Also, ensure the "Other" radio button is programmatically checked.
+        otherRadio.checked = true;
     });
 });
-
+// --- 3. CHECKBOX "OTHER" LOGIC ---
 document.querySelectorAll('.checkbox-other-group').forEach(group => {
     const otherText = group.querySelector('.other-text-input');
     if (!otherText) return;
