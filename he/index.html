@@ -1138,10 +1138,13 @@
 
                 <!-- SLIDE 28: Final Submission Screen -->
                 <div class="swiper-slide">
-                    <div class="slide-content">
+                    <div class="slide-content" tabindex="-1">
                         <h2>תודה על השתתפותך</h2>
                         <p>זהו סוף השאלון. לחץ על הכפתור כדי לשלוח את התשובות.</p>
-                        <!-- The main submit button is only on the last slide -->
+                        
+                        <!-- 1. ADD THIS IMAGE -->
+                        <img src="/images/expecting.gif" alt="Anticipation" class="final-slide-gif">
+                        
                         <button type="submit" id="submit-button">שלח את התשובות</button>
                         <div id="form-status"></div>
                     </div>
@@ -1162,6 +1165,14 @@
 
 
     </form>
+    <!-- SUCCESS OVERLAY BLOCK right after the form closes -->
+    <div id="success-overlay">
+        <img src="/images/fireworks.gif" alt="Fireworks celebration" class="success-background-gif">
+        <div id="thank-you-message">
+            <h2>תודה רבה!</h2>
+            <p>התשובות נשלחו בהצלחה.</p>
+        </div>
+    </div>
     
     <!-- This is the final thank you message, hidden by default -->
     <div id="thank-you-message" style="display:none;">
@@ -1169,11 +1180,19 @@
         <p>התשובות נשלחו בהצלחה.</p>
     </div>
 
+    <!-- AUDIO ELEMENT at the very end of the body -->
+    <audio id="success-audio" loop>
+        <source src="/audio/success-music.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Link to Swiper.js JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <!-- Link to Fancybox JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <!-- Link to our custom JavaScript file -->
     <script src="script.js"></script>
+    
+   
 </body>
+
 </html>

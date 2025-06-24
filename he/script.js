@@ -8,6 +8,8 @@ const form = document.getElementById('research-form');
 const submitButton = document.getElementById('submit-button');
 const formStatus = document.getElementById('form-status');
 const thankYouMessage = document.getElementById('thank-you-message');
+const successOverlay = document.getElementById('success-overlay');
+const successAudio = document.getElementById('success-audio');
 // !!! PASTE YOUR NEW SCRIPT URL FROM THE DEPLOYMENT HERE !!!
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzAnQPuQmQumQ_DaE1U6iRtRe0ZPseUpHJLF8MzfhhSphrQorwCFnFcLZ7J5FDwn7_PTQ/exec';
 
@@ -105,7 +107,20 @@ const swiper = new Swiper('.swiper', {
     // --- This keeps your keyboard navigation fix working ---
     on: {
         init: updateTabIndex,
-        slideChange: updateTabIndex
+    //    slideChange: updateTabIndex
+    // --- ADD THIS 'slideChange' BLOCK ---
+        slideChange: (swiper) => {
+            updateTabIndex(swiper);
+            // Check if the new active slide is the LAST slide
+            if (swiper.isEnd) {
+                // If so, find its content area and scroll it to the top.
+                const lastSlideContent = swiper.slides[swiper.activeIndex].querySelector('.slide-content');
+                if (lastSlideContent) {
+                    lastSlideContent.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }
+        // --- END OF ADDED BLOCK ---
     }
 });
 /*
@@ -481,78 +496,53 @@ form.addEventListener('submit', (event) => {
 });
 
 function submitViaIframe(data) {
-    // Create a hidden iframe
     const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
     iframe.name = 'submitFrame';
+    iframe.style.display = 'none';
     document.body.appendChild(iframe);
     
-    // Create a form that targets the iframe
     const hiddenForm = document.createElement('form');
     hiddenForm.method = 'POST';
     hiddenForm.action = SCRIPT_URL;
-    hiddenForm.target = 'submitFrame';
+    hiddenForm.target = iframe.name;
     hiddenForm.style.display = 'none';
     
-    // Create a hidden input with JSON data
     const jsonInput = document.createElement('input');
     jsonInput.type = 'hidden';
     jsonInput.name = 'data';
     jsonInput.value = JSON.stringify(data);
-    hiddenForm.appendChild(jsonInput);
-    
-    // Add all form data as individual inputs (backup method)
-    Object.keys(data).forEach(key => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = data[key];
-        hiddenForm.appendChild(input);
-    });
+    hiddenForm.appendChild(jsonInput); // Corrected this line from my previous response too
     
     document.body.appendChild(hiddenForm);
-    
-    // Handle iframe load event
-    iframe.onload = function() {
-        console.log('Form submitted successfully');
-        form.style.display = 'none';
-        thankYouMessage.style.display = 'block';
-        formStatus.innerText = '';
-        
-        // Clean up
-        setTimeout(() => {
+
+    const showSuccessScreen = () => {
+        if (form.style.display !== 'none') {
+            form.style.display = 'none';
+            successOverlay.style.display = 'flex';
+            if (successAudio) {
+                successAudio.play().catch(e => console.error("Audio play failed:", e));
+            }
             if (document.body.contains(iframe)) document.body.removeChild(iframe);
             if (document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
-        }, 1000);
+        }
     };
     
-    // Handle iframe error
+    // Action for when submission is successful
+    iframe.onload = showSuccessScreen;
+    
+    // KEEP your existing, detailed error logic
     iframe.onerror = function() {
         console.error('Form submission failed');
         submitButton.disabled = false;
         submitButton.innerText = 'שלח את כל התשובות';
         formStatus.innerText = 'שגיאה בשליחה. אנא נסה שוב.';
         formStatus.style.color = 'red';
-        
-        // Clean up
         if (document.body.contains(iframe)) document.body.removeChild(iframe);
         if (document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
     };
     
-    // Submit the form
     hiddenForm.submit();
     
-    // Fallback timeout (in case onload doesn't fire)
-    setTimeout(() => {
-        if (document.body.contains(iframe)) {
-            console.log('Submission completed (timeout fallback)');
-            form.style.display = 'none';
-            thankYouMessage.style.display = 'block';
-            formStatus.innerText = '';
-            
-            // Clean up
-            if (document.body.contains(iframe)) document.body.removeChild(iframe);
-            if (document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
-        }
-    }, 5000);
+    // The fallback timeout now calls the new success function
+    setTimeout(showSuccessScreen, 5000);
 }
