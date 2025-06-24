@@ -355,6 +355,26 @@ textarea {
     opacity: 0.6;
 }
 
+/* --- 7. STYLING FOR NUMBERED IMAGE ANSWERS --- */
+
+/* Target the container for image-based answers */
+.image-answer-options .option {
+    align-items: center; /* This is the main vertical alignment command */
+}
+
+/* Style the number itself */
+.answer-number {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-left: 8px; /* For RTL: adds space between the number and the image link */
+    align-self: center; /* Ensures it stays centered even if other items have different heights */
+}
+
+/* Adjust the radio button margin slightly */
+.image-answer-options .option input[type="radio"] {
+    margin-left: 10px; /* Space between radio button and the number */
+}
+
 /* ================================================= */
 /* == FANCYBOX CAPTION CUSTOM STYLING           == */
 /* ================================================= */
