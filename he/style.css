@@ -357,24 +357,47 @@ textarea {
 
 /* --- 7. STYLING FOR NUMBERED IMAGE ANSWERS --- */
 
-/* Target the container for image-based answers */
+/* ================================================= */
+/* == FINAL STYLING FOR IMAGE-BASED ANSWERS       == */
+/* ================================================= */
+
+/* --- Main Container for any Image Answer Option --- */
 .image-answer-options .option {
-    align-items: center; /* This is the main vertical alignment command */
+    display: flex;
+    align-items: center; /* Vertically center the radio button and the label-container */
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
-/* Style the number itself */
+.image-answer-options .option input[type="radio"] {
+    margin-left: 10px; /* Space between radio button and the start of the label */
+    flex-shrink: 0;
+}
+
+/* --- The label now becomes a flex container itself --- */
+.image-answer-options .option label {
+    display: flex;
+    align-items: center; /* This aligns the number and the image inside the label */
+    flex-grow: 1;
+    cursor: default;
+}
+
+/* --- The number inside the label --- */
 .answer-number {
     font-weight: bold;
     font-size: 1.1em;
-    margin-left: 8px; /* For RTL: adds space between the number and the image link */
-    align-self: center; /* Ensures it stays centered even if other items have different heights */
+    margin-left: 8px; /* For RTL: space between the number and the image */
 }
 
-/* Adjust the radio button margin slightly */
-.image-answer-options .option input[type="radio"] {
-    margin-left: 10px; /* Space between radio button and the number */
+/* --- The image inside the label --- */
+.image-answer-options .option .question-image {
+    width: 50%;
+    max-width: 200px;
+    display: block;
+    margin: 0 auto;
 }
-
 /* ================================================= */
 /* == FANCYBOX CAPTION CUSTOM STYLING           == */
 /* ================================================= */
