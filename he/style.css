@@ -467,8 +467,12 @@ textarea {
     z-index: 2002;
     text-align: center;
     color: white;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.25);
     padding: 20px 40px;
     border-radius: 15px;
     text-shadow: 0px 2px 5px rgba(0, 0, 0, 1);
+}
+
+#success-overlay #thank-you-message h2 {
+    color: rgb(223, 217, 217) !important;
 }
