@@ -110,6 +110,8 @@ const swiper = new Swiper('.swiper', {
     //    slideChange: updateTabIndex
     // --- ADD THIS 'slideChange' BLOCK ---
         slideChange: (swiper) => {
+            // Instantly scroll the entire window to the top on any slide change.
+            window.scrollTo({ top: 0, behavior: 'auto' });
             updateTabIndex(swiper);
             // Check if the new active slide is the LAST slide
             if (swiper.isEnd) {
