@@ -1,6 +1,4 @@
-/* --- LTR VERSION --- */
-
-/* Base & Swiper Setup */
+/* Make the slider take up the full screen */
 html, body {
     position: relative;
     height: 100%;
@@ -9,66 +7,807 @@ html, body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #f4f7f6;
     color: #333;
-    overscroll-behavior-y: contain; /* Prevents pull-to-refresh */
+    /* overflow: hidden;  <-- ADD THIS LINE. IT'S THE MAGIC. */
+    overscroll-behavior-y: contain; /* <-- THE NEW, BETTER FIX */
+    overscroll-behavior-x: contain; /* <-- ADD THIS LINE to prevent left/right edge swipe navigation */
 }
+
+h1 {
+    font-size: 1.5em; /* Example size */
+    color: #0c0c0c;
+    text-align: center;
+    margin-bottom: 10px;
+}
+h2 {
+    font-size: 1.3em;
+    color: #1e1e1e;
+}
+he {
+    font-size: 1.1em;
+    color: #333;
+    text-align: right; /* Ensure text aligns to the right */
+}
+
+#q1 {
+    font-size: 1.2em; /* Slightly larger font */
+    padding: 8px 12px; /* Good amount of internal spacing */
+    width: 40px; /* Set a comfortable width */
+    height: 40px; /* You can also set a fixed height if needed, though padding/font-size usually suffice */
+    border: 1px solid #ccc; /* Make sure borders are visible, adjust as needed */
+    border-radius: 4px; /* Optional: slightly rounded corners */
+}
+#q10 {
+    font-size: 1.2em; /* Slightly larger font */
+    padding: 8px 12px; /* Good amount of internal spacing */
+    width: 120px; /* Set a comfortable width */
+    height: 40px; /* You can also set a fixed height if needed, though padding/font-size usually suffice */
+    border: 1px solid #ccc; /* Make sure borders are visible, adjust as needed */
+    border-radius: 4px; /* Optional: slightly rounded corners */
+}
+#q11 {
+    font-size: 1.2em; /* Slightly larger font */
+    padding: 8px 12px; /* Good amount of internal spacing */
+    width: 120px; /* Set a comfortable width */
+    height: 40px; /* You can also set a fixed height if needed, though padding/font-size usually suffice */
+    border: 1px solid #ccc; /* Make sure borders are visible, adjust as needed */
+    border-radius: 4px; /* Optional: slightly rounded corners */
+}
+
+/* --- Styling for the "Other" text input --- */
+.other-text-input {
+    margin-right: 5px; /* In LTR, this would be margin-left */
+    margin-left: 5px;
+    border: none;
+    border-bottom: 1px solid #999;
+    background: transparent;
+    outline: none;
+}
+.hidden {
+    display: none;
+}
+
+/* The main swiper container */
 .swiper {
     width: 100%;
     height: 100%;
-    touch-action: pan-y; /* Improves swipe gesture responsiveness */
+    touch-action: pan-y !important; 
 }
+
+/* Add this new rule */
+.swiper-wrapper {
+    touch-action: pan-y !important;
+}
+
+/* Individual slide styling */
 .swiper-slide {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
+    overflow: hidden;         /* ADD THIS: Prevents the slide from interfering with its content. */
+    touch-action: pan-y;      /* ADD THIS: Makes the "background" swipeable. */
 }
+
+/* Content within a slide. */
 .slide-content {
     width: 100%;
     max-width: 800px;
     max-height: 100%;
-    overflow-y: auto;
+    overflow-y: auto; /* Allows vertical scrolling */
     padding: 20px;
+    text-align: left; /* <-- LTR text alignment */
+    touch-action: pan-y; /* KEEP THIS: Makes the content area swipeable. */
 }
 
-/* General Question & Form Elements */
-.question-label { font-weight: bold; font-size: 1.2em; display: block; margin-bottom: 15px; }
-.question-image { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; margin-top: 10px; }
-textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; box-sizing: border-box; }
+/* Question and Image Styles */
+.question-label {
+    font-weight: bold;
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 15px;
+}
+.question-image {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+}
 .options { margin-top: 15px; }
 .option { display: flex; align-items: center; margin-bottom: 10px; }
-.swiper-button-next, .swiper-button-prev { color: #007aff; }
 
-/* --- LTR Specific Margins for Radio Buttons & Checkboxes --- */
+/* --- RTL SPECIFIC CHANGE FOR RADIO BUTTONS & CHECKBOXES --- */
 .option input[type="radio"],
 .option input[type="checkbox"] { 
-    margin-right: 10px; /* Space on the RIGHT of the box for LTR */
+    /* Move the box to the other side of the text */
+    margin-right: 10px; 
     margin-left: 0;
+    /* Optional: make them slightly larger for easier tapping */
     width: 18px;
     height: 18px;
+    accent-color: #007aff;
+    cursor: pointer;
 }
 
-/* --- Inline Icon Styling --- */
-.inline-icon {
-    height: 1.2em;
-    width: auto;
-    vertical-align: middle;
-    margin: 0 0.2em;
+/* --- Select Dropdown Styling --- */
+select {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 14px;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    outline: none;
+    box-sizing: border-box;
+    font-family: inherit;
+    margin-top: 10px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* arrow on right for LTR */
+    background-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 30px;
+}
+select:focus {
+    border-color: #007aff;
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
 }
 
-/* --- Range Slider Styling (Universal) --- */
-.range-slider-container { padding: 20px 10px; }
-.range-labels { display: flex; justify-content: space-between; font-size: 0.9em; color: #555; margin-top: 10px; }
-input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; background: #ddd; border-radius: 5px; outline: none; cursor: pointer; }
-input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; background: #007aff; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.2); cursor: pointer; }
-input[type=range]::-moz-range-thumb { width: 24px; height: 24px; background: #007aff; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.2); cursor: pointer; }
+/* --- Range Slider Styling --- */
 
-/* --- Ruler-Style Tick Mark Styling --- */
-.range-slider-container datalist { display: flex; justify-content: space-between; width: 100%; padding: 0 10px; box-sizing: border-box; color: #aaa; }
-.range-slider-container option { position: relative; top: -9px; border-left: 1px solid currentColor; height: 18px; padding: 0; }
+.range-slider-container {
+    padding: 20px 10px;
+}
 
-/* Final Submit & Status Elements */
-#submit-button { display: block; width: 100%; margin-top: 20px; padding: 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 1.2em; cursor: pointer; }
-#submit-button:disabled { background-color: #ccc; }
+/* The labels for "highest" and "lowest" */
+.range-labels {
+    display: flex;
+    justify-content: space-between; /* Pushes labels to the ends */
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 10px;
+    flex-direction: row; /* Normal row flow for LTR */
+}
+
+/* Styling the slider track */
+input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+input[type=range]:hover {
+    background: #cbd5e1;
+}
+
+/* Styling the slider thumb (the draggable circle) */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    background: #007aff; /* Same blue as the nav arrows */
+    border-radius: 50%;
+    border: 2.5px solid white;
+    box-shadow: 0 2px 6px rgba(0, 122, 255, 0.35);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.18);
+    box-shadow: 0 4px 10px rgba(0, 122, 255, 0.45);
+}
+
+input[type=range]::-webkit-slider-thumb:active {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 6px rgba(0, 122, 255, 0.2);
+}
+
+input[type=range]::-moz-range-thumb {
+    /* Same styles for Firefox */
+    width: 22px;
+    height: 22px;
+    background: #007aff;
+    border-radius: 50%;
+    border: 2.5px solid white;
+    box-shadow: 0 2px 6px rgba(0, 122, 255, 0.35);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type=range]::-moz-range-thumb:hover {
+    transform: scale(1.18);
+    box-shadow: 0 4px 10px rgba(0, 122, 255, 0.45);
+}
+
+input[type=range]::-moz-range-thumb:active {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 6px rgba(0, 122, 255, 0.2);
+}
+
+/* --- Tick Mark Styling for Range Slider --- */
+
+/* This targets the datalist itself and positions the ticks correctly */
+.range-slider-container datalist {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px; /* Aligns ticks with the slider ends */
+    box-sizing: border-box;
+    color: #aaa; /* Color of the tick marks */
+}
+
+/* This styles the individual tick marks */
+.range-slider-container option {
+    position: relative;
+    top: -20px; /* Position them just above the slider track */
+    border-left: 1px solid currentColor; /* Creates the vertical line */
+    height: 27px;
+    padding: 0;
+}
+
+textarea { 
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 1em; 
+    box-sizing: border-box; 
+    text-align: left; /* LTR text alignment */
+}
+
+/* Swiper Navigation Button Styling */
+.swiper-button-next, .swiper-button-prev {
+    color: #007aff; 
+}
+
+/* Final Submit Button */
+#submit-button {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    padding: 16px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.15em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+    font-family: inherit;
+}
+#submit-button:hover:not(:disabled) {
+    background-color: #218838;
+    box-shadow: 0 6px 14px rgba(40, 167, 69, 0.4);
+}
+#submit-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+#submit-button:disabled { 
+    background-color: #cbd5e1; 
+    color: #94a3b8;
+    box-shadow: none;
+    cursor: not-allowed;
+}
 #form-status { margin-top: 15px; text-align: center; }
-#thank-you-message { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; }
+
+/* Final thank you message styling */
+#thank-you-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* --- UPDATED RTL Arrow Position Override --- */
+/* Replace your existing arrow CSS with this updated version */
+
+.swiper-button-next, .swiper-button-prev {
+    /* FIXED POSITIONING - This is the key change */
+    position: fixed !important; /* Changed from default absolute to fixed */
+    top: 50% !important; /* Keep vertical alignment */
+    transform: translateY(-50%) !important; /* Perfect vertical centering */
+    z-index: 1000 !important; /* Ensure they stay on top of content */
+    
+    /* Keep your existing styling */
+    color: #007aff;
+}
+
+/* Move the "Next" button (which has the > icon) to the RIGHT */
+.swiper-button-next {
+    left: auto !important;   /* Unset the default left position */
+    right: 10px !important;  /* Position it on the right */
+    transform: translateY(-50%) !important; /* Center vertically */
+}
+
+/* Move the "Prev" button (which has the < icon) to the LEFT */
+.swiper-button-prev {
+    right: auto !important;  /* Unset the default right position */
+    left: 10px !important;   /* Position it on the left */
+    transform: translateY(-50%) !important; /* Center vertically */
+}
+
+/* Optional: Add some visual improvements for better visibility */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 18px !important; /* Make arrows slightly larger */
+    font-weight: bold !important;
+}
+
+/* Optional: Add background for better visibility when scrolling over content */
+.swiper-button-next,
+.swiper-button-prev {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 50% !important;
+    width: 44px !important;
+    height: 44px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Hover effect for desktop */
+@media (hover: hover) {
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+        background: rgba(255, 255, 255, 0.95) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+    }
+}
+
+/* ================================================= */
+/* == STYLING FOR IMAGE-BASED ANSWER OPTIONS      == */
+/* ================================================= */
+
+/* --- 1. Fix for Inline Icons --- */
+/* This makes sure any inline icon is sized relative to the text around it. */
+.inline-icon {
+    height: 1.4em;  /* Set height relative to the font size (1.2x taller) */
+    width: auto;      /* Let width adjust automatically */
+    vertical-align: -0.2em; /* Lower the icon slightly to better align with text baseline */
+    margin: 0 0.2em;  /* Add a little horizontal space */
+}
+
+
+/* --- 2. Main Container for Image Answer Options --- */
+.image-answer-options .option {
+    display: flex;
+    align-items: center;  /* Vertically center-aligns the radio button and the label */
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* --- 3. Position the Radio Button --- */
+.image-answer-options .option input[type="radio"] {
+    margin-right: 15px; /* For LTR: space between radio and label */
+    margin-left: 0;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+/* --- 4. Style the Label (which now only holds the image) --- */
+.image-answer-options .option label {
+    flex-grow: 1; /* Make the label take up the remaining space */
+    cursor: default; /* The label itself isn't clickable, only the image inside */
+}
+
+/* --- 5. Size the Image --- */
+.image-answer-options .option .question-image {
+    width: 50%;
+    max-width: 200px;
+    display: block; /* Important for margin:auto to work */
+    margin: 0 auto; /* Center the image within the label */
+}
+
+/* --- 6. Read-Only Styling (For your example question) --- */
+/* This will only apply if you add the 'disabled' attribute to the input in your HTML */
+.image-answer-options .option input:disabled {
+    opacity: 0.6;
+}
+.image-answer-options .option input:disabled + label a {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* --- 7. STYLING FOR NUMBERED IMAGE ANSWERS --- */
+
+/* ================================================= */
+/* == FINAL STYLING FOR IMAGE-BASED ANSWERS       == */
+/* ================================================= */
+
+/* --- Main Container for any Image Answer Option --- */
+.image-answer-options .option {
+    display: flex;
+    align-items: center; /* Vertically center the radio button and the label-container */
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.image-answer-options .option input[type="radio"] {
+    margin-right: 10px; /* Space between radio button and the start of the label */
+    flex-shrink: 0;
+}
+
+/* --- The label now becomes a flex container itself --- */
+.image-answer-options .option label {
+    display: flex;
+    align-items: center; /* This aligns the number and the image inside the label */
+    flex-grow: 1;
+    cursor: default;
+}
+
+/* --- The number inside the label --- */
+.answer-number {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-right: 8px; /* For LTR: space between the number and the image */
+}
+
+/* --- The image inside the label --- */
+.image-answer-options .option .question-image {
+    width: 50%;
+    max-width: 200px;
+    display: block;
+    margin: 0 auto;
+}
+/* ================================================= */
+/* == FANCYBOX CAPTION CUSTOM STYLING           == */
+/* ================================================= */
+
+/* This targets the main container for the caption text */
+.fancybox__caption {
+    /* --- 1. הגדלת הפונט והדגשתו --- */
+    font-size: 1.2rem !important;  /* הגדלת גודל הפונט (שנה את הערך לפי הצורך) */
+    font-weight: bold !important; /* הדגשת הטקסט */
+    color: #FFFFFF !important;    /* צבע טקסט לבן לניגודיות טובה */
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.7); /* הוספת צל לטקסט לקריאות טובה יותר */
+
+    /* --- 2. מיקום וריווח --- */
+    padding: 15px !important;      /* ריווח פנימי נדיב יותר */
+    max-width: 80% !important;     /* הגבלת הרוחב כדי שלא ייצמד לקצוות */
+    margin: 0 auto !important;     /* ממקם את ה-caption במרכז אופקית */
+    
+    /* --- 3. יישור ומיקום בתחתית --- */
+    text-align: center !important; /* ממורכז את הטקסט עצמו */
+    
+    /* מיקום מוחלט בתחתית המסך */
+    bottom: 15px !important;       /* מרווח מהקצה התחתון של המסך */
+    left: 0;
+    right: 0;
+    transform: none !important;    /* איפוס טרנספורמציות קיימות */
+}
+
+/* ================================================= */
+/* == SUBMISSION & SUCCESS SCREEN STYLING         == */
+/* ================================================= */
+
+/* Styles the "expecting" gif */
+.final-slide-gif {
+    max-width: 250px;
+    margin: 20px auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* The main container for the success overlay */
+#success-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* The fireworks background GIF */
+#success-overlay .success-background-gif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2001;
+}
+
+/* The thank you message on top of the fireworks */
+#success-overlay #thank-you-message {
+    position: relative;
+    z-index: 2002;
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 20px 40px;
+    border-radius: 15px;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 1);
+}
+
+#success-overlay #thank-you-message h2 {
+    color: rgb(223, 217, 217) !important;
+}
+
+/* --- Sleek Progress Bar Indicator --- */
+.progress-battery-container {
+    position: fixed;
+    top: 10px;
+    left: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    z-index: 1010;
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+}
+
+.battery-outer {
+    width: 60px;
+    height: 8px; /* 3 times smaller in height */
+    border: 1.5px solid #333;
+    border-radius: 3px;
+    padding: 1px;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    direction: ltr; /* Keeps bar growing left-to-right */
+}
+
+.battery-fill {
+    height: 100%;
+    width: 0%;
+    background-color: #28a745;
+    border-radius: 1.5px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.battery-tip {
+    display: none; /* Hide battery tip as requested */
+}
+
+.battery-percentage-text {
+    font-size: 0.7em;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+}
+
+/* Modal Styling */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 25px 30px;
+    border-radius: 14px;
+    max-width: 400px;
+    width: 90%;
+    text-align: right;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #1a1a1a;
+    font-size: 1.35em;
+}
+
+.modal-content p {
+    color: #555;
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: inherit;
+}
+
+.modal-btn.confirm {
+    background-color: #007aff;
+    color: white;
+}
+
+.modal-btn.confirm:hover {
+    background-color: #0056b3;
+}
+
+.modal-btn.cancel {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.modal-btn.cancel:hover {
+    background-color: #d5d5d5;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Email Input Styling */
+.email-input-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+#participant-email {
+    width: 100%;
+    max-width: 350px;
+    padding: 12px 16px;
+    font-size: 1em;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    box-sizing: border-box;
+    text-align: left; /* Emails are LTR */
+    direction: ltr;   /* LTR direction for typing email */
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#participant-email:focus {
+    border-color: #007aff;
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
+}
+
+/* ================================================= */
+/* == CT QUESTIONS SPLIT-SCREEN & STICKY STYLING   == */
+/* ================================================= */
+
+.ct-column {
+    box-sizing: border-box;
+}
+
+/* Desktop Styles (min-width: 769px) */
+@media (min-width: 769px) {
+    .slide-content.ct-split-layout {
+        display: flex;
+        flex-direction: row-reverse; /* In LTR: row-reverse puts first child (rightCol) on right, second (leftCol) on left */
+        gap: 30px;
+        max-width: 950px;
+        max-height: 90vh; /* Keep within swiper slide */
+        align-items: stretch;
+        padding: 10px;
+    }
+
+    .ct-left-column {
+        flex: 1.2;
+        overflow-y: auto;
+        padding-left: 15px;
+        height: 100%;
+        touch-action: pan-y;
+    }
+
+    .ct-right-column {
+        flex: 1;
+        position: sticky;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .ct-right-column img.question-image {
+        max-height: 70vh;
+        max-width: 100%;
+        width: auto;
+        object-fit: contain;
+        margin: 0;
+    }
+
+    /* Answers in 2x2 grid on desktop */
+    .image-answer-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 15px;
+    }
+}
+
+/* Mobile Styles (max-width: 768px) */
+@media (max-width: 768px) {
+    .swiper-slide:has(.ct-split-layout) {
+        align-items: flex-start; /* Align content to top */
+        padding: 10px;
+    }
+
+    .slide-content.ct-split-layout {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        max-height: 100%;
+        padding: 0;
+        overflow: hidden; /* Scroll in columns, not wrapper */
+    }
+
+    .ct-right-column {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: #f4f7f6; /* Match background */
+        padding: 8px 5px;
+        border-bottom: 2px solid #e2e8f0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        flex-shrink: 0;
+    }
+
+    .ct-right-column img.question-image {
+        max-height: 28vh; /* Limit height so text/answers fit below */
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+        margin: 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .ct-left-column {
+        flex: 1;
+        overflow-y: auto;
+        padding: 15px 5px;
+        touch-action: pan-y;
+        -webkit-overflow-scrolling: touch;
+    }
+}

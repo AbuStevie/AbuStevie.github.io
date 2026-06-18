@@ -1,10 +1,11 @@
+<!-- File: /en/index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Research Questionnaire</title>
-
+    <title>Academic Research Questionnaire</title> <!-- You can translate the title too -->
+    
     <!-- Link to Swiper.js CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <!-- Link to Fancybox CSS -->
@@ -14,8 +15,29 @@
 </head>
 <body>
 
+    <!-- Progress Indicator (Battery Style) -->
+    <div class="progress-battery-container">
+        <div class="battery-outer">
+            <div class="battery-fill" id="progress-bar-fill"></div>
+            <div class="battery-tip"></div>
+        </div>
+        <div class="battery-percentage-text" id="progress-percentage">0% Completed</div>
+    </div>
+
+    <!-- Restore Progress Modal -->
+    <div id="restore-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="text-align: left;">
+            <h3>Resume Questionnaire</h3>
+            <p>We noticed you have a saved session. Would you like to resume where you left off?</p>
+            <div class="modal-buttons" style="justify-content: flex-start;">
+                <button type="button" id="btn-restore-yes" class="modal-btn confirm">Yes, Resume</button>
+                <button type="button" id="btn-restore-no" class="modal-btn cancel">No, Start Over</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Main form tag now wraps the entire slider -->
-    <form id="research-form">
+    <form id="research-form" novalidate>
 
         <!-- Swiper Container -->
         <div class="swiper">
@@ -24,42 +46,1149 @@
 
                 <!-- SLIDE 1: Welcome Screen -->
                 <div class="swiper-slide">
-                    <div class="slide-content">
-                        <h1>Welcome to the Study</h1>
-                        <p>Thank you for participating. Please swipe left or use the "Next" button to begin.</p>
-                        <p>You can tap on any image to view it in full-screen.</p>
+                    <div class="slide-content"  tabindex="-1">
+                        <h1>Computational Thinking Among Electronic Music Producers</h1>
+                        <img src="/images/Welcome_GIF.gif" alt="Welcome GIF" class="question-image">
+                        <p>This questionnaire is intended for individuals with a background in electronic music production (using DAW software) and aims to measure your attitudes and skills regarding complex problem-solving.</p>
+                        <ul>
+                            <li>The questionnaire is completely anonymous and collects no identifying information.</li>
+                            <li>Estimated completion time is approximately 30 minutes.</li>
+                            <li>The questionnaire is optimized for mobile phones and tablets.</li>
+                        </ul>
+                        <p>For multiple-choice questions, please select the response you believe is most correct.<br>
+                        Some questions in the personal section allow selecting more than one answer.</p>
+                        
+                        <p>This questionnaire is administered as part of a study conducted at Tel Aviv University's School of Education, supervised by Prof. Arnon Hershkovitz. Completing the questionnaire constitutes consent to participate in the study.</p>
+                        <p>For further information, please contact Ofir Vander at ofirvander@gmail.com</p>    
+                        
                     </div>
                 </div>
 
-                <!-- SLIDE 2: Example Image Question -->
+                <!-- SLIDE 2: Header Personal Details + Q01 Age -->
                 <div class="swiper-slide">
-                    <div class="slide-content">
-                        <label class="question-label">1. Based on the detailed chart, which trend is most significant?</label>
-                        <a href="/images/detailed-chart.png" data-fancybox="gallery1" data-caption="Detailed Trend Chart">
-                            <img src="/images/detailed-chart.png" alt="A detailed chart showing trends" class="question-image">
-                        </a>
+                    <div class="slide-content"  tabindex="-1">
+                        <h2>Part A - Personal Details</h2>
+                        <img src="/images/Personal_FKJ_GIF.gif" alt="Personal GIF" class="question-image" loading="lazy">
+                        <p></p>
+                        <label for="q1" class="question-label">1. What is your age?</label>
+                        <input type="number" id="q1" name="Q01 Age" placeholder="Age" inputmode="numeric" min="1" max="120" enterkeyhint="next">
+                        
+                        <p></p>
+                        <label for="q1b" class="question-label">2. What is your country of origin?</label>
+                        <select id="q1b" name="Q02 Country of Origin" required>
+                            <option value="" disabled selected>Select country...</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Andorra">Andorra</option>
+                            <option value="Angola">Angola</option>
+                            <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Armenia">Armenia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Azerbaijan">Azerbaijan</option>
+                            <option value="Bahamas">Bahamas</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Barbados">Barbados</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Belize">Belize</option>
+                            <option value="Benin">Benin</option>
+                            <option value="Bhutan">Bhutan</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                            <option value="Botswana">Botswana</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Brunei">Brunei</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Burkina Faso">Burkina Faso</option>
+                            <option value="Burundi">Burundi</option>
+                            <option value="Cabo Verde">Cabo Verde</option>
+                            <option value="Cambodia">Cambodia</option>
+                            <option value="Cameroon">Cameroon</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Central African Republic">Central African Republic</option>
+                            <option value="Chad">Chad</option>
+                            <option value="Chile">Chile</option>
+                            <option value="China">China</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Comoros">Comoros</option>
+                            <option value="Congo, Democratic Republic of the">Congo, Democratic Republic of the</option>
+                            <option value="Congo, Republic of the">Congo, Republic of the</option>
+                            <option value="Costa Rica">Costa Rica</option>
+                            <option value="Cote d'Ivoire">Cote d'Ivoire</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Cuba">Cuba</option>
+                            <option value="Cyprus">Cyprus</option>
+                            <option value="Czechia">Czechia</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Djibouti">Djibouti</option>
+                            <option value="Dominica">Dominica</option>
+                            <option value="Dominican Republic">Dominican Republic</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="El Salvador">El Salvador</option>
+                            <option value="Equatorial Guinea">Equatorial Guinea</option>
+                            <option value="Eritrea">Eritrea</option>
+                            <option value="Estonia">Estonia</option>
+                            <option value="Eswatini">Eswatini</option>
+                            <option value="Ethiopia">Ethiopia</option>
+                            <option value="Fiji">Fiji</option>
+                            <option value="Finland">Finland</option>
+                            <option value="France">France</option>
+                            <option value="Gabon">Gabon</option>
+                            <option value="Gambia">Gambia</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Grenada">Grenada</option>
+                            <option value="Guatemala">Guatemala</option>
+                            <option value="Guinea">Guinea</option>
+                            <option value="Guinea-Bissau">Guinea-Bissau</option>
+                            <option value="Guyana">Guyana</option>
+                            <option value="Haiti">Haiti</option>
+                            <option value="Honduras">Honduras</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Iran">Iran</option>
+                            <option value="Iraq">Iraq</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Jamaica">Jamaica</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Jordan">Jordan</option>
+                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="Kiribati">Kiribati</option>
+                            <option value="Kosovo">Kosovo</option>
+                            <option value="Kuwait">Kuwait</option>
+                            <option value="Kyrgyzstan">Kyrgyzstan</option>
+                            <option value="Laos">Laos</option>
+                            <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
+                            <option value="Lesotho">Lesotho</option>
+                            <option value="Liberia">Liberia</option>
+                            <option value="Libya">Libya</option>
+                            <option value="Liechtenstein">Liechtenstein</option>
+                            <option value="Lithuania">Lithuania</option>
+                            <option value="Luxembourg">Luxembourg</option>
+                            <option value="Madagascar">Madagascar</option>
+                            <option value="Malawi">Malawi</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Maldives">Maldives</option>
+                            <option value="Mali">Mali</option>
+                            <option value="Malta">Malta</option>
+                            <option value="Marshall Islands">Marshall Islands</option>
+                            <option value="Mauritania">Mauritania</option>
+                            <option value="Mauritius">Mauritius</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Micronesia">Micronesia</option>
+                            <option value="Moldova">Moldova</option>
+                            <option value="Monaco">Monaco</option>
+                            <option value="Mongolia">Mongolia</option>
+                            <option value="Montenegro">Montenegro</option>
+                            <option value="Morocco">Morocco</option>
+                            <option value="Mozambique">Mozambique</option>
+                            <option value="Myanmar">Myanmar</option>
+                            <option value="Namibia">Namibia</option>
+                            <option value="Nauru">Nauru</option>
+                            <option value="Nepal">Nepal</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Nicaragua">Nicaragua</option>
+                            <option value="Niger">Niger</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="North Korea">North Korea</option>
+                            <option value="North Macedonia">North Macedonia</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Oman">Oman</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="Palau">Palau</option>
+                            <option value="Palestine">Palestine</option>
+                            <option value="Panama">Panama</option>
+                            <option value="Papua New Guinea">Papua New Guinea</option>
+                            <option value="Paraguay">Paraguay</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Qatar">Qatar</option>
+                            <option value="Romania">Romania</option>
+                            <option value="Russia">Russia</option>
+                            <option value="Rwanda">Rwanda</option>
+                            <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                            <option value="Saint Lucia">Saint Lucia</option>
+                            <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+                            <option value="Samoa">Samoa</option>
+                            <option value="San Marino">San Marino</option>
+                            <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Senegal">Senegal</option>
+                            <option value="Serbia">Serbia</option>
+                            <option value="Seychelles">Seychelles</option>
+                            <option value="Sierra Leone">Sierra Leone</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Slovakia">Slovakia</option>
+                            <option value="Slovenia">Slovenia</option>
+                            <option value="Solomon Islands">Solomon Islands</option>
+                            <option value="Somalia">Somalia</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="South Sudan">South Sudan</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Sri Lanka">Sri Lanka</option>
+                            <option value="Sudan">Sudan</option>
+                            <option value="Suriname">Suriname</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Syria">Syria</option>
+                            <option value="Taiwan">Taiwan</option>
+                            <option value="Tajikistan">Tajikistan</option>
+                            <option value="Tanzania">Tanzania</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Timor-Leste">Timor-Leste</option>
+                            <option value="Togo">Togo</option>
+                            <option value="Tonga">Tonga</option>
+                            <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                            <option value="Tunisia">Tunisia</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Turkmenistan">Turkmenistan</option>
+                            <option value="Tuvalu">Tuvalu</option>
+                            <option value="Uganda">Uganda</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="United States">United States</option>
+                            <option value="Uruguay">Uruguay</option>
+                            <option value="Uzbekistan">Uzbekistan</option>
+                            <option value="Vanuatu">Vanuatu</option>
+                            <option value="Vatican City">Vatican City</option>
+                            <option value="Venezuela">Venezuela</option>
+                            <option value="Vietnam">Vietnam</option>
+                            <option value="Yemen">Yemen</option>
+                            <option value="Zambia">Zambia</option>
+                            <option value="Zimbabwe">Zimbabwe</option>
+                        </select>
+                        
+                    </div>
+                </div>
+
+                <!-- SLIDE 3: Q03 Gender + Q04 Education -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        <label class="question-label">3. Gender</label>
                         <div class="options">
-                            <div class="option"><input type="radio" id="q1a" name="question1" value="Trend A" required><label for="q1a">Trend A</label></div>
-                            <div class="option"><input type="radio" id="q1b" name="question1" value="Trend B"><label for="q1b">Trend B</label></div>
-                            <div class="option"><input type="radio" id="q1c" name="question1" value="Trend C"><label for="q1c">Trend C</label></div>
+                            <div class="option"><input type="radio" id="q2a" name="Q03 Gender Identity" value="Male" ><label for="q2a">Male</label></div>
+                            <div class="option"><input type="radio" id="q2b" name="Q03 Gender Identity" value="Female"><label for="q2b">Female</label></div>
+                            <div class="option"><input type="radio" id="q2c" name="Q03 Gender Identity" value="Other"><label for="q2c">Other</label></div>
+                            <div class="option"><input type="radio" id="q2d" name="Q03 Gender Identity" value="Prefer not to say"><label for="q2d">Prefer not to say</label></div>
+                        </div>
+                        <p></p>
+ 
+                        <label class="question-label">4. Education (Select all that apply)</label>
+                        <div class="options-group checkbox-other-group">
+                            <!-- Note: All checkboxes have the same 'name' -->
+                            <div class="option">
+                                <input type="checkbox" id="q3a" name="Q04 Education" value="High School">
+                                <label for="q3a">High School</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="q3b" name="Q04 Education" value="Undergraduate Student">
+                                <label for="q3b">Undergraduate Student</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="q3c" name="Q04 Education" value="Sound/Production College">
+                                <label for="q3c">Sound/Production College</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="q3d" name="Q04 Education" value="Degree and Above">
+                                <label for="q3d">Degree and Above</label>
+                            </div>
+                                       
+                            <!-- The "Other" Option for Checkboxes -->
+                            <div class="option">
+                                <!-- NOTE: This checkbox's value will be dynamically set -->
+                                <input type="checkbox" id="q3e" name="Q04 Education" value="Other">
+                                <label for="q3e">Other:</label>
+                                <input type="text" id="q3e_text" class="other-text-input" placeholder="Please specify..." disabled>
+                            </div>
+ 
                         </div>
                     </div>
                 </div>
 
-                <!-- SLIDE 3: Example Text Question -->
+                <!-- SLIDE 4: Header Music and Programming Background + Q05 musical education -->
                 <div class="swiper-slide">
-                    <div class="slide-content">
-                        <label for="q2" class="question-label">2. Please describe your reasoning for the choice above.</label>
-                        <textarea id="q2" name="question2" rows="4" placeholder="Enter your detailed response here..." required></textarea>
+                    <div class="slide-content"  tabindex="-1">
+                        <h2>Part B - Musical and Software Background</h2>
+                        <img src="/images/Programming_GIF.gif" alt="Programming GIF" class="question-image" loading="lazy">
+                        <p></p>
+ 
+                        <label class="question-label">5. Musical Education (Select all that apply)</label>
+                        <div class="options-group checkbox-other-group">
+                            <!-- Note: All checkboxes have the same 'name' -->
+                            <div class="option">
+                                <input type="checkbox" id="q4a" name="Q05 Musical Education" value="Conservatory Studies">
+                                <label for="q4a">Conservatory Studies</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="q4b" name="Q05 Musical Education" value="High School Music Program">
+                                <label for="q4b">High School Music Program</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" id="q4c" name="Q05 Musical Education" value="Higher Music Education (College/Academy)">
+                                <label for="q4c">Higher Music Education (College/Academy)</label>
+                            </div>
+                                                                   
+                            <!-- The "Other" Option for Checkboxes -->
+                            <div class="option">
+                                <!-- NOTE: This checkbox's value will be dynamically set -->
+                                <input type="checkbox" id="q4d" name="Q05 Musical Education" value="Other">
+                                <label for="q4d">Other:</label>
+                                <input type="text" id="q4d_text" class="other-text-input" placeholder="Please specify..." disabled>
+                            </div>
+ 
+                        </div>
+                        
                     </div>
                 </div>
 
-                <!-- SLIDE 4: Final Submission Screen -->
+                 <!-- SLIDE 5 Q06 + Q07 + Q08 -->
+                <div class="swiper-slide has-range-slider">
+                    <div class="slide-content" tabindex="-1">
+                        <label for="q05_slider" class="question-label">6. Do you play a musical instrument?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q05_slider"
+                                name="Q06 Play Instrument" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q05_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q05_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>No</span>  <!-- Left label for LTR -->
+                                <span>High level</span>  <!-- Right label for LTR -->
+                            </div>
+                        </div>
+                        
+                        <label for="q06_slider" class="question-label">7. What is your background in harmony and music theory?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q06_slider"
+                                name="Q07 Theory Background" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q06_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q06_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>Basic</span>  <!-- Left label for LTR -->
+                                <span>Advanced</span>  <!-- Right label for LTR -->
+                            </div>
+                        </div>
+
+                        <label for="q07_slider" class="question-label">8. How would you rate your mastery of professional content creation software?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q07_slider"
+                                name="Q08 Pro Apps Mastery" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q07_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q07_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>Beginner</span>  <!-- Left label for LTR -->
+                                <span>Master</span>  <!-- Right label for LTR -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SLIDE 6: Q09 DAW -->
                 <div class="swiper-slide">
-                    <div class="slide-content">
-                        <h2>Thank you!</h2>
-                        <p>You have reached the end of the questionnaire. Please press the button below to submit your responses.</p>
-                        <!-- The main submit button is only on the last slide -->
+                    <div class="slide-content"  tabindex="-1">
+                        <label class="question-label">9. What is the main DAW software you use?</label>
+                        <div class="options-group radio-other-group">
+                            <div class="option"><input type="radio" id="q8a" name="Q09 DAW Preference" value="Ableton Live"><label for="q8a">Ableton Live</label></div>
+                            <div class="option"><input type="radio" id="q8b" name="Q09 DAW Preference" value="FL Studio"><label for="q8b">FL Studio</label></div>
+                            <div class="option"><input type="radio" id="q8c" name="Q09 DAW Preference" value="Cubase"><label for="q8c">Cubase</label></div>
+                            <div class="option"><input type="radio" id="q8d" name="Q09 DAW Preference" value="Logic Pro"><label for="q8d">Logic Pro</label></div>
+                            <div class="option"><input type="radio" id="q8e" name="Q09 DAW Preference" value="Pro Tools"><label for="q8e">Pro Tools</label></div>
+                            <div class="option"><input type="radio" id="q8f" name="Q09 DAW Preference" value="Studio One"><label for="q8f">Studio One</label></div>
+                            <div class="option"><input type="radio" id="q8g" name="Q09 DAW Preference" value="GarageBand"><label for="q8g">GarageBand</label></div>
+                            <div class="option"><input type="radio" id="q8h" name="Q09 DAW Preference" value="Reaper"><label for="q8h">Reaper</label></div>
+                            <div class="option"><input type="radio" id="q8i" name="Q09 DAW Preference" value="Bitwig Studio"><label for="q8i">Bitwig Studio</label></div>
+                            <div class="option"><input type="radio" id="q8j" name="Q09 DAW Preference" value="Other"><label for="q8j">Other:</label><input type="text" id="q8_radio_other_text" class="other-text-input hidden" placeholder="Please specify..."></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 7: Q10 Genre -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        
+                        <label class="question-label">10. Which musical genres do you produce? (Select all that apply)</label>
+                        <div class="options-group checkbox-other-group">
+                            <div class="option"><input type="checkbox" id="q9a" name="Q10 Musical Genre" value="Hiphop / Trap"><label for="q9a">Hiphop / Trap</label></div>
+                            <div class="option"><input type="checkbox" id="q9b" name="Q10 Musical Genre" value="Trance / Psy / Goa"><label for="q9b">Trance / Psy / Goa</label></div>
+                            <div class="option"><input type="checkbox" id="q9c" name="Q10 Musical Genre" value="Tech / House / Deep / Progressive"><label for="q9c">Tech / House / Deep / Progressive</label></div>
+                            <div class="option"><input type="checkbox" id="q9d" name="Q10 Musical Genre" value="DownTempo / Ambient / Neo Soul"><label for="q9d">DownTempo / Ambient / Neo Soul</label></div>
+                            <div class="option"><input type="checkbox" id="q9e" name="Q10 Musical Genre" value="Dubstep / Drum and Bass / Glitch"><label for="q9e">Dubstep / Drum and Bass / Glitch</label></div>
+                            <div class="option"><input type="checkbox" id="q9f" name="Q10 Musical Genre" value="Pop / Rock"><label for="q9f">Pop / Rock</label></div>
+                            <div class="option"><input type="checkbox" id="q9g" name="Q10 Musical Genre" value="Mediterranean Pop"><label for="q9g">Mediterranean Pop</label></div>
+                            <div class="option"><input type="checkbox" id="q9h" name="Q10 Musical Genre" value="Metal / Prog"><label for="q9h">Metal / Prog</label></div>
+                            <div class="option"><input type="checkbox" id="q9i" name="Q10 Musical Genre" value="Film / Theater Music"><label for="q9i">Film / Theater Music</label></div>
+                            <div class="option"><input type="checkbox" id="q9j" name="Q10 Musical Genre" value="Acoustic / Jazz / Classical"><label for="q9j">Acoustic / Jazz / Classical</label></div>
+                            <!-- The "Other" Option for Checkboxes -->
+                            <div class="option">
+                                <!-- NOTE: This checkbox's value will be dynamically set -->
+                                <input type="checkbox" id="q9k" name="Q10 Musical Genre" value="Other">
+                                <label for="q9k">Other:</label>
+                                <input type="text" id="q9_text" class="other-text-input" placeholder="Please specify..." disabled>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- SLIDE 8: Q11 Experience + Q12 Start Age-->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        <label for="q10" class="question-label">11. How many years of experience do you have producing music with DAW software?</label>
+                        <input type="number" id="q10" name="Q11 DAW Experience" placeholder="Years of experience" inputmode="numeric" min="1" max="100" enterkeyhint="next">
+                        <p></p>
+                        <label for="q11" class="question-label">12. At what age did you start working with DAW software?</label>
+                        <input type="number" id="q11" name="Q12 DAW Start Age" placeholder="Age" inputmode="numeric" min="1" max="100" enterkeyhint="next">
+                    </div>
+                </div>
+
+                <!-- SLIDE 9: Header Professional Status + Q13 Present -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        <h2>Part C - Professional Status</h2>
+                        <img src="/images/Professional_GIF.gif" alt="Professional gif" class="question-image" loading="lazy">
+                        <p></p>
+                        <label for="q12" class="question-label">13. Are you currently active in music production?</label>
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q12a" name="Q13 Producer at Present" value="Yes" required><label for="q12a">Yes</label></div>
+                            <div class="option"><input type="radio" id="q12b" name="Q13 Producer at Present" value="No"><label for="q12b">No</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 10 Q14 + Q15 + Q16 -->
+                <div class="swiper-slide has-range-slider">
+                    <div class="slide-content" tabindex="-1">
+                        <label for="q13_slider" class="question-label">14. Do you earn a living from music production?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q13_slider"
+                                name="Q14 Producer Livelihood" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q13_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q13_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>No</span>  <!-- Left label for LTR -->
+                                <span>Main livelihood</span>  <!-- Right label for LTR -->
+                            </div>
+                        </div>
+                        
+                        <label for="q14" class="question-label">15. Are you signed to a record label or distribution company? </label>
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q14a" name="Q15 Label Sign" value="Yes" required><label for="q14a">Yes</label></div>
+                            <div class="option"><input type="radio" id="q14b" name="Q15 Label Sign" value="No"><label for="q14b">No</label></div>
+                        </div>
+                        <p></p>
+
+                        <label for="q15_slider" class="question-label">16. Have your tracks accumulated a high number of plays/streams?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q15_slider"
+                                name="Q16 Total Streams" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q15_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q15_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>No</span>  <!-- Left label for LTR -->
+                                <span>Over 1,000,000</span>  <!-- Right label for LTR -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SLIDE 11: Q17 + Q18 -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        <label class="question-label">17. Which description fits you best?</label>
+                        <div class="options-group radio-other-group">
+                            <div class="option"><input type="radio" id="q16a" name="Q17 Role Description" value="Create sketches and someone else produces for me"><label for="q16a">Create sketches and someone else produces for me</label></div>
+                            <div class="option"><input type="radio" id="q16b" name="Q17 Role Description" value="Produce original music"><label for="q16b">Produce original music</label></div>
+                            <div class="option"><input type="radio" id="q16c" name="Q17 Role Description" value="Produce music for others"><label for="q16c">Produce music for others</label></div>
+                            <div class="option"><input type="radio" id="q16d" name="Q17 Role Description" value="Instrumentalist"><label for="q16d">Instrumentalist / Player</label></div>
+                            <div class="option"><input type="radio" id="q16e" name="Q17 Role Description" value="Sound mix and mastering"><label for="q16e">Sound mix & mastering</label></div>
+                            <div class="option"><input type="radio" id="q16f" name="Q17 Role Description" value="DJ"><label for="q16f">DJ</label></div>
+                            <div class="option"><input type="radio" id="q16j" name="Q17 Role Description" value="Other"><label for="q16j">Other:</label><input type="text" id="q16_radio_other_text" class="other-text-input hidden" placeholder="Please specify..."></div>
+                        </div>
+                        <p></p>
+
+                        <label class="question-label">18. What best characterizes your workflow?</label>
+                        <div class="options-group radio-other-group">
+                            <div class="option"><input type="radio" id="q17a" name="Q18 WorkFlow" value="Lots of samples and loops"><label for="q17a">Lots of samples and loops</label></div>
+                            <div class="option"><input type="radio" id="q17b" name="Q18 WorkFlow" value="Program MIDI"><label for="q17b">Programming MIDI</label></div>
+                            <div class="option"><input type="radio" id="q17c" name="Q18 WorkFlow" value="Play, record and edit"><label for="q17c">Play, record & edit</label></div>
+                            <div class="option"><input type="radio" id="q17d" name="Q18 WorkFlow" value="AI Prompts"><label for="q17d">AI prompting</label></div>
+                            <div class="option"><input type="radio" id="q17j" name="Q18 WorkFlow" value="Other"><label for="q17j">Other:</label><input type="text" id="q17_radio_other_text" class="other-text-input hidden" placeholder="Please specify..."></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- SLIDE 12: Q19 + Q20 + Q21 -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        
+                        <label class="question-label">19. What usually initiates your creative process? (Select all that apply)</label>
+                        <div class="options-group checkbox-other-group">
+                            <div class="option"><input type="checkbox" id="q18a" name="Q19 Creativity Initiation" value="Melodic sampling"><label for="q18a">Melodic sampling</label></div>
+                            <div class="option"><input type="checkbox" id="q18b" name="Q19 Creativity Initiation" value="Beat"><label for="q18b">Beat</label></div>
+                            <div class="option"><input type="checkbox" id="q18c" name="Q19 Creativity Initiation" value="Synth sound"><label for="q18c">Synth sound</label></div>
+                            <div class="option"><input type="checkbox" id="q18d" name="Q19 Creativity Initiation" value="Lyrics"><label for="q18d">Lyrics</label></div>
+                            <div class="option"><input type="checkbox" id="q18e" name="Q19 Creativity Initiation" value="Melody"><label for="q18e">Melody</label></div>
+                            <div class="option"><input type="checkbox" id="q18f" name="Q19 Creativity Initiation" value="Harmonic progression"><label for="q18f">Harmonic progression</label></div>
+                            <div class="option"><input type="checkbox" id="q18g" name="Q19 Creativity Initiation" value="Jamming until something comes out"><label for="q18g">Jamming until something comes out</label></div>
+                            
+                            <!-- The "Other" Option for Checkboxes -->
+                            <div class="option">
+                                <!-- NOTE: This checkbox's value will be dynamically set -->
+                                <input type="checkbox" id="q18k" name="Q19 Creativity Initiation" value="Other">
+                                <label for="q18k">Other:</label>
+                                <input type="text" id="q18_text" class="other-text-input" placeholder="Please specify..." disabled>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- SLIDE 13 Q20 + Q21  -->
+                <div class="swiper-slide has-range-slider">
+                    <div class="slide-content" tabindex="-1">
+                        <label for="q19_slider" class="question-label">20. Do you have programming (computer science) experience?</label>
+                        
+                        <div class="range-slider-container">
+                            <!-- The actual slider input -->
+                            <!-- The 'value' attribute sets the default starting position to the middle (3) -->
+                            <input 
+                                type="range" 
+                                id="q19_slider"
+                                name="Q20 Programming Experience" 
+                                min="1" 
+                                max="5" 
+                                step="1" 
+                                value="3"  
+                                list="q19_tickmarks" 
+                            >
+                            <!-- The 'list' attribute connects the slider to the datalist below -->
+
+                             <!-- 2. Add the datalist with the matching id -->
+                            <datalist id="q19_tickmarks">
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </datalist>
+                            
+                            <!-- The labels for min and max -->
+                            <div class="range-labels">
+                                <span>No</span>  <!-- Left label for LTR -->
+                                <span>Extensive experience</span>  <!-- Right label for LTR -->
+                            </div>
+                        </div>
+                        <p></p>
+
+                        <label class="question-label">21. PC / Mac?</label>
+                        <div class="options-group radio-other-group">
+                            <div class="option"><input type="radio" id="q20a" name="Q21 PC Mac" value="PC"><label for="q20a">PC</label></div>
+                            <div class="option"><input type="radio" id="q20b" name="Q21 PC Mac" value="Mac"><label for="q20b">Mac</label></div>
+                            <div class="option"><input type="radio" id="q20c" name="Q21 PC Mac" value="Both"><label for="q20c">Both</label></div>
+                            
+                            <div class="option"><input type="radio" id="q20j" name="Q21 PC Mac" value="Other"><label for="q20j">Other:</label><input type="text" id="q20_radio_other_text" class="other-text-input hidden" placeholder="Please specify..."></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 14: Read-Only Example Instructions -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <h2>Part D - Computational Thinking Questions</h2>
+                        <img src="/images/Bebras_GIF.gif" alt="Bebras GIF" class="question-image" loading="lazy">
+                        <h3>Instructions:</h3>
+                        <p>The following ten questions have 4 possible answers, of which only one is correct. If you do not know the answer to a question, please enter your best guess.</p>
+                        <p>You can tap on the main image and any of the answers to enlarge them and swipe through them.</p>
+                    </div>
+                </div>
+
+                <!-- SLIDE 15: Read-Only Example Question -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <h3>Example Question</h3>
+                        <p>Before we begin this section, we present an example so you can familiarize yourself with the type of questions that follow. <strong>Please note: the correct answer is already selected in this example.</strong></p>
+                        <p>In the following example, you are asked which instructions Pac-Man  
+                            <img src="/images/PacMan.png" alt="Pac-Man" class="inline-icon" loading="lazy">
+                            should follow to reach the ghost 
+                            <img src="/images/Ghost.png" alt="Ghost" class="inline-icon" loading="lazy">.</p>
+                        <p>The instruction                               
+                            <img src="/images/move forward.png" alt="move forward" class="inline-icon" loading="lazy"> 
+                            indicates that Pac-Man must take one step in the direction he is currently facing.<br>
+                            Pac-Man can turn right, left, up, or down. Currently, Pac-Man is located in cell A1 on the board.</p>
+                            <a href="/images/example grid.png" data-fancybox="example-gallery" data-caption="The board of the question">
+                            <img src="/images/example grid.png" alt="Example main board image" class="question-image" loading="lazy">
+                            </a>
+                        <p>Which instructions will you give Pac-Man to reach the ghost in cell C3?<br>
+                        Choose the correct answer (in this example, the correct answer is 3).</p>
+                        
+                        <!-- 2. The Answer Options -->
+                        <div class="options readonly-example image-answer-options">
+                                                    
+                            <!-- Answer 1 - Incorrect, Disabled -->
+                            <div class="option">
+                                
+                                <input type="radio" name="ReadOnlyExample" disabled>
+                                <label>
+                                    <span class="answer-number">1</span>
+                                    <a href="/images/example A.png" data-fancybox="example-gallery" data-caption="Answer 1">
+                                        <img src="/images/example A.png" alt="Answer 1" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <!-- Answer 2 - Incorrect, Disabled -->
+                            <div class="option">
+                                
+                                <input type="radio" name="ReadOnlyExample" disabled>
+                                <label>
+                                    <span class="answer-number">2</span>
+                                    <a href="/images/example B.png" data-fancybox="example-gallery" data-caption="Answer 2">
+                                        <img src="/images/example B.png" alt="Answer 2" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <!-- Answer 3 - CORRECT, Pre-checked, and Disabled -->
+                            <div class="option">
+                                
+                                <input type="radio" name="ReadOnlyExample" checked disabled>
+                                <label>
+                                    <span class="answer-number">3</span>
+                                    <a href="/images/example C.png" data-fancybox="example-gallery" data-caption="Answer 3 (Correct)">
+                                        <img src="/images/example C.png" alt="Answer 3" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <!-- Answer 4 - Incorrect, Disabled -->
+                            <div class="option">
+                                
+                                <input type="radio" name="ReadOnlyExample" disabled>
+                                <label>
+                                    <span class="answer-number">4</span>
+                                    <a href="/images/example D.png" data-fancybox="example-gallery" data-caption="Answer 4">
+                                        <img src="/images/example D.png" alt="Answer 4" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 15: Q22 -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <label class="question-label">Question 22:</label>
+                        <p>Pac-Man starts in cell A5 on the board.<br>
+                        Which instructions should you give Pac-Man to reach the ghost in cell A1?</p>
+                        <p>Don't forget to select the correct answer when you are done!</p>
+                        <a href="/images/CTt1_main.png" data-fancybox="q21-gallery" data-caption="The board of the question">
+                            <img src="/images/CTt1_main.png" alt="CTt1_main" class="question-image" loading="lazy">
+                        </a>
+                        <div class="options image-answer-options">
+                            <div class="option">
+                                <input type="radio" id="q21a" name="Q22 CTt1" value="1">
+                                <label for="q21a">
+                                    <span class="answer-number">1</span>
+                                    <a href="/images/CTt1_a.png" data-fancybox="q21-gallery" data-caption="Answer 1">
+                                        <img src="/images/CTt1_a.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" id="q21b" name="Q22 CTt1" value="2">
+                                <label for="q21b">
+                                    <span class="answer-number">2</span>
+                                    <a href="/images/CTt1_b.png" data-fancybox="q21-gallery" data-caption="Answer 2">
+                                        <img src="/images/CTt1_b.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" id="q21c" name="Q22 CTt1" value="3">
+                                <label for="q21c">
+                                    <span class="answer-number">3</span>
+                                    <a href="/images/CTt1_c.png" data-fancybox="q21-gallery" data-caption="Answer 3">
+                                        <img src="/images/CTt1_c.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+                            
+                            <div class="option">
+                                <input type="radio" id="q21d" name="Q22 CTt1" value="4">
+                                <label for="q21d">
+                                    <span class="answer-number">4</span>
+                                    <a href="/images/CTt1_d.png" data-fancybox="q21-gallery" data-caption="Answer 4">
+                                        <img src="/images/CTt1_d.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- SLIDE 16: Q23 -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <label class="question-label">Question 23:</label>
+                        <p>The instructions below are supposed to guide the pencil to draw a square in one go.<br>
+                        The pencil starts at the top-left corner and faces the direction shown by the arrow.</p>
+                        <p>The "repeat" loop indicates that everything inside it should be repeated the number of times specified next to the word (in this case, 4).<br>
+                        What is the mistake in the instructions?</p>
+                        <a href="/images/CTt2_main.png" data-fancybox="q22-gallery" data-caption="The question with incorrect instructions">
+                            <img src="/images/CTt2_main.png" alt="CTt2_main" class="question-image" loading="lazy">
+                        </a>
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q22a" name="Q23 CTt2" value="The repeat loop should repeat twice." ><label for="q22a">The "repeat" loop should run twice.</label></div>
+                            <div class="option"><input type="radio" id="q22b" name="Q23 CTt2" value="The move block should be outside the loop."><label for="q22b">The "move" block should be outside the loop.</label></div>
+                            <div class="option"><input type="radio" id="q22c" name="Q23 CTt2" value="The turn right block should be inside the loop, after the move block."><label for="q22c">The "turn right" block should be inside the loop, after the "move" block.</label></div>
+                            <div class="option"><input type="radio" id="q22d" name="Q23 CTt2" value="The turn right block should be inside the loop, before the move block."><label for="q22d">The "turn right" block should be inside the loop, before the "move" block.</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 17: Q24 -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <label class="question-label">Question 24:</label>
+                        <p>Which instructions should be given to Pac-Man (B6) to reach the ghost (B4) along the described path?</p>
+                        <a href="/images/CTt3_main.png" data-fancybox="q23-gallery" data-caption="The board of the question">
+                            <img src="/images/CTt3_main.png" alt="CTt3_main" class="question-image" loading="lazy">
+                        </a>
+                        <div class="options image-answer-options">
+                            <div class="option">
+                                <input type="radio" id="q23a" name="Q24 CTt3" value="1">
+                                <label for="q23a">
+                                    <span class="answer-number">1</span>
+                                    <a href="/images/CTt3_a.png" data-fancybox="q23-gallery" data-caption="Answer 1">
+                                        <img src="/images/CTt3_a.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" id="q23b" name="Q24 CTt3" value="2">
+                                <label for="q23b">
+                                    <span class="answer-number">2</span>
+                                    <a href="/images/CTt3_b.png" data-fancybox="q23-gallery" data-caption="Answer 2">
+                                        <img src="/images/CTt3_b.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" id="q23c" name="Q24 CTt3" value="3">
+                                <label for="q23c">
+                                    <span class="answer-number">3</span>
+                                    <a href="/images/CTt3_c.png" data-fancybox="q23-gallery" data-caption="Answer 3">
+                                        <img src="/images/CTt3_c.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+                            
+                            <div class="option">
+                                <input type="radio" id="q23d" name="Q24 CTt3" value="4">
+                                <label for="q23d">
+                                    <span class="answer-number">4</span>
+                                    <a href="/images/CTt3_d.png" data-fancybox="q23-gallery" data-caption="Answer 4">
+                                        <img src="/images/CTt3_d.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 18: Q25 -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <label class="question-label">Question 25:</label>
+                        <p>A car is located in cell A2 and faces right, as indicated by the white arrow on the car's roof. The car cannot pass through rocks or stand where a rock is located.</p>
+                        <p>Which instructions will correctly guide the car to the striped pattern in cell B1?</p>
+                        <p>The "if-then-else" loop indicates a condition under which the command is executed.<br>
+                        Path to the right = path to the right</p>
+                        <a href="/images/CTt4_main.png" data-fancybox="q24-gallery" data-caption="The board of the question">
+                            <img src="/images/CTt4_main.png" alt="CTt4_main" class="question-image" loading="lazy">
+                        </a>
+                        <div class="options image-answer-options">
+                            <div class="option">
+                                <input type="radio" id="q24a" name="Q25 CTt4" value="1">
+                                <label for="q24a">
+                                    <span class="answer-number">1</span>
+                                    <a href="/images/CTt4_a.png" data-fancybox="q24-gallery" data-caption="Answer 1">
+                                        <img src="/images/CTt4_a.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" id="q24b" name="Q25 CTt4" value="2">
+                                <label for="q24b">
+                                    <span class="answer-number">2</span>
+                                    <a href="/images/CTt4_b.png" data-fancybox="q24-gallery" data-caption="Answer 2">
+                                        <img src="/images/CTt4_b.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" id="q24c" name="Q25 CTt4" value="3">
+                                <label for="q24c">
+                                    <span class="answer-number">3</span>
+                                    <a href="/images/CTt4_c.png" data-fancybox="q24-gallery" data-caption="Answer 3">
+                                        <img src="/images/CTt4_c.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+                            
+                            <div class="option">
+                                <input type="radio" id="q24d" name="Q25 CTt4" value="4">
+                                <label for="q24d">
+                                    <span class="answer-number">4</span>
+                                    <a href="/images/CTt4_d.png" data-fancybox="q24-gallery" data-caption="Answer 4">
+                                        <img src="/images/CTt4_d.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <!-- SLIDE 19: Q26 -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <label class="question-label">Question 26:</label>
+                        <p>A car starts in cell F1 and faces left, as indicated by the arrow on the car's roof.<br>
+                        The car cannot pass through rocks or stand where a rock is located.</p>
+                        <p>Which instructions will correctly guide the car to the striped pattern in cell F7 along the path marked with a green line?</p>
+                        
+                        <a href="/images/CTt5_main.png" data-fancybox="q25-gallery" data-caption="The board of the question">
+                            <img src="/images/CTt5_main.png" alt="CTt5_main" class="question-image" loading="lazy">
+                        </a>
+                        <div class="options image-answer-options">
+                            <div class="option">
+                                <input type="radio" id="q25a" name="Q26 CTt5" value="1">
+                                <label for="q25a">
+                                    <span class="answer-number">1</span>
+                                    <a href="/images/CTt5_a.png" data-fancybox="q25-gallery" data-caption="Answer 1">
+                                        <img src="/images/CTt5_a.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" id="q25b" name="Q26 CTt5" value="2">
+                                <label for="q25b">
+                                    <span class="answer-number">2</span>
+                                    <a href="/images/CTt5_b.png" data-fancybox="q25-gallery" data-caption="Answer 2">
+                                        <img src="/images/CTt5_b.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" id="q25c" name="Q26 CTt5" value="3">
+                                <label for="q25c">
+                                    <span class="answer-number">3</span>
+                                    <a href="/images/CTt5_c.png" data-fancybox="q25-gallery" data-caption="Answer 3">
+                                        <img src="/images/CTt5_c.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+                            
+                            <div class="option">
+                                <input type="radio" id="q25d" name="Q26 CTt5" value="4">
+                                <label for="q25d">
+                                    <span class="answer-number">4</span>
+                                    <a href="/images/CTt5_d.png" data-fancybox="q25-gallery" data-caption="Answer 4">
+                                        <img src="/images/CTt5_d.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 20: Q27 -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <label class="question-label">Question 27:</label>
+                        <p>A car starts in cell F2 and faces left, as indicated by the arrow on the car's roof.<br>
+                        The car cannot pass through rocks or stand where a rock is located.</p>
+                        <p>Which instructions will correctly guide the car to the striped pattern in cell B5 along the path marked with a green line?</p>
+                        <p>Repeat until you reach the striped pattern = repeat until</p>
+                        
+                        <a href="/images/CTt6_main.png" data-fancybox="q26-gallery" data-caption="The board of the question">
+                            <img src="/images/CTt6_main.png" alt="CTt6_main" class="question-image" loading="lazy">
+                        </a>
+                        <div class="options image-answer-options">
+                            <div class="option">
+                                <input type="radio" id="q26a" name="Q27 CTt6" value="1">
+                                <label for="q26a">
+                                    <span class="answer-number">1</span>
+                                    <a href="/images/CTt6_a.png" data-fancybox="q26-gallery" data-caption="Answer 1">
+                                        <img src="/images/CTt6_a.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" id="q26b" name="Q27 CTt6" value="2">
+                                <label for="q26b">
+                                    <span class="answer-number">2</span>
+                                    <a href="/images/CTt6_b.png" data-fancybox="q26-gallery" data-caption="Answer 2">
+                                        <img src="/images/CTt6_b.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+
+                            <div class="option">
+                                <input type="radio" id="q26c" name="Q27 CTt6" value="3">
+                                <label for="q26c">
+                                    <span class="answer-number">3</span>
+                                    <a href="/images/CTt6_c.png" data-fancybox="q26-gallery" data-caption="Answer 3">
+                                        <img src="/images/CTt6_c.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+                            
+                            <div class="option">
+                                <input type="radio" id="q26d" name="Q27 CTt6" value="4">
+                                <label for="q26d">
+                                    <span class="answer-number">4</span>
+                                    <a href="/images/CTt6_d.png" data-fancybox="q26-gallery" data-caption="Answer 4">
+                                        <img src="/images/CTt6_d.png" class="question-image" loading="lazy">
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 21: Q28 -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <label class="question-label">Question 28:</label>
+                        <p>The following instructions are supposed to guide the car from cell B1 to the striped pattern in cell A8 along the path marked with a green line.</p>
+                        <p>Block Set = sequence of commands</p>
+                        <p>Which of the Block Sets contains a mistake?</p>
+                        <a href="/images/CTt7_main.png" data-fancybox="q27-gallery" data-caption="The board of the question">
+                            <img src="/images/CTt7_main.png" alt="CTt7_main" class="question-image" loading="lazy">
+                        </a>
+                        <a href="/images/CTt7_main2.png" data-fancybox="q27-gallery" data-caption="Some of the block sets here are incorrect">
+                            <img src="/images/CTt7_main2.png" alt="CTt7_main2" class="question-image" loading="lazy">
+                        </a>
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q27a" name="Q28 CTt7" value="Block Set 1&2" ><label for="q27a">Block Set 1&2</label></div>
+                            <div class="option"><input type="radio" id="q27b" name="Q28 CTt7" value="Block Set 2&3"><label for="q27b">Block Set 2&3</label></div>
+                            <div class="option"><input type="radio" id="q27c" name="Q28 CTt7" value="Block Set 3&4"><label for="q27c">Block Set 3&4</label></div>
+                            <div class="option"><input type="radio" id="q27d" name="Q28 CTt7" value="Block Set 4 only"><label for="q27d">Block Set 4 only</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 22: Q29 -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <label class="question-label">Question 29:</label>
+                        <p>The following instructions are supposed to guide the car from cell B1 to the striped pattern in cell D8 along one of the described paths.</p>
+                        
+                        <p>Based on the instructions, what color path will the car take?</p>
+                        <a href="/images/CTt8_main.png" data-fancybox="q28-gallery" data-caption="The board of the question">
+                            <img src="/images/CTt8_main.png" alt="CTt8_main" class="question-image" loading="lazy">
+                        </a>
+                        <a href="/images/CTt8_main2.png" data-fancybox="q28-gallery" data-caption="The instructions">
+                            <img src="/images/CTt8_main2.png" alt="CTt8_main2" class="question-image" loading="lazy">
+                        </a>
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q28a" name="Q29 CTt8" value="Red Path" ><label for="q28a">Red Path</label></div>
+                            <div class="option"><input type="radio" id="q28b" name="Q29 CTt8" value="Blue Path"><label for="q28b">Blue Path</label></div>
+                            <div class="option"><input type="radio" id="q28c" name="Q29 CTt8" value="Green Path"><label for="q28c">Green Path</label></div>
+                            <div class="option"><input type="radio" id="q28d" name="Q29 CTt8" value="None of the described paths"><label for="q28d">None of the described paths</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 23: Q30 -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <label class="question-label">Question 30:</label>
+                        <p>A car starts in cell E6, facing left.</p>
+                                                
+                        <p>If the car follows the instructions below, where will it arrive?</p>
+                        <p>While = while</p>
+                        <a href="/images/CTt9_main.png" data-fancybox="q29-gallery" data-caption="The board of the question">
+                            <img src="/images/CTt9_main.png" alt="CTt9_main" class="question-image" loading="lazy">
+                        </a>
+                        
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q29a" name="Q30 CTt9" value="B3" ><label for="q29a">B3</label></div>
+                            <div class="option"><input type="radio" id="q29b" name="Q30 CTt9" value="C3"><label for="q29b">C3</label></div>
+                            <div class="option"><input type="radio" id="q29c" name="Q30 CTt9" value="D4"><label for="q29c">D4</label></div>
+                            <div class="option"><input type="radio" id="q29d" name="Q30 CTt9" value="E4"><label for="q29d">E4</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 24: Q31 -->
+                <div class="swiper-slide">
+                    <div class="slide-content"  tabindex="-1">
+                        <label class="question-label">Question 31 (following question 30):</label>
+                        <p>At the end of the instructions, which direction will the car be facing?</p>
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q30a" name="Q31 CTt10" value="Up" ><label for="q30a">Up</label></div>
+                            <div class="option"><input type="radio" id="q30b" name="Q31 CTt10" value="Left"><label for="q30b">Left</label></div>
+                            <div class="option"><input type="radio" id="q30c" name="Q31 CTt10" value="Right"><label for="q30c">Right</label></div>
+                            <div class="option"><input type="radio" id="q30d" name="Q31 CTt10" value="Down"><label for="q30d">Down</label></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- SLIDE 28: Final Submission Screen -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <h2>Thank you for your participation</h2>
+                        <p>This is the end of the questionnaire. If you would like to participate in the raffle for a product coupon - please enter your email address. Then click the button to submit all your responses.</p>
+                        
+                        <div class="email-input-container">
+                            <input type="email" id="participant-email" name="Participant Email" placeholder="Email address (optional)" autocomplete="email" enterkeyhint="done">
+                        </div>
+                        
+                        <!-- 1. ADD THIS IMAGE -->
+                        <img src="/images/expecting.gif" alt="Anticipation" class="final-slide-gif" loading="lazy">
+                        
                         <button type="submit" id="submit-button">Submit All Responses</button>
                         <div id="form-status"></div>
                     </div>
@@ -74,14 +1203,31 @@
         
         <!-- Hidden field for participant ID -->
         <input type="hidden" name="participantID" id="participantID">
+        
+        <!-- NEW: Hidden field for User Agent string -->
+        <input type="hidden" name="User Agent" id="user-agent-field">
+
 
     </form>
+    <!-- SUCCESS OVERLAY BLOCK right after the form closes -->
+    <div id="success-overlay">
+        <img src="/images/fireworks.gif" alt="Fireworks celebration" class="success-background-gif" loading="lazy">
+        <div id="thank-you-message">
+            <h2>Thank you very much!</h2>
+            <p>Your responses have been successfully submitted.</p>
+        </div>
+    </div>
     
     <!-- This is the final thank you message, hidden by default -->
     <div id="thank-you-message" style="display:none;">
-        <h2>Thank you!</h2>
-        <p>Your responses have been recorded successfully.</p>
+        <h2>Thank you very much!</h2>
+        <p>Your responses have been successfully submitted.</p>
     </div>
+
+    <!-- AUDIO ELEMENT at the very end of the body -->
+    <audio id="success-audio" loop>
+        <source src="/audio/success-music.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- Link to Swiper.js JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -89,5 +1235,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <!-- Link to our custom JavaScript file -->
     <script src="script.js"></script>
+    
+   
 </body>
+
 </html>
