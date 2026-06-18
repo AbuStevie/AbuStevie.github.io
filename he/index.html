@@ -15,6 +15,27 @@
 </head>
 <body>
 
+    <!-- Progress Indicator (Battery Style) -->
+    <div class="progress-battery-container">
+        <div class="battery-outer">
+            <div class="battery-fill" id="progress-bar-fill"></div>
+            <div class="battery-tip"></div>
+        </div>
+        <div class="battery-percentage-text" id="progress-percentage">0% הושלם</div>
+    </div>
+
+    <!-- Restore Progress Modal -->
+    <div id="restore-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3>המשך מילוי השאלון</h3>
+            <p>שמנו לב שהתחלת למלא את השאלון בעבר. האם ברצונך להמשיך מהנקודה שבה הפסקת?</p>
+            <div class="modal-buttons">
+                <button type="button" id="btn-restore-yes" class="modal-btn confirm">כן, המשך</button>
+                <button type="button" id="btn-restore-no" class="modal-btn cancel">לא, התחל מחדש</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Main form tag now wraps the entire slider -->
     <form id="research-form" novalidate>
 
@@ -46,51 +67,254 @@
                 <!-- SLIDE 2: Header Personal Details + Q01 Age -->
                 <div class="swiper-slide">
                     <div class="slide-content"  tabindex="-1">
-                        <h2>פרטים אישיים</h2>
-                        <img src="/images/Personal_FKJ_GIF.gif" alt="Personal GIF" class="question-image">
+                        <h2>חלק א' - פרטים אישיים</h2>
+                        <img src="/images/Personal_FKJ_GIF.gif" alt="Personal GIF" class="question-image" loading="lazy">
                         <p></p>
                         <label for="q1" class="question-label">1. מה גילך?</label>
                         <input type="number" id="q1" name="Q01 Age" placeholder="גיל" inputmode="numeric" min="1" max="120" enterkeyhint="next">
                         
+                        <p></p>
+                        <label for="q1b" class="question-label">2. מהי ארץ מוצאך? / What is your country of origin?</label>
+                        <select id="q1b" name="Q02 Country of Origin" required>
+                            <option value="" disabled selected>בחר מדינה / Select country...</option>
+                            <option value="Israel">Israel</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                            <option value="Andorra">Andorra</option>
+                            <option value="Angola">Angola</option>
+                            <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Armenia">Armenia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Azerbaijan">Azerbaijan</option>
+                            <option value="Bahamas">Bahamas</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Barbados">Barbados</option>
+                            <option value="Belarus">Belarus</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Belize">Belize</option>
+                            <option value="Benin">Benin</option>
+                            <option value="Bhutan">Bhutan</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                            <option value="Botswana">Botswana</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Brunei">Brunei</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Burkina Faso">Burkina Faso</option>
+                            <option value="Burundi">Burundi</option>
+                            <option value="Cabo Verde">Cabo Verde</option>
+                            <option value="Cambodia">Cambodia</option>
+                            <option value="Cameroon">Cameroon</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Central African Republic">Central African Republic</option>
+                            <option value="Chad">Chad</option>
+                            <option value="Chile">Chile</option>
+                            <option value="China">China</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Comoros">Comoros</option>
+                            <option value="Congo, Democratic Republic of the">Congo, Democratic Republic of the</option>
+                            <option value="Congo, Republic of the">Congo, Republic of the</option>
+                            <option value="Costa Rica">Costa Rica</option>
+                            <option value="Cote d'Ivoire">Cote d'Ivoire</option>
+                            <option value="Croatia">Croatia</option>
+                            <option value="Cuba">Cuba</option>
+                            <option value="Cyprus">Cyprus</option>
+                            <option value="Czechia">Czechia</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Djibouti">Djibouti</option>
+                            <option value="Dominica">Dominica</option>
+                            <option value="Dominican Republic">Dominican Republic</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Egypt">Egypt</option>
+                            <option value="El Salvador">El Salvador</option>
+                            <option value="Equatorial Guinea">Equatorial Guinea</option>
+                            <option value="Eritrea">Eritrea</option>
+                            <option value="Estonia">Estonia</option>
+                            <option value="Eswatini">Eswatini</option>
+                            <option value="Ethiopia">Ethiopia</option>
+                            <option value="Fiji">Fiji</option>
+                            <option value="Finland">Finland</option>
+                            <option value="France">France</option>
+                            <option value="Gabon">Gabon</option>
+                            <option value="Gambia">Gambia</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Greece">Greece</option>
+                            <option value="Grenada">Grenada</option>
+                            <option value="Guatemala">Guatemala</option>
+                            <option value="Guinea">Guinea</option>
+                            <option value="Guinea-Bissau">Guinea-Bissau</option>
+                            <option value="Guyana">Guyana</option>
+                            <option value="Haiti">Haiti</option>
+                            <option value="Honduras">Honduras</option>
+                            <option value="Hungary">Hungary</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="India">India</option>
+                            <option value="Indonesia">Indonesia</option>
+                            <option value="Iran">Iran</option>
+                            <option value="Iraq">Iraq</option>
+                            <option value="Ireland">Ireland</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Jamaica">Jamaica</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Jordan">Jordan</option>
+                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="Kiribati">Kiribati</option>
+                            <option value="Kosovo">Kosovo</option>
+                            <option value="Kuwait">Kuwait</option>
+                            <option value="Kyrgyzstan">Kyrgyzstan</option>
+                            <option value="Laos">Laos</option>
+                            <option value="Latvia">Latvia</option>
+                            <option value="Lebanon">Lebanon</option>
+                            <option value="Lesotho">Lesotho</option>
+                            <option value="Liberia">Liberia</option>
+                            <option value="Libya">Libya</option>
+                            <option value="Liechtenstein">Liechtenstein</option>
+                            <option value="Lithuania">Lithuania</option>
+                            <option value="Luxembourg">Luxembourg</option>
+                            <option value="Madagascar">Madagascar</option>
+                            <option value="Malawi">Malawi</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Maldives">Maldives</option>
+                            <option value="Mali">Mali</option>
+                            <option value="Malta">Malta</option>
+                            <option value="Marshall Islands">Marshall Islands</option>
+                            <option value="Mauritania">Mauritania</option>
+                            <option value="Mauritius">Mauritius</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Micronesia">Micronesia</option>
+                            <option value="Moldova">Moldova</option>
+                            <option value="Monaco">Monaco</option>
+                            <option value="Mongolia">Mongolia</option>
+                            <option value="Montenegro">Montenegro</option>
+                            <option value="Morocco">Morocco</option>
+                            <option value="Mozambique">Mozambique</option>
+                            <option value="Myanmar">Myanmar</option>
+                            <option value="Namibia">Namibia</option>
+                            <option value="Nauru">Nauru</option>
+                            <option value="Nepal">Nepal</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="New Zealand">New Zealand</option>
+                            <option value="Nicaragua">Nicaragua</option>
+                            <option value="Niger">Niger</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="North Korea">North Korea</option>
+                            <option value="North Macedonia">North Macedonia</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Oman">Oman</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="Palau">Palau</option>
+                            <option value="Palestine">Palestine</option>
+                            <option value="Panama">Panama</option>
+                            <option value="Papua New Guinea">Papua New Guinea</option>
+                            <option value="Paraguay">Paraguay</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Philippines">Philippines</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Portugal">Portugal</option>
+                            <option value="Qatar">Qatar</option>
+                            <option value="Romania">Romania</option>
+                            <option value="Russia">Russia</option>
+                            <option value="Rwanda">Rwanda</option>
+                            <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                            <option value="Saint Lucia">Saint Lucia</option>
+                            <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+                            <option value="Samoa">Samoa</option>
+                            <option value="San Marino">San Marino</option>
+                            <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Senegal">Senegal</option>
+                            <option value="Serbia">Serbia</option>
+                            <option value="Seychelles">Seychelles</option>
+                            <option value="Sierra Leone">Sierra Leone</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Slovakia">Slovakia</option>
+                            <option value="Slovenia">Slovenia</option>
+                            <option value="Solomon Islands">Solomon Islands</option>
+                            <option value="Somalia">Somalia</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="South Sudan">South Sudan</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Sri Lanka">Sri Lanka</option>
+                            <option value="Sudan">Sudan</option>
+                            <option value="Suriname">Suriname</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Syria">Syria</option>
+                            <option value="Taiwan">Taiwan</option>
+                            <option value="Tajikistan">Tajikistan</option>
+                            <option value="Tanzania">Tanzania</option>
+                            <option value="Thailand">Thailand</option>
+                            <option value="Timor-Leste">Timor-Leste</option>
+                            <option value="Togo">Togo</option>
+                            <option value="Tonga">Tonga</option>
+                            <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                            <option value="Tunisia">Tunisia</option>
+                            <option value="Turkey">Turkey</option>
+                            <option value="Turkmenistan">Turkmenistan</option>
+                            <option value="Tuvalu">Tuvalu</option>
+                            <option value="Uganda">Uganda</option>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="United States">United States</option>
+                            <option value="Uruguay">Uruguay</option>
+                            <option value="Uzbekistan">Uzbekistan</option>
+                            <option value="Vanuatu">Vanuatu</option>
+                            <option value="Vatican City">Vatican City</option>
+                            <option value="Venezuela">Venezuela</option>
+                            <option value="Vietnam">Vietnam</option>
+                            <option value="Yemen">Yemen</option>
+                            <option value="Zambia">Zambia</option>
+                            <option value="Zimbabwe">Zimbabwe</option>
+                        </select>
+                        
                     </div>
                 </div>
 
-                <!-- SLIDE 3: Q02 Gender + Q03 Education -->
+                <!-- SLIDE 3: Q03 Gender + Q04 Education -->
                 <div class="swiper-slide">
                     <div class="slide-content"  tabindex="-1">
-                        <label class="question-label">2. מגדר</label>
+                        <label class="question-label">3. מגדר</label>
                         <div class="options">
-                            <div class="option"><input type="radio" id="q2a" name="Q02 Gender Identity" value="זכר" ><label for="q2a">גבר</label></div>
-                            <div class="option"><input type="radio" id="q2b" name="Q02 Gender Identity" value="נקבה"><label for="q2b">אישה</label></div>
-                            <div class="option"><input type="radio" id="q2c" name="Q02 Gender Identity" value="אחר"><label for="q2c">אחר</label></div>
-                            <div class="option"><input type="radio" id="q2d" name="Q02 Gender Identity" value="מעדיף לא לענות"><label for="q2d">מעדיף לא לענות</label></div>
+                            <div class="option"><input type="radio" id="q2a" name="Q03 Gender Identity" value="זכר" ><label for="q2a">גבר</label></div>
+                            <div class="option"><input type="radio" id="q2b" name="Q03 Gender Identity" value="נקבה"><label for="q2b">אישה</label></div>
+                            <div class="option"><input type="radio" id="q2c" name="Q03 Gender Identity" value="אחר"><label for="q2c">אחר</label></div>
+                            <div class="option"><input type="radio" id="q2d" name="Q03 Gender Identity" value="מעדיף לא לענות"><label for="q2d">מעדיף לא לענות</label></div>
                         </div>
                         <p></p>
 
-                        <label class="question-label">3. השכלה (ניתן לסמן יותר מאפשרות אחת)</label>
+                        <label class="question-label">4. השכלה (ניתן לסמן יותר מאפשרות אחת)</label>
                         <div class="options-group checkbox-other-group">
                             <!-- Note: All checkboxes have the same 'name' -->
                             <div class="option">
-                                <input type="checkbox" id="q3a" name="Q03 Education" value="תיכון">
+                                <input type="checkbox" id="q3a" name="Q04 Education" value="תיכון">
                                 <label for="q3a">תיכון</label>
                             </div>
                             <div class="option">
-                                <input type="checkbox" id="q3b" name="Q03 Education" value="במהלך תואר ראשון">
+                                <input type="checkbox" id="q3b" name="Q04 Education" value="במהלך תואר ראשון">
                                 <label for="q3b">במהלך תואר ראשון</label>
                             </div>
                             <div class="option">
-                                <input type="checkbox" id="q3c" name="Q03 Education" value="מכללה לסאונד / הפקה">
+                                <input type="checkbox" id="q3c" name="Q04 Education" value="מכללה לסאונד / הפקה">
                                 <label for="q3c">מכללה לסאונד / הפקה</label>
                             </div>
                             <div class="option">
-                                <input type="checkbox" id="q3d" name="Q03 Education" value="תואר ראשון ומעלה">
+                                <input type="checkbox" id="q3d" name="Q04 Education" value="תואר ראשון ומעלה">
                                 <label for="q3d">תואר ראשון ומעלה</label>
                             </div>
                                        
                             <!-- The "Other" Option for Checkboxes -->
                             <div class="option">
                                 <!-- NOTE: This checkbox's value will be dynamically set -->
-                                <input type="checkbox" id="q3e" name="Q03 Education" value="Other">
+                                <input type="checkbox" id="q3e" name="Q04 Education" value="Other">
                                 <label for="q3e">אחר:</label>
                                 <input type="text" id="q3e_text" class="other-text-input" placeholder="נא לפרט..." disabled>
                             </div>
@@ -99,33 +323,33 @@
                     </div>
                 </div>
 
-                <!-- SLIDE 4: Header Music and Programming Background + Q04 musical education -->
+                <!-- SLIDE 4: Header Music and Programming Background + Q05 musical education -->
                 <div class="swiper-slide">
                     <div class="slide-content"  tabindex="-1">
-                        <h2>רקע מוזיקלי ותוכנות</h2>
-                        <img src="/images/Programming_GIF.gif" alt="Programming GIF" class="question-image">
+                        <h2>חלק ב' - רקע מוזיקלי ותוכנות</h2>
+                        <img src="/images/Programming_GIF.gif" alt="Programming GIF" class="question-image" loading="lazy">
                         <p></p>
 
-                        <label class="question-label">4. חינוך מוזיקלי (ניתן לסמן יותר מאפשרות אחת)</label>
+                        <label class="question-label">5. חינוך מוזיקלי (ניתן לסמן יותר מאפשרות אחת)</label>
                         <div class="options-group checkbox-other-group">
                             <!-- Note: All checkboxes have the same 'name' -->
                             <div class="option">
-                                <input type="checkbox" id="q4a" name="Q04 Musical Education" value="לימודים בקונסרבטוריון">
+                                <input type="checkbox" id="q4a" name="Q05 Musical Education" value="לימודים בקונסרבטוריון">
                                 <label for="q4a">לימודים בקונסרבטוריון</label>
                             </div>
                             <div class="option">
-                                <input type="checkbox" id="q4b" name="Q04 Musical Education" value="מגמת מוזיקה בתיכון">
+                                <input type="checkbox" id="q4b" name="Q05 Musical Education" value="מגמת מוזיקה בתיכון">
                                 <label for="q4b">מגמת מוזיקה בתיכון</label>
                             </div>
                             <div class="option">
-                                <input type="checkbox" id="q4c" name="Q04 Musical Education" value="לימודי מוזיקה על תיכוניים (מכללה / אקדמיה)">
+                                <input type="checkbox" id="q4c" name="Q05 Musical Education" value="לימודי מוזיקה על תיכוניים (מכללה / אקדמיה)">
                                 <label for="q4c">לימודי מוזיקה על תיכוניים (מכללה / אקדמיה)</label>
                             </div>
                                                                    
                             <!-- The "Other" Option for Checkboxes -->
                             <div class="option">
                                 <!-- NOTE: This checkbox's value will be dynamically set -->
-                                <input type="checkbox" id="q4d" name="Q04 Musical Education" value="Other">
+                                <input type="checkbox" id="q4d" name="Q05 Musical Education" value="Other">
                                 <label for="q4d">אחר:</label>
                                 <input type="text" id="q4d_text" class="other-text-input" placeholder="נא לפרט..." disabled>
                             </div>
@@ -135,10 +359,10 @@
                     </div>
                 </div>
 
-                <!-- SLIDE 5 Q05 + Q06 + Q07 -->
+                <!-- SLIDE 5 Q06 + Q07 + Q08 -->
                 <div class="swiper-slide has-range-slider">
                     <div class="slide-content" tabindex="-1">
-                        <label for="q05_slider" class="question-label">5. האם מנגנ/ת בכלי נגינה?</label>
+                        <label for="q05_slider" class="question-label">6. האם מנגנ/ת בכלי נגינה?</label>
                         
                         <div class="range-slider-container">
                             <!-- The actual slider input -->
@@ -146,7 +370,7 @@
                             <input 
                                 type="range" 
                                 id="q05_slider"
-                                name="Q05 Play Instrument" 
+                                name="Q06 Play Instrument" 
                                 min="1" 
                                 max="5" 
                                 step="1" 
@@ -171,7 +395,7 @@
                             </div>
                         </div>
                         
-                        <label for="q06_slider" class="question-label">6. מה הרקע בהרמוניה ותיאוריה מוזיקלית?</label>
+                        <label for="q06_slider" class="question-label">7. מה הרקע בהרמוניה ותיאוריה מוזיקלית?</label>
                         
                         <div class="range-slider-container">
                             <!-- The actual slider input -->
@@ -179,7 +403,7 @@
                             <input 
                                 type="range" 
                                 id="q06_slider"
-                                name="Q06 Theory Background" 
+                                name="Q07 Theory Background" 
                                 min="1" 
                                 max="5" 
                                 step="1" 
@@ -204,7 +428,7 @@
                             </div>
                         </div>
 
-                        <label for="q07_slider" class="question-label">7. איך היית מדרג/ת את השליטה שלך בתוכנות מקצועיות ליצירת תוכן ?</label>
+                        <label for="q07_slider" class="question-label">8. איך היית מדרג/ת את השליטה שלך בתוכנות מקצועיות ליצירת תוכן ?</label>
                         
                         <div class="range-slider-container">
                             <!-- The actual slider input -->
@@ -212,7 +436,7 @@
                             <input 
                                 type="range" 
                                 id="q07_slider"
-                                name="Q07 Pro Apps Mastery" 
+                                name="Q08 Pro Apps Mastery" 
                                 min="1" 
                                 max="5" 
                                 step="1" 
@@ -240,45 +464,45 @@
                     </div>
                 </div>
 
-                <!-- SLIDE 6: Q08 DAW -->
+                <!-- SLIDE 6: Q09 DAW -->
                 <div class="swiper-slide">
                     <div class="slide-content"  tabindex="-1">
-                        <label class="question-label">8. מהי תוכנת ה-DAW העיקרית בה את/ה משתמש/ת?</label>
+                        <label class="question-label">9. מהי תוכנת ה-DAW העיקרית בה את/ה משתמש/ת?</label>
                         <div class="options-group radio-other-group">
-                            <div class="option"><input type="radio" id="q8a" name="Q08 DAW Preference" value="Ableton Live"><label for="q8a">Ableton Live</label></div>
-                            <div class="option"><input type="radio" id="q8b" name="Q08 DAW Preference" value="FL Studio"><label for="q8b">FL Studio</label></div>
-                            <div class="option"><input type="radio" id="q8c" name="Q08 DAW Preference" value="Cubase"><label for="q8c">Cubase</label></div>
-                            <div class="option"><input type="radio" id="q8d" name="Q08 DAW Preference" value="Logic Pro"><label for="q8d">Logic Pro</label></div>
-                            <div class="option"><input type="radio" id="q8e" name="Q08 DAW Preference" value="Pro Tools"><label for="q8e">Pro Tools</label></div>
-                            <div class="option"><input type="radio" id="q8f" name="Q08 DAW Preference" value="Studio One"><label for="q8f">Studio One</label></div>
-                            <div class="option"><input type="radio" id="q8g" name="Q08 DAW Preference" value="GarageBand"><label for="q8g">GarageBand</label></div>
-                            <div class="option"><input type="radio" id="q8h" name="Q08 DAW Preference" value="Reaper"><label for="q8h">Reaper</label></div>
-                            <div class="option"><input type="radio" id="q8i" name="Q08 DAW Preference" value="Bitwig Studio"><label for="q8i">Bitwig Studio</label></div>
-                            <div class="option"><input type="radio" id="q8j" name="Q08 DAW Preference" value="Other"><label for="q8j">אחר:</label><input type="text" id="q8_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
+                            <div class="option"><input type="radio" id="q8a" name="Q09 DAW Preference" value="Ableton Live"><label for="q8a">Ableton Live</label></div>
+                            <div class="option"><input type="radio" id="q8b" name="Q09 DAW Preference" value="FL Studio"><label for="q8b">FL Studio</label></div>
+                            <div class="option"><input type="radio" id="q8c" name="Q09 DAW Preference" value="Cubase"><label for="q8c">Cubase</label></div>
+                            <div class="option"><input type="radio" id="q8d" name="Q09 DAW Preference" value="Logic Pro"><label for="q8d">Logic Pro</label></div>
+                            <div class="option"><input type="radio" id="q8e" name="Q09 DAW Preference" value="Pro Tools"><label for="q8e">Pro Tools</label></div>
+                            <div class="option"><input type="radio" id="q8f" name="Q09 DAW Preference" value="Studio One"><label for="q8f">Studio One</label></div>
+                            <div class="option"><input type="radio" id="q8g" name="Q09 DAW Preference" value="GarageBand"><label for="q8g">GarageBand</label></div>
+                            <div class="option"><input type="radio" id="q8h" name="Q09 DAW Preference" value="Reaper"><label for="q8h">Reaper</label></div>
+                            <div class="option"><input type="radio" id="q8i" name="Q09 DAW Preference" value="Bitwig Studio"><label for="q8i">Bitwig Studio</label></div>
+                            <div class="option"><input type="radio" id="q8j" name="Q09 DAW Preference" value="Other"><label for="q8j">אחר:</label><input type="text" id="q8_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SLIDE 7: Q09 Genre -->
+                <!-- SLIDE 7: Q10 Genre -->
                 <div class="swiper-slide">
                     <div class="slide-content"  tabindex="-1">
                         
-                        <label class="question-label">9. איזה סגנונות מוזיקליים את/ה מפיק/ה? (ניתן לסמן יותר מתשובה אחת)</label>
+                        <label class="question-label">10. איזה סגנונות מוזיקליים את/ה מפיק/ה? (ניתן לסמן יותר מתשובה אחת)</label>
                         <div class="options-group checkbox-other-group">
-                            <div class="option"><input type="checkbox" id="q9a" name="Q09 Musical Genre" value="Hiphop / Trap"><label for="q9a">Hiphop / Trap</label></div>
-                            <div class="option"><input type="checkbox" id="q9b" name="Q09 Musical Genre" value="Trance / Psy / Goa"><label for="q9b">Trance / Psy / Goa</label></div>
-                            <div class="option"><input type="checkbox" id="q9c" name="Q09 Musical Genre" value="Tech / House / Deep / Progressive"><label for="q9c">Tech / House / Deep / Progressive</label></div>
-                            <div class="option"><input type="checkbox" id="q9d" name="Q09 Musical Genre" value="DownTempo / Ambient / Neo Soul"><label for="q9d">DownTempo / Ambient / Neo Soul</label></div>
-                            <div class="option"><input type="checkbox" id="q9e" name="Q09 Musical Genre" value="Dubstep / Drum and Bass / Glitch"><label for="q9e">Dubstep / Drum and Bass / Glitch</label></div>
-                            <div class="option"><input type="checkbox" id="q9f" name="Q09 Musical Genre" value="פופ / רוק"><label for="q9f">פופ / רוק</label></div>
-                            <div class="option"><input type="checkbox" id="q9g" name="Q09 Musical Genre" value="פופ ים תיכוני"><label for="q9g">פופ ים תיכוני</label></div>
-                            <div class="option"><input type="checkbox" id="q9h" name="Q09 Musical Genre" value="מטאל / פרוג"><label for="q9h">מטאל / פרוג</label></div>
-                            <div class="option"><input type="checkbox" id="q9i" name="Q09 Musical Genre" value="מוזיקה לסרטים / תיאטרון"><label for="q9i">מוזיקה לסרטים / תיאטרון</label></div>
-                            <div class="option"><input type="checkbox" id="q9j" name="Q09 Musical Genre" value="אקוסטי / ג'אז / קלאסי"><label for="q9j">אקוסטי / ג'אז / קלאסי</label></div>
+                            <div class="option"><input type="checkbox" id="q9a" name="Q10 Musical Genre" value="Hiphop / Trap"><label for="q9a">Hiphop / Trap</label></div>
+                            <div class="option"><input type="checkbox" id="q9b" name="Q10 Musical Genre" value="Trance / Psy / Goa"><label for="q9b">Trance / Psy / Goa</label></div>
+                            <div class="option"><input type="checkbox" id="q9c" name="Q10 Musical Genre" value="Tech / House / Deep / Progressive"><label for="q9c">Tech / House / Deep / Progressive</label></div>
+                            <div class="option"><input type="checkbox" id="q9d" name="Q10 Musical Genre" value="DownTempo / Ambient / Neo Soul"><label for="q9d">DownTempo / Ambient / Neo Soul</label></div>
+                            <div class="option"><input type="checkbox" id="q9e" name="Q10 Musical Genre" value="Dubstep / Drum and Bass / Glitch"><label for="q9e">Dubstep / Drum and Bass / Glitch</label></div>
+                            <div class="option"><input type="checkbox" id="q9f" name="Q10 Musical Genre" value="פופ / רוק"><label for="q9f">פופ / רוק</label></div>
+                            <div class="option"><input type="checkbox" id="q9g" name="Q10 Musical Genre" value="פופ ים תיכוני"><label for="q9g">פופ ים תיכוני</label></div>
+                            <div class="option"><input type="checkbox" id="q9h" name="Q10 Musical Genre" value="מטאל / פרוג"><label for="q9h">מטאל / פרוג</label></div>
+                            <div class="option"><input type="checkbox" id="q9i" name="Q10 Musical Genre" value="מוזיקה לסרטים / תיאטרון"><label for="q9i">מוזיקה לסרטים / תיאטרון</label></div>
+                            <div class="option"><input type="checkbox" id="q9j" name="Q10 Musical Genre" value="אקוסטי / ג'אז / קלאסי"><label for="q9j">אקוסטי / ג'אז / קלאסי</label></div>
                             <!-- The "Other" Option for Checkboxes -->
                             <div class="option">
                                 <!-- NOTE: This checkbox's value will be dynamically set -->
-                                <input type="checkbox" id="q9k" name="Q09 Musical Genre" value="Other">
+                                <input type="checkbox" id="q9k" name="Q10 Musical Genre" value="Other">
                                 <label for="q9k">אחר:</label>
                                 <input type="text" id="q9_text" class="other-text-input" placeholder="נא לפרט..." disabled>
                             </div>
@@ -288,35 +512,35 @@
                     </div>
                 </div>
 
-                <!-- SLIDE 8: Q10 Experience + Q11 Start Age-->
+                <!-- SLIDE 8: Q11 Experience + Q12 Start Age-->
                 <div class="swiper-slide">
                     <div class="slide-content"  tabindex="-1">
-                        <label for="q10" class="question-label">10. כמה שנות נסיון יש לך בעבודה עם תוכנות DAW?</label>
-                        <input type="number" id="q10" name="Q10 DAW Experience" placeholder="מספר שנים" inputmode="numeric" min="1" max="100" enterkeyhint="next">
+                        <label for="q10" class="question-label">11. כמה שנות נסיון יש לך בעבודה עם תוכנות DAW?</label>
+                        <input type="number" id="q10" name="Q11 DAW Experience" placeholder="מספר שנים" inputmode="numeric" min="1" max="100" enterkeyhint="next">
                         <p></p>
-                        <label for="q11" class="question-label">11. באיזה גיל התחלת לעבוד עם תוכנות DAW?</label>
-                        <input type="number" id="q11" name="Q11 DAW Start Age" placeholder="גיל" inputmode="numeric" min="1" max="100" enterkeyhint="next">
+                        <label for="q11" class="question-label">12. באיזה גיל התחלת לעבוד עם תוכנות DAW?</label>
+                        <input type="number" id="q11" name="Q12 DAW Start Age" placeholder="גיל" inputmode="numeric" min="1" max="100" enterkeyhint="next">
                     </div>
                 </div>
 
-                <!-- SLIDE 9: Header Professional Status + Q12 Present -->
+                <!-- SLIDE 9: Header Professional Status + Q13 Present -->
                 <div class="swiper-slide">
                     <div class="slide-content"  tabindex="-1">
-                        <h2>מצב מקצועי</h2>
-                        <img src="/images/Professional_GIF.gif" alt="Professional gif" class="question-image">
+                        <h2>חלק ג' - מצב מקצועי</h2>
+                        <img src="/images/Professional_GIF.gif" alt="Professional gif" class="question-image" loading="lazy">
                         <p></p>
-                        <label for="q12" class="question-label">12. האם את/ה עוסק/ת בהפקה מוזיקלית בהווה?</label>
+                        <label for="q12" class="question-label">13. האם את/ה עוסק/ת בהפקה מוזיקלית בהווה?</label>
                         <div class="options">
-                            <div class="option"><input type="radio" id="q12a" name="Q12 Producer at Present" value="כן" required><label for="q12a">כן</label></div>
-                            <div class="option"><input type="radio" id="q12b" name="Q12 Producer at Present" value="לא"><label for="q12b">לא</label></div>
+                            <div class="option"><input type="radio" id="q12a" name="Q13 Producer at Present" value="כן" required><label for="q12a">כן</label></div>
+                            <div class="option"><input type="radio" id="q12b" name="Q13 Producer at Present" value="לא"><label for="q12b">לא</label></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SLIDE 10 Q13 + Q14 + Q15 -->
+                <!-- SLIDE 10 Q14 + Q15 + Q16 -->
                 <div class="swiper-slide has-range-slider">
                     <div class="slide-content" tabindex="-1">
-                        <label for="q13_slider" class="question-label">13. האם את/ה מתפרנס/ת מהפקה מוזיקלית?</label>
+                        <label for="q13_slider" class="question-label">14. האם את/ה מתפרנס/ת מהפקה מוזיקלית?</label>
                         
                         <div class="range-slider-container">
                             <!-- The actual slider input -->
@@ -324,7 +548,7 @@
                             <input 
                                 type="range" 
                                 id="q13_slider"
-                                name="Q13 Producer Livelihood" 
+                                name="Q14 Producer Livelihood" 
                                 min="1" 
                                 max="5" 
                                 step="1" 
@@ -349,14 +573,14 @@
                             </div>
                         </div>
                         
-                        <label for="q14" class="question-label">14. האם את/ה חתומ/ה בלייבל / חברת הפצה? </label>
+                        <label for="q14" class="question-label">15. האם את/ה חתומ/ה בלייבל / חברת הפצה? </label>
                         <div class="options">
-                            <div class="option"><input type="radio" id="q14a" name="Q14 Label Sign" value="כן" required><label for="q14a">כן</label></div>
-                            <div class="option"><input type="radio" id="q14b" name="Q14 Label Sign" value="לא"><label for="q14b">לא</label></div>
+                            <div class="option"><input type="radio" id="q14a" name="Q15 Label Sign" value="כן" required><label for="q14a">כן</label></div>
+                            <div class="option"><input type="radio" id="q14b" name="Q15 Label Sign" value="לא"><label for="q14b">לא</label></div>
                         </div>
                         <p></p>
 
-                        <label for="q15_slider" class="question-label">15. האם הקטעים שלך זכו להרבה השמעות במצטבר?</label>
+                        <label for="q15_slider" class="question-label">16. האם הקטעים שלך זכו להרבה השמעות במצטבר?</label>
                         
                         <div class="range-slider-container">
                             <!-- The actual slider input -->
@@ -364,7 +588,7 @@
                             <input 
                                 type="range" 
                                 id="q15_slider"
-                                name="Q15 Total Streams" 
+                                name="Q16 Total Streams" 
                                 min="1" 
                                 max="5" 
                                 step="1" 
@@ -392,51 +616,51 @@
                     </div>
                 </div>
 
-                <!-- SLIDE 11: Q16 + Q17 -->
+                <!-- SLIDE 11: Q17 + Q18 -->
                 <div class="swiper-slide">
                     <div class="slide-content"  tabindex="-1">
-                        <label class="question-label">16. מה מתאר אותך בצורה הטובה ביותר?</label>
+                        <label class="question-label">17. מה מתאר אותך בצורה הטובה ביותר?</label>
                         <div class="options-group radio-other-group">
-                            <div class="option"><input type="radio" id="q16a" name="Q16 Role Description" value="יוצר/ת סקיצות ומישהו מפיק עבורי"><label for="q16a">יוצר/ת סקיצות ומישהו מפיק עבורי</label></div>
-                            <div class="option"><input type="radio" id="q16b" name="Q16 Role Description" value="מפיק/ה מוזיקה מקורית"><label for="q16b">מפיק/ה מוזיקה מקורית</label></div>
-                            <div class="option"><input type="radio" id="q16c" name="Q16 Role Description" value="מפיק/ה מוזיקה עבור אחרים"><label for="q16c">מפיק/ה מוזיקה עבור אחרים</label></div>
-                            <div class="option"><input type="radio" id="q16d" name="Q16 Role Description" value="נגנ/ית"><label for="q16d">נגנ/ית</label></div>
-                            <div class="option"><input type="radio" id="q16e" name="Q16 Role Description" value="סאונד מיקס ומאסטרינג"><label for="q16e">סאונד מיקס ומאסטרינג</label></div>
-                            <div class="option"><input type="radio" id="q16f" name="Q16 Role Description" value="דיג'יי"><label for="q16f">דיג'יי</label></div>
-                            <div class="option"><input type="radio" id="q16j" name="Q16 Role Description" value="Other"><label for="q16j">אחר:</label><input type="text" id="q16_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
+                            <div class="option"><input type="radio" id="q16a" name="Q17 Role Description" value="יוצר/ת סקיצות ומישהו מפיק עבורי"><label for="q16a">יוצר/ת סקיצות ומישהו מפיק עבורי</label></div>
+                            <div class="option"><input type="radio" id="q16b" name="Q17 Role Description" value="מפיק/ה מוזיקה מקורית"><label for="q16b">מפיק/ה מוזיקה מקורית</label></div>
+                            <div class="option"><input type="radio" id="q16c" name="Q17 Role Description" value="מפיק/ה מוזיקה עבור אחרים"><label for="q16c">מפיק/ה מוזיקה עבור אחרים</label></div>
+                            <div class="option"><input type="radio" id="q16d" name="Q17 Role Description" value="נגנ/ית"><label for="q16d">נגנ/ית</label></div>
+                            <div class="option"><input type="radio" id="q16e" name="Q17 Role Description" value="סאונד מיקס ומאסטרינג"><label for="q16e">סאונד מיקס ומאסטרינג</label></div>
+                            <div class="option"><input type="radio" id="q16f" name="Q17 Role Description" value="דיג'יי"><label for="q16f">דיג'יי</label></div>
+                            <div class="option"><input type="radio" id="q16j" name="Q17 Role Description" value="Other"><label for="q16j">אחר:</label><input type="text" id="q16_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
                         </div>
                         <p></p>
 
-                        <label class="question-label">17. מה הכי מאפיין את תהליך העבודה שלך?</label>
+                        <label class="question-label">18. מה הכי מאפיין את תהליך העבודה שלך?</label>
                         <div class="options-group radio-other-group">
-                            <div class="option"><input type="radio" id="q17a" name="Q17 WorkFlow" value="הרבה דגימות ולופים"><label for="q17a">הרבה דגימות ולופים</label></div>
-                            <div class="option"><input type="radio" id="q17b" name="Q17 WorkFlow" value="מתכנת מידי"><label for="q17b">מתכנת מידי</label></div>
-                            <div class="option"><input type="radio" id="q17c" name="Q17 WorkFlow" value="מנגן מקליט ועורך"><label for="q17c">מנגן מקליט ועורך</label></div>
-                            <div class="option"><input type="radio" id="q17d" name="Q17 WorkFlow" value="פרומפטים ב-AI"><label for="q17d">פרומפטים ב-AI</label></div>
-                            <div class="option"><input type="radio" id="q17j" name="Q17 WorkFlow" value="Other"><label for="q17j">אחר:</label><input type="text" id="q17_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
+                            <div class="option"><input type="radio" id="q17a" name="Q18 WorkFlow" value="הרבה דגימות ולופים"><label for="q17a">הרבה דגימות ולופים</label></div>
+                            <div class="option"><input type="radio" id="q17b" name="Q18 WorkFlow" value="מתכנת מידי"><label for="q17b">מתכנת מידי</label></div>
+                            <div class="option"><input type="radio" id="q17c" name="Q18 WorkFlow" value="מנגן מקליט ועורך"><label for="q17c">מנגן מקליט ועורך</label></div>
+                            <div class="option"><input type="radio" id="q17d" name="Q18 WorkFlow" value="פרומפטים ב-AI"><label for="q17d">פרומפטים ב-AI</label></div>
+                            <div class="option"><input type="radio" id="q17j" name="Q18 WorkFlow" value="Other"><label for="q17j">אחר:</label><input type="text" id="q17_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
                         </div>
                     </div>
                 </div>
 
 
-                <!-- SLIDE 12: Q18 + Q19 + Q20 -->
+                <!-- SLIDE 12: Q19 + Q20 + Q21 -->
                 <div class="swiper-slide">
                     <div class="slide-content"  tabindex="-1">
                         
-                        <label class="question-label">18. מה בדרך כלל מניע את התחלת תהליך היצירה שלך? (ניתן לסמן יותר מתשובה אחת)</label>
+                        <label class="question-label">19. מה בדרך כלל מניע את התחלת תהליך היצירה שלך? (ניתן לסמן יותר מתשובה אחת)</label>
                         <div class="options-group checkbox-other-group">
-                            <div class="option"><input type="checkbox" id="q18a" name="Q18 Creativity Initiation" value="סימפול מלודי"><label for="q18a">סימפול מלודי</label></div>
-                            <div class="option"><input type="checkbox" id="q18b" name="Q18 Creativity Initiation" value="ביט"><label for="q18b">ביט</label></div>
-                            <div class="option"><input type="checkbox" id="q18c" name="Q18 Creativity Initiation" value="סאונד בסינתי"><label for="q18c">סאונד בסינתי</label></div>
-                            <div class="option"><input type="checkbox" id="q18d" name="Q18 Creativity Initiation" value="טקסט"><label for="q18d">טקסט</label></div>
-                            <div class="option"><input type="checkbox" id="q18e" name="Q18 Creativity Initiation" value="לחן"><label for="q18e">לחן</label></div>
-                            <div class="option"><input type="checkbox" id="q18f" name="Q18 Creativity Initiation" value="מהלך הרמוני"><label for="q18f">מהלך הרמוני</label></div>
-                            <div class="option"><input type="checkbox" id="q18g" name="Q18 Creativity Initiation" value="ג'אם עד שיוצא משהו"><label for="q18g">ג'אם עד שיוצא משהו</label></div>
+                            <div class="option"><input type="checkbox" id="q18a" name="Q19 Creativity Initiation" value="סימפול מלודי"><label for="q18a">סימפול מלודי</label></div>
+                            <div class="option"><input type="checkbox" id="q18b" name="Q19 Creativity Initiation" value="ביט"><label for="q18b">ביט</label></div>
+                            <div class="option"><input type="checkbox" id="q18c" name="Q19 Creativity Initiation" value="סאונד בסינתי"><label for="q18c">סאונד בסינתי</label></div>
+                            <div class="option"><input type="checkbox" id="q18d" name="Q19 Creativity Initiation" value="טקסט"><label for="q18d">טקסט</label></div>
+                            <div class="option"><input type="checkbox" id="q18e" name="Q19 Creativity Initiation" value="לחן"><label for="q18e">לחן</label></div>
+                            <div class="option"><input type="checkbox" id="q18f" name="Q19 Creativity Initiation" value="מהלך הרמוני"><label for="q18f">מהלך הרמוני</label></div>
+                            <div class="option"><input type="checkbox" id="q18g" name="Q19 Creativity Initiation" value="ג'אם עד שיוצא משהו"><label for="q18g">ג'אם עד שיוצא משהו</label></div>
                             
                             <!-- The "Other" Option for Checkboxes -->
                             <div class="option">
                                 <!-- NOTE: This checkbox's value will be dynamically set -->
-                                <input type="checkbox" id="q18k" name="Q18 Creativity Initiation" value="Other">
+                                <input type="checkbox" id="q18k" name="Q19 Creativity Initiation" value="Other">
                                 <label for="q18k">אחר:</label>
                                 <input type="text" id="q18_text" class="other-text-input" placeholder="נא לפרט..." disabled>
                             </div>
@@ -446,10 +670,10 @@
                     </div>
                 </div>
                 
-                <!-- SLIDE 13 Q19 + Q20  -->
+                <!-- SLIDE 13 Q20 + Q21  -->
                 <div class="swiper-slide has-range-slider">
                     <div class="slide-content" tabindex="-1">
-                        <label for="q19_slider" class="question-label">19. האם יש לך נסיון בתכנות (מחשבים)?</label>
+                        <label for="q19_slider" class="question-label">20. האם יש לך נסיון בתכנות (מחשבים)?</label>
                         
                         <div class="range-slider-container">
                             <!-- The actual slider input -->
@@ -457,7 +681,7 @@
                             <input 
                                 type="range" 
                                 id="q19_slider"
-                                name="Q19 Programming Experience" 
+                                name="Q20 Programming Experience" 
                                 min="1" 
                                 max="5" 
                                 step="1" 
@@ -483,37 +707,43 @@
                         </div>
                         <p></p>
 
-                        <label class="question-label">20. PC / Mac ?</label>
+                        <label class="question-label">21. PC / Mac ?</label>
                         <div class="options-group radio-other-group">
-                            <div class="option"><input type="radio" id="q20a" name="Q20 PC Mac" value="פיסי"><label for="q20a">פיסי</label></div>
-                            <div class="option"><input type="radio" id="q20b" name="Q20 PC Mac" value="מק"><label for="q20b">מק</label></div>
-                            <div class="option"><input type="radio" id="q20c" name="Q20 PC Mac" value="שניהם"><label for="q20c">שניהם</label></div>
+                            <div class="option"><input type="radio" id="q20a" name="Q21 PC Mac" value="פיסי"><label for="q20a">פיסי</label></div>
+                            <div class="option"><input type="radio" id="q20b" name="Q21 PC Mac" value="מק"><label for="q20b">מק</label></div>
+                            <div class="option"><input type="radio" id="q20c" name="Q21 PC Mac" value="שניהם"><label for="q20c">שניהם</label></div>
                             
-                            <div class="option"><input type="radio" id="q20j" name="Q20 PC Mac" value="Other"><label for="q20j">אחר:</label><input type="text" id="q20_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
+                            <div class="option"><input type="radio" id="q20j" name="Q21 PC Mac" value="Other"><label for="q20j">אחר:</label><input type="text" id="q20_radio_other_text" class="other-text-input hidden" placeholder="נא לפרט..."></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SLIDE 14: Read-Only Example Question -->
+                <!-- SLIDE 14: Read-Only Example Instructions -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
-                        <h2>שאלות חשיבה חישובית אבחונית</h2>
+                        <h2>חלק ד' - שאלות חשיבה חישובית</h2>
+                        <img src="/images/Bebras_GIF.gif" alt="Bebras GIF" class="question-image" loading="lazy">
                         <h3>הוראות:</h3>
                         <p>לעשר השאלות הבאות יש 4 תשובות אפשריות, מהן רק אחת נכונה. אם אינך יודע/ת את התשובה לשאלה, הזן/הזיני את הניחוש הטוב ביותר שלך.</p>
                         <p> ניתן ללחוץ על התמונה המרכזית, וכל אחת מהתשובות, כדי להגדיל אותן, ולדפדף ביניהן.</p>
-                        <p>לפני שנתחיל בחלק זה, אנו מציגים לך דוגמה כדי שתוכל/י להכיר את סוג השאלות שיוצגו בהמשך.</p>
-                        <!-- 1. The Question Label with a Clickable Image and Inline Icons -->
-                        <label class="question-label">שאלה לדוגמה:</label>
+                    </div>
+                </div>
+
+                <!-- SLIDE 15: Read-Only Example Question -->
+                <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <h3>שאלה לדוגמה</h3>
+                        <p>לפני שנתחיל בחלק זה, אנו מציגים לך דוגמה כדי שתוכל/י להכיר את סוג השאלות שיוצגו בהמשך. <strong>שימ/י לב, התשובה הנכונה כבר מסומנת בדוגמה הזו.</strong></p>
                         <p> בדוגמה הבאה אתה נשאל אחרי אילו הוראות פקמן  
-                            <img src="/images/PacMan.png" alt="פקמן" class="inline-icon">
+                            <img src="/images/PacMan.png" alt="פקמן" class="inline-icon" loading="lazy">
                             צריך לעקוב כדי להגיע לרוח הרפאים 
-                            <img src="/images/Ghost.png" alt="רוח הרפאים" class="inline-icon">.</p>
+                            <img src="/images/Ghost.png" alt="רוח הרפאים" class="inline-icon" loading="lazy">.</p>
                         <p>ההוראה                               
-                            <img src="/images/move forward.png" alt="move forward" class="inline-icon"> 
+                            <img src="/images/move forward.png" alt="move forward" class="inline-icon" loading="lazy"> 
                             מציינת שפקמן צריך לצעוד צעד אחד בכיוון שאליו הוא פונה כרגע.<br>
                             פקמן יכול לפנות ימינה, שמאלה, למעלה או למטה. כרגע פקמן נמצא במשבצת A1 על גבי הלוח.</p>
                             <a href="/images/example grid.png" data-fancybox="example-gallery" data-caption="הלוח של השאלה">
-                            <img src="/images/example grid.png" alt="תמונה ראשית לדוגמה" class="question-image">
+                            <img src="/images/example grid.png" alt="תמונה ראשית לדוגמה" class="question-image" loading="lazy">
                             </a>
                         <p>אילו הוראות תיתן לפקמן כדי שיגיע לרוח הרפאים שבמשבצת C3?<br>
                         בחר את התשובה הנכונה (בדוגמה זו התשובה הנכונה היא 3).</p>
@@ -528,7 +758,7 @@
                                 <label>
                                     <span class="answer-number">1</span>
                                     <a href="/images/example A.png" data-fancybox="example-gallery" data-caption="תשובה 1">
-                                        <img src="/images/example A.png" alt="תשובה 1" class="question-image">
+                                        <img src="/images/example A.png" alt="תשובה 1" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
@@ -540,7 +770,7 @@
                                 <label>
                                     <span class="answer-number">2</span>
                                     <a href="/images/example B.png" data-fancybox="example-gallery" data-caption="תשובה 2">
-                                        <img src="/images/example B.png" alt="תשובה 2" class="question-image">
+                                        <img src="/images/example B.png" alt="תשובה 2" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
@@ -552,7 +782,7 @@
                                 <label>
                                     <span class="answer-number">3</span>
                                     <a href="/images/example C.png" data-fancybox="example-gallery" data-caption="תשובה 3 (נכונה)">
-                                        <img src="/images/example C.png" alt="תשובה 3" class="question-image">
+                                        <img src="/images/example C.png" alt="תשובה 3" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
@@ -564,7 +794,7 @@
                                 <label>
                                     <span class="answer-number">4</span>
                                     <a href="/images/example D.png" data-fancybox="example-gallery" data-caption="תשובה 4">
-                                        <img src="/images/example D.png" alt="תשובה 4" class="question-image">
+                                        <img src="/images/example D.png" alt="תשובה 4" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
@@ -573,53 +803,53 @@
                     </div>
                 </div>
 
-                <!-- SLIDE 15: Q21 -->
+                <!-- SLIDE 15: Q22 -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
-                        <label class="question-label">שאלה 21:</label>
+                        <label class="question-label">שאלה 22:</label>
                         <p>פקמן מתחיל במשבצת A5 על גבי הלוח.<br>
                         אילו הוראות תיתן לפקמן כדי שיגיע לרוח הרפאים שבמשבצת A1?</p>
                         <p>לא לשכוח לסמן את התשובה הנכונה בסיום !</p>
                         <a href="/images/CTt1_main.png" data-fancybox="q21-gallery" data-caption="הלוח של השאלה">
-                            <img src="/images/CTt1_main.png" alt="CTt1_main" class="question-image">
+                            <img src="/images/CTt1_main.png" alt="CTt1_main" class="question-image" loading="lazy">
                         </a>
                         <div class="options image-answer-options">
                             <div class="option">
-                                <input type="radio" id="q21a" name="Q21 CTt1" value="1">
+                                <input type="radio" id="q21a" name="Q22 CTt1" value="1">
                                 <label for="q21a">
                                     <span class="answer-number">1</span>
                                     <a href="/images/CTt1_a.png" data-fancybox="q21-gallery" data-caption="תשובה 1">
-                                        <img src="/images/CTt1_a.png" class="question-image">
+                                        <img src="/images/CTt1_a.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
 
                             <div class="option">
-                                <input type="radio" id="q21b" name="Q21 CTt1" value="2">
+                                <input type="radio" id="q21b" name="Q22 CTt1" value="2">
                                 <label for="q21b">
                                     <span class="answer-number">2</span>
                                     <a href="/images/CTt1_b.png" data-fancybox="q21-gallery" data-caption="תשובה 2">
-                                        <img src="/images/CTt1_b.png" class="question-image">
+                                        <img src="/images/CTt1_b.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
 
                             <div class="option">
-                                <input type="radio" id="q21c" name="Q21 CTt1" value="3">
+                                <input type="radio" id="q21c" name="Q22 CTt1" value="3">
                                 <label for="q21c">
                                     <span class="answer-number">3</span>
                                     <a href="/images/CTt1_c.png" data-fancybox="q21-gallery" data-caption="תשובה 3">
-                                        <img src="/images/CTt1_c.png" class="question-image">
+                                        <img src="/images/CTt1_c.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
                             
                             <div class="option">
-                                <input type="radio" id="q21d" name="Q21 CTt1" value="4">
+                                <input type="radio" id="q21d" name="Q22 CTt1" value="4">
                                 <label for="q21d">
                                     <span class="answer-number">4</span>
                                     <a href="/images/CTt1_d.png" data-fancybox="q21-gallery" data-caption="תשובה 4">
-                                        <img src="/images/CTt1_d.png" class="question-image">
+                                        <img src="/images/CTt1_d.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
@@ -627,71 +857,71 @@
                     </div>
                 </div>
 
-                 <!-- SLIDE 16: Q22 -->
+                 <!-- SLIDE 16: Q23 -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
-                        <label class="question-label">שאלה 22:</label>
+                        <label class="question-label">שאלה 23:</label>
                         <p>ההנחיות למטה אמורות להנחות את העיפרון לצייר ריבוע בפעם אחת.<br>
                         העיפרון מתחיל בפינה השמאלית העליונה ופונה לכיוון שמראה החץ.</p>
                         <p>לולאת ה-repeat מציינת שכל מה שכלול בתוכה צריך לחזור כמספר הפעמים המצויין ליד המילה (במקרה זה 4).<br>
                         מה הטעות שבהנחיות?</p>
                         <a href="/images/CTt2_main.png" data-fancybox="q22-gallery" data-caption="השאלה עם הנחיות שגויות">
-                            <img src="/images/CTt2_main.png" alt="CTt1_main" class="question-image">
+                            <img src="/images/CTt2_main.png" alt="CTt1_main" class="question-image" loading="lazy">
                         </a>
                         <div class="options">
-                            <div class="option"><input type="radio" id="q22a" name="Q22 CTt2" value="לולאת ה-repeat צריכה לחזור פעמיים." ><label for="q22a">לולאת ה-repeat צריכה לחזור פעמיים.</label></div>
-                            <div class="option"><input type="radio" id="q22b" name="Q22 CTt2" value="לבנת ה-move צריכה להיות מחוץ ללולאה."><label for="q22b">לבנת ה-move צריכה להיות מחוץ ללולאה.</label></div>
-                            <div class="option"><input type="radio" id="q22c" name="Q22 CTt2" value="לבנת ה-turn right צריכה להיות בתוך הלולאה, אחרי לבנת ה move."><label for="q22c">לבנת ה-turn right צריכה להיות בתוך הלולאה, אחרי לבנת ה move.</label></div>
-                            <div class="option"><input type="radio" id="q22d" name="Q22 CTt2" value="לבנת ה-turn right צריכה להיות בתוך הלולאה, לפני לבנת ה-move."><label for="q22d">לבנת ה-turn right צריכה להיות בתוך הלולאה, לפני לבנת ה-move.</label></div>
+                            <div class="option"><input type="radio" id="q22a" name="Q23 CTt2" value="לולאת ה-repeat צריכה לחזור פעמיים." ><label for="q22a">לולאת ה-repeat צריכה לחזור פעמיים.</label></div>
+                            <div class="option"><input type="radio" id="q22b" name="Q23 CTt2" value="לבנת ה-move צריכה להיות מחוץ ללולאה."><label for="q22b">לבנת ה-move צריכה להיות מחוץ ללולאה.</label></div>
+                            <div class="option"><input type="radio" id="q22c" name="Q23 CTt2" value="לבנת ה-turn right צריכה להיות בתוך הלולאה, אחרי לבנת ה move."><label for="q22c">לבנת ה-turn right צריכה להיות בתוך הלולאה, אחרי לבנת ה move.</label></div>
+                            <div class="option"><input type="radio" id="q22d" name="Q23 CTt2" value="לבנת ה-turn right צריכה להיות בתוך הלולאה, לפני לבנת ה-move."><label for="q22d">לבנת ה-turn right צריכה להיות בתוך הלולאה, לפני לבנת ה-move.</label></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SLIDE 17: Q23 -->
+                <!-- SLIDE 17: Q24 -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
-                        <label class="question-label">שאלה 23:</label>
+                        <label class="question-label">שאלה 24:</label>
                         <p>אילו הנחיות יש לתת לפקמן (B6) על מנת שיגיע לרוח הרפאים (B4) לפי המסלול המתואר?</p>
                         <a href="/images/CTt3_main.png" data-fancybox="q23-gallery" data-caption="הלוח של השאלה">
-                            <img src="/images/CTt3_main.png" alt="CTt3_main" class="question-image">
+                            <img src="/images/CTt3_main.png" alt="CTt3_main" class="question-image" loading="lazy">
                         </a>
                         <div class="options image-answer-options">
                             <div class="option">
-                                <input type="radio" id="q23a" name="Q23 CTt3" value="1">
+                                <input type="radio" id="q23a" name="Q24 CTt3" value="1">
                                 <label for="q23a">
                                     <span class="answer-number">1</span>
                                     <a href="/images/CTt3_a.png" data-fancybox="q23-gallery" data-caption="תשובה 1">
-                                        <img src="/images/CTt3_a.png" class="question-image">
+                                        <img src="/images/CTt3_a.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
 
                             <div class="option">
-                                <input type="radio" id="q23b" name="Q23 CTt3" value="2">
+                                <input type="radio" id="q23b" name="Q24 CTt3" value="2">
                                 <label for="q23b">
                                     <span class="answer-number">2</span>
                                     <a href="/images/CTt3_b.png" data-fancybox="q23-gallery" data-caption="תשובה 2">
-                                        <img src="/images/CTt3_b.png" class="question-image">
+                                        <img src="/images/CTt3_b.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
 
                             <div class="option">
-                                <input type="radio" id="q23c" name="Q23 CTt3" value="3">
+                                <input type="radio" id="q23c" name="Q24 CTt3" value="3">
                                 <label for="q23c">
                                     <span class="answer-number">3</span>
                                     <a href="/images/CTt3_c.png" data-fancybox="q23-gallery" data-caption="תשובה 3">
-                                        <img src="/images/CTt3_c.png" class="question-image">
+                                        <img src="/images/CTt3_c.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
                             
                             <div class="option">
-                                <input type="radio" id="q23d" name="Q23 CTt3" value="4">
+                                <input type="radio" id="q23d" name="Q24 CTt3" value="4">
                                 <label for="q23d">
                                     <span class="answer-number">4</span>
                                     <a href="/images/CTt3_d.png" data-fancybox="q23-gallery" data-caption="תשובה 4">
-                                        <img src="/images/CTt3_d.png" class="question-image">
+                                        <img src="/images/CTt3_d.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
@@ -699,54 +929,54 @@
                     </div>
                 </div>
 
-                <!-- SLIDE 18: Q24 -->
+                <!-- SLIDE 18: Q25 -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
-                        <label class="question-label">שאלה 24:</label>
+                        <label class="question-label">שאלה 25:</label>
                         <p>מכונית נמצאת במשבצת A2 ופונה לכיוון ימין, כפי שמראה החץ הלבן על גג המכונית. המכונית לא יכולה לעבור דרך סלע או לעמוד במקום בו נמצא סלע.</p>
                         <p>אילו הנחיות יקחו את המכונית באופן נכון אל דוגמת הפסים במשבצת B1?</p>
                         <p>לולאת ה- if-then-else מציינת תנאי לפיו מתבצעת הפקודה.<br>
                         מסלול פנוי מימין = path to the right</p>
                         <a href="/images/CTt4_main.png" data-fancybox="q24-gallery" data-caption="הלוח של השאלה">
-                            <img src="/images/CTt4_main.png" alt="CTt4_main" class="question-image">
+                            <img src="/images/CTt4_main.png" alt="CTt4_main" class="question-image" loading="lazy">
                         </a>
                         <div class="options image-answer-options">
                             <div class="option">
-                                <input type="radio" id="q24a" name="Q24 CTt4" value="1">
+                                <input type="radio" id="q24a" name="Q25 CTt4" value="1">
                                 <label for="q24a">
                                     <span class="answer-number">1</span>
                                     <a href="/images/CTt4_a.png" data-fancybox="q24-gallery" data-caption="תשובה 1">
-                                        <img src="/images/CTt4_a.png" class="question-image">
+                                        <img src="/images/CTt4_a.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
 
                             <div class="option">
-                                <input type="radio" id="q24b" name="Q24 CTt4" value="2">
+                                <input type="radio" id="q24b" name="Q25 CTt4" value="2">
                                 <label for="q24b">
                                     <span class="answer-number">2</span>
                                     <a href="/images/CTt4_b.png" data-fancybox="q24-gallery" data-caption="תשובה 2">
-                                        <img src="/images/CTt4_b.png" class="question-image">
+                                        <img src="/images/CTt4_b.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
 
                             <div class="option">
-                                <input type="radio" id="q24c" name="Q24 CTt4" value="3">
+                                <input type="radio" id="q24c" name="Q25 CTt4" value="3">
                                 <label for="q24c">
                                     <span class="answer-number">3</span>
                                     <a href="/images/CTt4_c.png" data-fancybox="q24-gallery" data-caption="תשובה 3">
-                                        <img src="/images/CTt4_c.png" class="question-image">
+                                        <img src="/images/CTt4_c.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
                             
                             <div class="option">
-                                <input type="radio" id="q24d" name="Q24 CTt4" value="4">
+                                <input type="radio" id="q24d" name="Q25 CTt4" value="4">
                                 <label for="q24d">
                                     <span class="answer-number">4</span>
                                     <a href="/images/CTt4_d.png" data-fancybox="q24-gallery" data-caption="תשובה 4">
-                                        <img src="/images/CTt4_d.png" class="question-image">
+                                        <img src="/images/CTt4_d.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
@@ -755,54 +985,54 @@
                 </div>
                 
                 
-                <!-- SLIDE 19: Q25 -->
+                <!-- SLIDE 19: Q26 -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
-                        <label class="question-label">שאלה 25:</label>
+                        <label class="question-label">שאלה 26:</label>
                         <p>מכונית מתחילה במשבצת F1 ופונה לכיוון שמאל, כפי שמראה החץ על גג המכונית.<br>
                         המכונית לא יכולה לעבור דרך סלע, או לעמוד במיקום בו נמצא סלע.</p>
                         <p>אילו הנחיות יקחו את המכונית באופן נכון אל דוגמת הפסים במשבצת F7 במסלול המתואר בקו ירוק?</p>
                         
                         <a href="/images/CTt5_main.png" data-fancybox="q25-gallery" data-caption="הלוח של השאלה">
-                            <img src="/images/CTt5_main.png" alt="CTt5_main" class="question-image">
+                            <img src="/images/CTt5_main.png" alt="CTt5_main" class="question-image" loading="lazy">
                         </a>
                         <div class="options image-answer-options">
                             <div class="option">
-                                <input type="radio" id="q25a" name="Q25 CTt5" value="1">
+                                <input type="radio" id="q25a" name="Q26 CTt5" value="1">
                                 <label for="q25a">
                                     <span class="answer-number">1</span>
                                     <a href="/images/CTt5_a.png" data-fancybox="q25-gallery" data-caption="תשובה 1">
-                                        <img src="/images/CTt5_a.png" class="question-image">
+                                        <img src="/images/CTt5_a.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
 
                             <div class="option">
-                                <input type="radio" id="q25b" name="Q25 CTt5" value="2">
+                                <input type="radio" id="q25b" name="Q26 CTt5" value="2">
                                 <label for="q25b">
                                     <span class="answer-number">2</span>
                                     <a href="/images/CTt5_b.png" data-fancybox="q25-gallery" data-caption="תשובה 2">
-                                        <img src="/images/CTt5_b.png" class="question-image">
+                                        <img src="/images/CTt5_b.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
 
                             <div class="option">
-                                <input type="radio" id="q25c" name="Q25 CTt5" value="3">
+                                <input type="radio" id="q25c" name="Q26 CTt5" value="3">
                                 <label for="q25c">
                                     <span class="answer-number">3</span>
                                     <a href="/images/CTt5_c.png" data-fancybox="q25-gallery" data-caption="תשובה 3">
-                                        <img src="/images/CTt5_c.png" class="question-image">
+                                        <img src="/images/CTt5_c.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
                             
                             <div class="option">
-                                <input type="radio" id="q25d" name="Q25 CTt5" value="4">
+                                <input type="radio" id="q25d" name="Q26 CTt5" value="4">
                                 <label for="q25d">
                                     <span class="answer-number">4</span>
                                     <a href="/images/CTt5_d.png" data-fancybox="q25-gallery" data-caption="תשובה 4">
-                                        <img src="/images/CTt5_d.png" class="question-image">
+                                        <img src="/images/CTt5_d.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
@@ -810,55 +1040,55 @@
                     </div>
                 </div>
 
-                <!-- SLIDE 20: Q26 -->
+                <!-- SLIDE 20: Q27 -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
-                        <label class="question-label">שאלה 26:</label>
+                        <label class="question-label">שאלה 27:</label>
                         <p>מכונית מתחילה במשבצת F2 ופונה לכיוון שמאל, כפי שמראה החץ על גג המכונית.<br>
                         המכונית לא יכולה לעבור דרך סלע, או לעמוד במיקום בו נמצא סלע.</p>
                         <p>אילו הנחיות יקחו את המכונית באופן נכון אל דוגמת הפסים במשבצת B5 במסלול המתואר בקו ירוק?</p>
                         <p>חזור עד שתגיע לדוגמת הפסים = repeat until</p>
                         
                         <a href="/images/CTt6_main.png" data-fancybox="q26-gallery" data-caption="הלוח של השאלה">
-                            <img src="/images/CTt6_main.png" alt="CTt6_main" class="question-image">
+                            <img src="/images/CTt6_main.png" alt="CTt6_main" class="question-image" loading="lazy">
                         </a>
                         <div class="options image-answer-options">
                             <div class="option">
-                                <input type="radio" id="q26a" name="Q26 CTt6" value="1">
+                                <input type="radio" id="q26a" name="Q27 CTt6" value="1">
                                 <label for="q26a">
                                     <span class="answer-number">1</span>
                                     <a href="/images/CTt6_a.png" data-fancybox="q26-gallery" data-caption="תשובה 1">
-                                        <img src="/images/CTt6_a.png" class="question-image">
+                                        <img src="/images/CTt6_a.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
 
                             <div class="option">
-                                <input type="radio" id="q26b" name="Q26 CTt6" value="2">
+                                <input type="radio" id="q26b" name="Q27 CTt6" value="2">
                                 <label for="q26b">
                                     <span class="answer-number">2</span>
                                     <a href="/images/CTt6_b.png" data-fancybox="q26-gallery" data-caption="תשובה 2">
-                                        <img src="/images/CTt6_b.png" class="question-image">
+                                        <img src="/images/CTt6_b.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
 
                             <div class="option">
-                                <input type="radio" id="q26c" name="Q26 CTt6" value="3">
+                                <input type="radio" id="q26c" name="Q27 CTt6" value="3">
                                 <label for="q26c">
                                     <span class="answer-number">3</span>
                                     <a href="/images/CTt6_c.png" data-fancybox="q26-gallery" data-caption="תשובה 3">
-                                        <img src="/images/CTt6_c.png" class="question-image">
+                                        <img src="/images/CTt6_c.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
                             
                             <div class="option">
-                                <input type="radio" id="q26d" name="Q26 CTt6" value="4">
+                                <input type="radio" id="q26d" name="Q27 CTt6" value="4">
                                 <label for="q26d">
                                     <span class="answer-number">4</span>
                                     <a href="/images/CTt6_d.png" data-fancybox="q26-gallery" data-caption="תשובה 4">
-                                        <img src="/images/CTt6_d.png" class="question-image">
+                                        <img src="/images/CTt6_d.png" class="question-image" loading="lazy">
                                     </a>
                                 </label>
                             </div>
@@ -866,284 +1096,98 @@
                     </div>
                 </div>
 
-                <!-- SLIDE 21: Q27 -->
+                <!-- SLIDE 21: Q28 -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
-                        <label class="question-label">שאלה 27:</label>
+                        <label class="question-label">שאלה 28:</label>
                         <p>ההנחיות הבאות אמורות להנחות את המכונית ממשבצת B1 אל דוגמת הפסים במשבצת A8 במסלול המתואר בקו ירוק.</p>
                         <p>רצף פקודות = Block Set</p>
                         <p>באיזה מרצפי הפקודות יש טעות?</p>
                         <a href="/images/CTt7_main.png" data-fancybox="q27-gallery" data-caption="הלוח של השאלה">
-                            <img src="/images/CTt7_main.png" alt="CTt1_main" class="question-image">
+                            <img src="/images/CTt7_main.png" alt="CTt1_main" class="question-image" loading="lazy">
                         </a>
                         <a href="/images/CTt7_main2.png" data-fancybox="q27-gallery" data-caption="חלק מרצפי הפקודות כאן שגויים">
-                            <img src="/images/CTt7_main2.png" alt="CTt1_main2" class="question-image">
+                            <img src="/images/CTt7_main2.png" alt="CTt1_main2" class="question-image" loading="lazy">
                         </a>
                         <div class="options">
-                            <div class="option"><input type="radio" id="q27a" name="Q27 CTt7" value="Block Set 1&2" ><label for="q27a">Block Set 1&2</label></div>
-                            <div class="option"><input type="radio" id="q27b" name="Q27 CTt7" value="Block Set 2&3"><label for="q27b">Block Set 2&3</label></div>
-                            <div class="option"><input type="radio" id="q27c" name="Q27 CTt7" value="Block Set 3&4"><label for="q27c">Block Set 3&4</label></div>
-                            <div class="option"><input type="radio" id="q27d" name="Q27 CTt7" value="Block Set 4 only"><label for="q27d">Block Set 4 only</label></div>
+                            <div class="option"><input type="radio" id="q27a" name="Q28 CTt7" value="Block Set 1&2" ><label for="q27a">Block Set 1&2</label></div>
+                            <div class="option"><input type="radio" id="q27b" name="Q28 CTt7" value="Block Set 2&3"><label for="q27b">Block Set 2&3</label></div>
+                            <div class="option"><input type="radio" id="q27c" name="Q28 CTt7" value="Block Set 3&4"><label for="q27c">Block Set 3&4</label></div>
+                            <div class="option"><input type="radio" id="q27d" name="Q28 CTt7" value="Block Set 4 only"><label for="q27d">Block Set 4 only</label></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SLIDE 22: Q28 -->
+                <!-- SLIDE 22: Q29 -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
-                        <label class="question-label">שאלה 28:</label>
+                        <label class="question-label">שאלה 29:</label>
                         <p>ההנחיות הבאות אמורות להנחות את המכונית ממשבצת B1 אל דוגמת הפסים במשבצת D8 באחד מהמסלולים המתוארים.</p>
                         
                         <p>על פי ההנחיות, מהו צבע המסלול שתיקח המכונית</p>
                         <a href="/images/CTt8_main.png" data-fancybox="q28-gallery" data-caption="הלוח של השאלה">
-                            <img src="/images/CTt8_main.png" alt="CTt1_main" class="question-image">
+                            <img src="/images/CTt8_main.png" alt="CTt1_main" class="question-image" loading="lazy">
                         </a>
                         <a href="/images/CTt8_main2.png" data-fancybox="q28-gallery" data-caption="ההנחיות">
-                            <img src="/images/CTt8_main2.png" alt="CTt1_main2" class="question-image">
+                            <img src="/images/CTt8_main2.png" alt="CTt1_main2" class="question-image" loading="lazy">
                         </a>
                         <div class="options">
-                            <div class="option"><input type="radio" id="q28a" name="Q28 CTt8" value="המסלול האדום" ><label for="q28a">המסלול האדום</label></div>
-                            <div class="option"><input type="radio" id="q28b" name="Q28 CTt8" value="המסלול הכחול"><label for="q28b">המסלול הכחול</label></div>
-                            <div class="option"><input type="radio" id="q28c" name="Q28 CTt8" value="המסלול הירוק"><label for="q28c">המסלול הירוק</label></div>
-                            <div class="option"><input type="radio" id="q28d" name="Q28 CTt8" value="אף אחד מהמסלולים המתוארים בציור"><label for="q28d">אף אחד מהמסלולים המתוארים בציור</label></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SLIDE 23: Q29 -->
-                <div class="swiper-slide">
-                    <div class="slide-content" tabindex="-1">
-                        <label class="question-label">שאלה 29:</label>
-                        <p>מכונית מתחילה במשבצת E6, פונה שמאלה.</p>
-                                                
-                        <p>אם המכונית תפעל על פי ההנחיות שלמטה, לאן היא תגיע?</p>
-                        <p>כל עוד = while</p>
-                        <a href="/images/CTt9_main.png" data-fancybox="q29-gallery" data-caption="הלוח של השאלה">
-                            <img src="/images/CTt9_main.png" alt="CTt1_main" class="question-image">
-                        </a>
-                        
-                        <div class="options">
-                            <div class="option"><input type="radio" id="q29a" name="Q29 CTt9" value="B3" ><label for="q29a">B3</label></div>
-                            <div class="option"><input type="radio" id="q29b" name="Q29 CTt9" value="C3"><label for="q29b">C3</label></div>
-                            <div class="option"><input type="radio" id="q29c" name="Q29 CTt9" value="D4"><label for="q29c">D4</label></div>
-                            <div class="option"><input type="radio" id="q29d" name="Q29 CTt9" value="E4"><label for="q29d">E4</label></div>
+                            <div class="option"><input type="radio" id="q28a" name="Q29 CTt8" value="המסלול האדום" ><label for="q28a">המסלול האדום</label></div>
+                            <div class="option"><input type="radio" id="q28b" name="Q29 CTt8" value="המסלול הכחול"><label for="q28b">המסלול הכחול</label></div>
+                            <div class="option"><input type="radio" id="q28c" name="Q29 CTt8" value="המסלול הירוק"><label for="q28c">המסלול הירוק</label></div>
+                            <div class="option"><input type="radio" id="q28d" name="Q29 CTt8" value="אף אחד מהמסלולים המתוארים בציור"><label for="q28d">אף אחד מהמסלולים המתוארים בציור</label></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- SLIDE 23: Q30 -->
                 <div class="swiper-slide">
+                    <div class="slide-content" tabindex="-1">
+                        <label class="question-label">שאלה 30:</label>
+                        <p>מכונית מתחילה במשבצת E6, פונה שמאלה.</p>
+                                                
+                        <p>אם המכונית תפעל על פי ההנחיות שלמטה, לאן היא תגיע?</p>
+                        <p>כל עוד = while</p>
+                        <a href="/images/CTt9_main.png" data-fancybox="q29-gallery" data-caption="הלוח של השאלה">
+                            <img src="/images/CTt9_main.png" alt="CTt1_main" class="question-image" loading="lazy">
+                        </a>
+                        
+                        <div class="options">
+                            <div class="option"><input type="radio" id="q29a" name="Q30 CTt9" value="B3" ><label for="q29a">B3</label></div>
+                            <div class="option"><input type="radio" id="q29b" name="Q30 CTt9" value="C3"><label for="q29b">C3</label></div>
+                            <div class="option"><input type="radio" id="q29c" name="Q30 CTt9" value="D4"><label for="q29c">D4</label></div>
+                            <div class="option"><input type="radio" id="q29d" name="Q30 CTt9" value="E4"><label for="q29d">E4</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 23: Q31 -->
+                <div class="swiper-slide">
                     <div class="slide-content"  tabindex="-1">
-                        <label class="question-label">שאלה 30 (בהמשך לשאלה 29):</label>
+                        <label class="question-label">שאלה 31 (בהמשך לשאלה 30):</label>
                         <p>בסיום ההנחיות, לאיזה כיוון תפנה המכונית?</p>
                         <div class="options">
-                            <div class="option"><input type="radio" id="q30a" name="Q30 CTt10" value="למעלה" ><label for="q30a">למעלה</label></div>
-                            <div class="option"><input type="radio" id="q30b" name="Q30 CTt10" value="שמאלה"><label for="q30b">שמאלה</label></div>
-                            <div class="option"><input type="radio" id="q30c" name="Q30 CTt10" value="ימינה"><label for="q30c">ימינה</label></div>
-                            <div class="option"><input type="radio" id="q30d" name="Q30 CTt10" value="למטה"><label for="q30d">למטה</label></div>
+                            <div class="option"><input type="radio" id="q30a" name="Q31 CTt10" value="למעלה" ><label for="q30a">למעלה</label></div>
+                            <div class="option"><input type="radio" id="q30b" name="Q31 CTt10" value="שמאלה"><label for="q30b">שמאלה</label></div>
+                            <div class="option"><input type="radio" id="q30c" name="Q31 CTt10" value="ימינה"><label for="q30c">ימינה</label></div>
+                            <div class="option"><input type="radio" id="q30d" name="Q31 CTt10" value="למטה"><label for="q30d">למטה</label></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SLIDE 24: Bebras Header -->
-                <div class="swiper-slide">
-                    <div class="slide-content" tabindex="-1">
-                        <h2>שאלות חשיבה חישובית אחרונות</h2>
-                        <h3>הוראות:</h3>
-                        <p>נותרו ארבע שאלות חשיבה. לכל אחת תשובה נכונה אחת. אם אינך יודע/ת את התשובה לשאלה, הזן/הזיני את הניחוש הטוב ביותר שלך.</p>
-                        <img src="/images/Bebras_GIF.gif" alt="Bebras gif" class="question-image">
-                    </div>
-                </div>
-
-                <!-- SLIDE 25: Q31 -->
-                <div class="swiper-slide">
-                    <div class="slide-content"  tabindex="-1">
-                        <label class="question-label">שאלה 31: רצף כיוונים</label>
-                        <p> במחסן יש 3 רובוטים מסומנים A, B ו-C. הם פועלים כצוות ונעים ביחד.<br>
-                        כשהצוות מקבל הוראת כיוון (N, S, E, W), כל הרובוטים יזוזו משבצת אחת באותו כיוון ביחד.<br>
-                        בסיום רצף הוראות כיוונים, כל הרובוטים ירימו את החפץ שמונח במשבצת אליה הגיעו (כדור, קונוס, או טבעת).</p>
-                        <h3>לדוגמה</h3>
-                        <p>אם ניתן לצוות את רצף הכיוונים (משמאל לימין):  N, N, S, S, E<br>
-                        אז רובוט A ירים קונוס, רובוט B ירים טבעת, ורובוט C ירים קונוס.</p>
-                        <a href="/images/Bebras1_main.png" data-fancybox="q31-gallery" data-caption="הלוח של השאלה">
-                            <img src="/images/Bebras1_main.png" alt="תמונה ראשית" class="question-image">
-                        </a>
-                        <h3>שאלה</h3>
-                        <p>איזה רצף כיוונים יגרום לצוות הרובוטים להרים בדיוק כדור אחד, קונוס אחד, וטבעת אחת?</p>
-                        <div class="options">
-                            <div class="option"><input type="radio" id="q31a" name="Q31 Bebras1" value="N, E, E, E" ><label for="q31a">N, E, E, E</label></div>
-                            <div class="option"><input type="radio" id="q31b" name="Q31 Bebras1" value="N, E, E, S, E"><label for="q31b">N, E, E, S, E</label></div>
-                            <div class="option"><input type="radio" id="q31c" name="Q31 Bebras1" value="N, N, S, E, N"><label for="q31c">N, N, S, E, N</label></div>
-                            <div class="option"><input type="radio" id="q31d" name="Q31 Bebras1" value="N, E, E, S, W"><label for="q31d">N, E, E, S, W</label></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SLIDE 26: Q32 -->
-                <div class="swiper-slide">
-                    <div class="slide-content"  tabindex="-1">
-                        <label class="question-label">שאלה 32: קוד סריקה</label>
-                        <p>שני סורקים מקודדים תמונה ע"י תרגום של פיקסלים לקוד מספרים.</p>
-                        <p>הקוד מונה את מספר הפיקסלים הרצופים בעלי אותו צבע (לבן או שחור), ולאחריו את מספר הפיקסלים הרצופים בעלי הצבע השני, וכן הלאה. <br>
-                        שני הסורקים מתחילים בפינה השמאלית העליונה, ומקודדים משמאל לימין.<br>
-                        כשמסתיימת שורה, הם שניהם יורדים לשורה הבאה.</p>
-                        <p>שני הסורקים מתנהגים אחרת בסיום כל שורה:<br>
-                        סורק א מתחיל לספור פיקסלים מחדש בתחילת כל שורה.<br>
-                        סורק ב לא מתחיל לספור פיקסלים מחדש בתחילת כל שורה.</p>
-                        
-                        <img src="/images/Bebras2_main.png" alt="תמונה ראשית" class="question-image">
-                        
-                        <h3>לדוגמה</h3>
-                        <p>שני הסורקים יקודדו את התמונה שמעל באופן הבא (משמאל לימין):<br>
-                        סורק א: 3,1,1,1,2,4
-                        <img src="/images/Bebras2_inline_a.png" alt="inline a" class="question-image"><br>
-                        סורק ב: 3,2,1,6
-                        <img src="/images/Bebras2_inline_b.png" alt="inline b" class="question-image"></p>
-                        
-                        <h3>שאלה</h3>
-                        <p>באיזו מהתמונות הבאות (כדאי להגדיל) יתקבל קוד זהה בכל אחד משני הסורקים?</p>
-                        <div class="options image-answer-options">
-                            <div class="option">
-                                <input type="radio" id="q32a" name="Q32 Bebras2" value="1">
-                                <label for="q32a">
-                                    <span class="answer-number">1</span>
-                                    <a href="/images/Bebras2_a.png" data-fancybox="q32-gallery" data-caption="תשובה 1">
-                                        <img src="/images/Bebras2_a.png" class="question-image">
-                                    </a>
-                                </label>
-                            </div>
-
-                            <div class="option">
-                                <input type="radio" id="q32b" name="Q32 Bebras2" value="2">
-                                <label for="q32b">
-                                    <span class="answer-number">2</span>
-                                    <a href="/images/Bebras2_b.png" data-fancybox="q32-gallery" data-caption="תשובה 2">
-                                        <img src="/images/Bebras2_b.png" class="question-image">
-                                    </a>
-                                </label>
-                            </div>
-
-                            <div class="option">
-                                <input type="radio" id="q32c" name="Q32 Bebras2" value="3">
-                                <label for="q32c">
-                                    <span class="answer-number">3</span>
-                                    <a href="/images/Bebras2_c.png" data-fancybox="q32-gallery" data-caption="תשובה 3">
-                                        <img src="/images/Bebras2_c.png" class="question-image">
-                                    </a>
-                                </label>
-                            </div>
-                            
-                            <div class="option">
-                                <input type="radio" id="q32d" name="Q32 Bebras2" value="4">
-                                <label for="q32d">
-                                    <span class="answer-number">4</span>
-                                    <a href="/images/Bebras2_d.png" data-fancybox="q32-gallery" data-caption="תשובה 4">
-                                        <img src="/images/Bebras2_d.png" class="question-image">
-                                    </a>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SLIDE 27: Q33 -->
-                <div class="swiper-slide">
-                    <div class="slide-content"  tabindex="-1">
-                        <label class="question-label">שאלה 33: משולשים</label>
-                        <p>ארמין רוצה ליצור פסיפס עם אריחים זהים בצורת משולש.</p>
-                        <p>הוא מתחיל עם אריח אחד - שלב 1 בתמונה.<br>
-                        הוא מסובב אותו 90 מעלות בכיוון השעון ואז מוסיף אריחים בכל צד של האריח בצורת משולש, כמו בשלב 2 בתמונה.</p>
-                        ואז הוא מסובב את כל הצורה שוב ב-90 מעלות בכיוון השעון, ומוסיף אריחים לצדדים כמו קודם, ומקבל את שלב 3.</p>
-                        <a href="/images/Bebras3_main.png" data-fancybox="q33-gallery" data-caption="השאלה">
-                            <img src="/images/Bebras3_main.png" alt="תמונה ראשית" class="question-image">
-                        </a>
-                        
-                        <h3>שאלה</h3>
-                        <p>מה תהיה הצורה הסופית של המשולשים לאחר שלב 3?</p>
-                        <div class="options image-answer-options">
-                            <div class="option">
-                                <input type="radio" id="q33a" name="Q33 Bebras3" value="1">
-                                <label for="q33a">
-                                    <span class="answer-number">1</span>
-                                    <a href="/images/Bebras3_a.png" data-fancybox="q33-gallery" data-caption="תשובה 1">
-                                        <img src="/images/Bebras3_a.png" class="question-image">
-                                    </a>
-                                </label>
-                            </div>
-
-                            <div class="option">
-                                <input type="radio" id="q33b" name="Q33 Bebras3" value="2">
-                                <label for="q33b">
-                                    <span class="answer-number">2</span>
-                                    <a href="/images/Bebras3_b.png" data-fancybox="q33-gallery" data-caption="תשובה 2">
-                                        <img src="/images/Bebras3_b.png" class="question-image">
-                                    </a>
-                                </label>
-                            </div>
-
-                            <div class="option">
-                                <input type="radio" id="q33c" name="Q33 Bebras3" value="3">
-                                <label for="q33c">
-                                    <span class="answer-number">3</span>
-                                    <a href="/images/Bebras3_c.png" data-fancybox="q33-gallery" data-caption="תשובה 3">
-                                        <img src="/images/Bebras3_c.png" class="question-image">
-                                    </a>
-                                </label>
-                            </div>
-                            
-                            <div class="option">
-                                <input type="radio" id="q33d" name="Q33 Bebras3" value="4">
-                                <label for="q33d">
-                                    <span class="answer-number">4</span>
-                                    <a href="/images/Bebras3_d.png" data-fancybox="q33-gallery" data-caption="תשובה 4">
-                                        <img src="/images/Bebras3_d.png" class="question-image">
-                                    </a>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SLIDE 28: Q34 -->
-                <div class="swiper-slide">
-                    <div class="slide-content"  tabindex="-1">
-                        <label class="question-label">שאלה 34: זיקוקים</label>
-                        <p>שני תאורנים חיים בבקתות המופרדות על ידי יער גדול.<br>
-                        הם מחליטים לשלוח הודעות זה לזה על ידי ירי זיקוקים לשמיים מעל העצים.<br>
-                        כל הודעה היא רצף של מילים, אם כי התאורנים יודעים רק 5 מילים שונות.</p>
-                        <p>התאורנים יכולים לירות שני סוגי זיקוקים, בזה אחר זה, ומכירים את הקודים על פי הטבלה הזו:</p>
-                        <a href="/images/Bebras4_main.png" data-fancybox="q34-gallery" data-caption="הטבלה">
-                            <img src="/images/Bebras4_main.png" alt="תמונה ראשית" class="question-image">
-                        </a>
-                        <h3>לדוגמה</h3>
-                        <p>כדי לשלוח את ההודעה (המוזרה למדי):<br> אוכל, בול עץ, אוכל,<br> התאורן יורה (משמאל לימין):</p>
-                                              
-                        <img src="/images/Bebras4_main2.png" alt="תמונה ראשית" class="question-image">
-                        
-                        <h3>שאלה</h3>
-                        <p>כמה <b>משמעויות שונות</b> יכולות להיות לרצף הזיקוקים הבא (משמאל לימין)?</p>
-                        <a href="/images/Bebras4_main3.png" data-fancybox="q34-gallery" data-caption="השאלה">
-                            <img src="/images/Bebras4_main3.png" alt="תמונה ראשית" class="question-image">
-                        </a>
-
-                        <div class="options">
-                            <div class="option"><input type="radio" id="q34a" name="Q34 Bebras4" value="0" ><label for="q34a">0</label></div>
-                            <div class="option"><input type="radio" id="q34b" name="Q34 Bebras4" value="1"><label for="q34b">1</label></div>
-                            <div class="option"><input type="radio" id="q34c" name="Q34 Bebras4" value="2"><label for="q34c">2</label></div>
-                            <div class="option"><input type="radio" id="q34d" name="Q34 Bebras4" value="3"><label for="q34d">3</label></div>
-                            <div class="option"><input type="radio" id="q34e" name="Q34 Bebras4" value="4"><label for="q34e">4</label></div>
-                        </div>
-                    </div>
-                </div>                     
 
                 <!-- SLIDE 28: Final Submission Screen -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
                         <h2>תודה על השתתפותך</h2>
-                        <p>זהו סוף השאלון. לחץ על הכפתור כדי לשלוח את התשובות.</p>
+                        <p>זהו סוף השאלון. אם את/ה רוצה להשתתף בהגרלה לקופון לרכישת מוצרים - הכנס/י כתובת אימייל. לאחר מכן לחצ/י על הכפתור כדי לשלוח את התשובות.</p>
+                        
+                        <div class="email-input-container">
+                            <input type="email" id="participant-email" name="Participant Email" placeholder="כתובת אימייל (אופציונלי)" autocomplete="email" enterkeyhint="done">
+                        </div>
                         
                         <!-- 1. ADD THIS IMAGE -->
-                        <img src="/images/expecting.gif" alt="Anticipation" class="final-slide-gif">
+                        <img src="/images/expecting.gif" alt="Anticipation" class="final-slide-gif" loading="lazy">
                         
                         <button type="submit" id="submit-button">שלח את התשובות</button>
                         <div id="form-status"></div>
@@ -1167,7 +1211,7 @@
     </form>
     <!-- SUCCESS OVERLAY BLOCK right after the form closes -->
     <div id="success-overlay">
-        <img src="/images/fireworks.gif" alt="Fireworks celebration" class="success-background-gif">
+        <img src="/images/fireworks.gif" alt="Fireworks celebration" class="success-background-gif" loading="lazy">
         <div id="thank-you-message">
             <h2>תודה רבה!</h2>
             <p>התשובות נשלחו בהצלחה.</p>

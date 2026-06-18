@@ -95,24 +95,30 @@ const swiper = new Swiper('.swiper', {
     rewind: false,
 
     // --- Balanced Swipe Feel Settings ---
-    // These work well with the CSS `touch-action` fix.
     grabCursor: true,   // Shows a "grab" hand cursor on desktop.
     threshold: 10,      // User must drag at least 10px to start a swipe.
     longSwipesRatio: 0.1, // A drag of 10% of the screen width will change the slide.
 
     // --- This is what lets your range slider work correctly ---
-    // It tells Swiper: "Do not start a page swipe if the touch starts on a range slider."
     noSwipingSelector: 'input[type="range"]',
 
-    // --- This keeps your keyboard navigation fix working ---
+    // --- Swiper Event Callbacks ---
     on: {
-        init: updateTabIndex,
-    //    slideChange: updateTabIndex
-    // --- ADD THIS 'slideChange' BLOCK ---
+        init: (swiper) => {
+            updateTabIndex(swiper);
+            // Initial progress bar update will happen after checkRestoreState
+        },
         slideChange: (swiper) => {
             // Instantly scroll the entire window to the top on any slide change.
             window.scrollTo({ top: 0, behavior: 'auto' });
             updateTabIndex(swiper);
+            
+            // Update progress bar
+            updateProgressBar(swiper);
+            
+            // Auto-save slide index
+            saveFormState();
+
             // Check if the new active slide is the LAST slide
             if (swiper.isEnd) {
                 // If so, find its content area and scroll it to the top.
@@ -122,7 +128,6 @@ const swiper = new Swiper('.swiper', {
                 }
             }
         }
-        // --- END OF ADDED BLOCK ---
     }
 });
 /*
@@ -240,8 +245,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Same protection for text inputs and textareas
-    const textInputs = document.querySelectorAll('input[type="text"], textarea');
+    // Same protection for text inputs and textareas (and emails)
+    const textInputs = document.querySelectorAll('input[type="text"], input[type="email"], textarea');
     textInputs.forEach(input => {
         input.classList.add('swiper-no-swiping');
         input.addEventListener('touchstart', function(e) {
@@ -519,6 +524,9 @@ function submitViaIframe(data) {
 
     const showSuccessScreen = () => {
         if (form.style.display !== 'none') {
+            // Clear saved form progress on successful submission
+            localStorage.removeItem('electronic_producers_ct_state');
+            
             form.style.display = 'none';
             successOverlay.style.display = 'flex';
             if (successAudio) {
@@ -548,3 +556,229 @@ function submitViaIframe(data) {
     // The fallback timeout now calls the new success function
     setTimeout(showSuccessScreen, 5000);
 }
+
+// ==================================================================
+// == 6. PROGRESS BAR AND AUTO-SAVE LOGIC FOR V3.0 ==
+// ==================================================================
+
+// Update the progress bar visual filling and text
+function updateProgressBar(swiperInstance) {
+    if (!swiperInstance) return;
+    const totalSlides = swiperInstance.slides.length - 1;
+    const currentSlide = swiperInstance.activeIndex;
+    const percentage = Math.round((currentSlide / totalSlides) * 100);
+    
+    const progressBarFill = document.getElementById('progress-bar-fill');
+    const progressPercentage = document.getElementById('progress-percentage');
+    if (progressBarFill) {
+        progressBarFill.style.width = percentage + '%';
+        
+        // Dynamically change battery fill color based on level
+        if (percentage <= 20) {
+            progressBarFill.style.backgroundColor = '#dc3545'; // Red
+        } else if (percentage <= 50) {
+            progressBarFill.style.backgroundColor = '#ffc107'; // Orange/Yellow
+        } else {
+            progressBarFill.style.backgroundColor = '#28a745'; // Green
+        }
+    }
+    if (progressPercentage) {
+        progressPercentage.innerText = percentage + '% הושלם';
+    }
+}
+
+// Save form state to localStorage
+function saveFormState() {
+    if (!form || !swiper) return;
+    
+    const data = {};
+    const elements = form.elements;
+
+    for (let i = 0; i < elements.length; i++) {
+        const field = elements[i];
+        
+        // Skip fields without name or buttons
+        if (!field.name || field.type === 'button' || field.type === 'submit' || field.id === 'user-agent-field') {
+            continue;
+        }
+
+        if (field.type === 'checkbox') {
+            if (!data[field.name]) {
+                data[field.name] = [];
+            }
+            if (field.checked) {
+                data[field.name].push(field.value);
+            }
+        } 
+        else if (field.type === 'radio') {
+            if (field.checked) {
+                data[field.name] = field.value;
+            }
+        } 
+        else {
+            data[field.name] = field.value;
+        }
+    }
+    
+    // Save state of other text inputs by ID (including those that might be disabled)
+    const extraInputs = {};
+    document.querySelectorAll('.other-text-input').forEach(input => {
+        extraInputs[input.id] = {
+            value: input.value,
+            disabled: input.disabled,
+            hidden: input.classList.contains('hidden')
+        };
+    });
+
+    const state = {
+        formData: data,
+        extraInputs: extraInputs,
+        currentSlide: swiper.activeIndex,
+        timestamp: Date.now()
+    };
+
+    localStorage.setItem('electronic_producers_ct_state', JSON.stringify(state));
+}
+
+// Restore form state from parsed state object
+function restoreFormState(state) {
+    if (!state) return;
+    
+    const { formData, extraInputs, currentSlide } = state;
+
+    // Restore standard form elements
+    const elements = form.elements;
+    for (let i = 0; i < elements.length; i++) {
+        const field = elements[i];
+        if (!field.name) continue;
+
+        if (field.type === 'checkbox') {
+            const savedVals = formData[field.name];
+            if (Array.isArray(savedVals)) {
+                field.checked = savedVals.includes(field.value);
+            }
+        } 
+        else if (field.type === 'radio') {
+            const savedVal = formData[field.name];
+            if (savedVal !== undefined) {
+                field.checked = (field.value === savedVal);
+            }
+        } 
+        else {
+            const savedVal = formData[field.name];
+            if (savedVal !== undefined) {
+                field.value = savedVal;
+            }
+        }
+    }
+
+    // Restore extra inputs (other text boxes)
+    if (extraInputs) {
+        for (const id in extraInputs) {
+            const inputEl = document.getElementById(id);
+            if (inputEl) {
+                inputEl.value = extraInputs[id].value;
+                inputEl.disabled = extraInputs[id].disabled;
+                if (extraInputs[id].hidden) {
+                    inputEl.classList.add('hidden');
+                } else {
+                    inputEl.classList.remove('hidden');
+                }
+            }
+        }
+    }
+
+    // Trigger change event to let validation/logic run
+    document.querySelectorAll('input, select, textarea').forEach(el => {
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+
+    // Go to saved slide index
+    setTimeout(() => {
+        swiper.slideTo(currentSlide, 0);
+        updateProgressBar(swiper);
+    }, 100);
+}
+
+// Check if there is saved state on load and display prompt
+function checkRestoreState() {
+    const savedStateStr = localStorage.getItem('electronic_producers_ct_state');
+    if (!savedStateStr) {
+        // Just init progress bar to 0%
+        updateProgressBar(swiper);
+        return;
+    }
+    
+    try {
+        const state = JSON.parse(savedStateStr);
+        // Show restore modal
+        const restoreModal = document.getElementById('restore-modal');
+        if (restoreModal) {
+            restoreModal.style.display = 'flex';
+            
+            document.getElementById('btn-restore-yes').addEventListener('click', () => {
+                restoreFormState(state);
+                restoreModal.style.display = 'none';
+            });
+            
+            document.getElementById('btn-restore-no').addEventListener('click', () => {
+                localStorage.removeItem('electronic_producers_ct_state');
+                restoreModal.style.display = 'none';
+                updateProgressBar(swiper);
+            });
+        }
+    } catch(e) {
+        console.error("Error parsing saved state:", e);
+        localStorage.removeItem('electronic_producers_ct_state');
+        updateProgressBar(swiper);
+    }
+}
+
+// Reorganize CT slides into two columns (left for text/answers, right for main image)
+function setupCTSplitLayout() {
+    const answerGrids = document.querySelectorAll('.image-answer-options');
+    answerGrids.forEach(grid => {
+        const slide = grid.closest('.swiper-slide');
+        if (!slide) return;
+        const slideContent = slide.querySelector('.slide-content');
+        if (!slideContent) return;
+
+        // Mark slideContent with a layout class
+        slideContent.classList.add('ct-split-layout');
+
+        // Create the columns
+        const leftCol = document.createElement('div');
+        leftCol.className = 'ct-column ct-left-column'; // Text & Answers
+        
+        const rightCol = document.createElement('div');
+        rightCol.className = 'ct-column ct-right-column'; // Main Image
+
+        // Find the main image link
+        const mainImgLink = slideContent.querySelector('a[data-fancybox]:not(.image-answer-options a)');
+        
+        // Move children
+        const children = Array.from(slideContent.childNodes);
+        children.forEach(child => {
+            if (child === mainImgLink) {
+                rightCol.appendChild(child);
+            } else {
+                leftCol.appendChild(child);
+            }
+        });
+
+        // Clear slideContent and append right column first, then left column
+        slideContent.innerHTML = '';
+        slideContent.appendChild(rightCol); // Right/Top (main image)
+        slideContent.appendChild(leftCol);  // Left/Bottom (questions & answers)
+    });
+}
+
+// Setup auto-save event listeners
+form.addEventListener('input', saveFormState);
+form.addEventListener('change', saveFormState);
+
+// Trigger check after DOMContentLoaded / init
+document.addEventListener('DOMContentLoaded', () => {
+    setupCTSplitLayout();
+    checkRestoreState();
+});
