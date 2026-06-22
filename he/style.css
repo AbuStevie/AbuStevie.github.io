@@ -82,7 +82,7 @@ he {
 .swiper-slide {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;     /* CHANGED from center to stretch: ensures child stretches and is properly constrained */
     padding: 20px;
     box-sizing: border-box;
     overflow: hidden;         /* ADD THIS: Prevents the slide from interfering with its content. */
@@ -95,10 +95,11 @@ he {
     width: 100%;
     max-width: 800px;
     height: 100%;
-    overflow-y: auto; /* Allows vertical scrolling */
+    min-height: 0;            /* ADDED: allows flex child to shrink below content size and trigger overflow-y */
+    overflow-y: auto;         /* Allows vertical scrolling */
     padding: 20px;
-    text-align: right; /* <-- ADDED: Ensure text aligns to the right */
-    touch-action: pan-y; /* KEEP THIS: Makes the content area swipeable. */
+    text-align: right;        /* <-- ADDED: Ensure text aligns to the right */
+    touch-action: pan-y;      /* KEEP THIS: Makes the content area swipeable. */
 }
 
 /* Question and Image Styles */
