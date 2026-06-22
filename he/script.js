@@ -688,6 +688,13 @@ function restoreFormState(state) {
         }
     }
 
+    // Sync searchable dropdown search input
+    const countryHidden = document.getElementById('q1b');
+    const countrySearch = document.getElementById('country-search');
+    if (countryHidden && countrySearch) {
+        countrySearch.value = countryHidden.value || '';
+    }
+
     // Trigger change event to let validation/logic run
     document.querySelectorAll('input, select, textarea').forEach(el => {
         el.dispatchEvent(new Event('change', { bubbles: true }));
@@ -736,42 +743,245 @@ function checkRestoreState() {
 
 // Reorganize CT slides into two columns (left for text/answers, right for main image)
 function setupCTSplitLayout() {
-    const answerGrids = document.querySelectorAll('.image-answer-options');
-    answerGrids.forEach(grid => {
-        const slide = grid.closest('.swiper-slide');
-        if (!slide) return;
+    const ctSlides = document.querySelectorAll('.ct-slide');
+    const isMobile = window.innerWidth <= 768;
+
+    ctSlides.forEach(slide => {
         const slideContent = slide.querySelector('.slide-content');
         if (!slideContent) return;
 
-        // Mark slideContent with a layout class
-        slideContent.classList.add('ct-split-layout');
+        let leftCol = slideContent.querySelector('.ct-left-column');
+        let rightCol = slideContent.querySelector('.ct-right-column');
+        const mainImgLinks = Array.from(slideContent.querySelectorAll('a[data-fancybox]:not(.image-answer-options a)'));
 
-        // Create the columns
-        const leftCol = document.createElement('div');
-        leftCol.className = 'ct-column ct-left-column'; // Text & Answers
-        
-        const rightCol = document.createElement('div');
-        rightCol.className = 'ct-column ct-right-column'; // Main Image
+        if (!leftCol || !rightCol) {
+            // First time setup
+            slideContent.classList.add('ct-split-layout');
 
-        // Find the main image link
-        const mainImgLink = slideContent.querySelector('a[data-fancybox]:not(.image-answer-options a)');
-        
-        // Move children
-        const children = Array.from(slideContent.childNodes);
-        children.forEach(child => {
-            if (child === mainImgLink) {
-                rightCol.appendChild(child);
-            } else {
-                leftCol.appendChild(child);
+            leftCol = document.createElement('div');
+            leftCol.className = 'ct-column ct-left-column'; // Text & Answers
+            
+            rightCol = document.createElement('div');
+            rightCol.className = 'ct-column ct-right-column'; // Main Image
+
+            const children = Array.from(slideContent.childNodes);
+            children.forEach(child => {
+                if (mainImgLinks.includes(child)) {
+                    if (child === mainImgLinks[0]) {
+                        rightCol.appendChild(child);
+                    } else {
+                        // Second image (code block)
+                        if (isMobile) {
+                            leftCol.appendChild(child);
+                        } else {
+                            rightCol.appendChild(child);
+                        }
+                    }
+                } else {
+                    leftCol.appendChild(child);
+                }
+            });
+
+            slideContent.innerHTML = '';
+            slideContent.appendChild(rightCol); // Right/Top (main image)
+            slideContent.appendChild(leftCol);  // Left/Bottom (questions & answers)
+        } else {
+            // Already split, handle resize for multiple images
+            if (mainImgLinks.length > 1) {
+                const secondImgLink = mainImgLinks[1];
+                if (isMobile) {
+                    // In mobile, move second image (code block) to left column, under question text but before options
+                    const optionsGrid = leftCol.querySelector('.options, .image-answer-options');
+                    if (optionsGrid && secondImgLink.parentNode !== leftCol) {
+                        leftCol.insertBefore(secondImgLink, optionsGrid);
+                    } else if (!leftCol.contains(secondImgLink)) {
+                        leftCol.appendChild(secondImgLink);
+                    }
+                } else {
+                    // In desktop, move second image to right column, under first image
+                    if (secondImgLink.parentNode !== rightCol) {
+                        rightCol.appendChild(secondImgLink);
+                    }
+                }
             }
-        });
-
-        // Clear slideContent and append right column first, then left column
-        slideContent.innerHTML = '';
-        slideContent.appendChild(rightCol); // Right/Top (main image)
-        slideContent.appendChild(leftCol);  // Left/Bottom (questions & answers)
+        }
     });
 }
+
+// Global list of countries (English names, as required for Google Sheets)
+const countriesList = [
+    "Israel", "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", 
+    "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", 
+    "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", 
+    "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", 
+    "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", 
+    "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", 
+    "Congo, Democratic Republic of the", "Congo, Republic of the", "Costa Rica", 
+    "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czechia", "Denmark", "Djibouti", 
+    "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", 
+    "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", 
+    "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", 
+    "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", 
+    "Indonesia", "Iran", "Iraq", "Ireland", "Italy", "Jamaica", "Japan", "Jordan", 
+    "Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", 
+    "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", 
+    "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", 
+    "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", 
+    "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", 
+    "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", 
+    "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", 
+    "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", 
+    "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", 
+    "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", 
+    "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", 
+    "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", 
+    "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", 
+    "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", 
+    "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", 
+    "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", 
+    "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", 
+    "Yemen", "Zambia", "Zimbabwe"
+];
+
+// Initialize custom searchable country select component
+function setupSearchableCountryDropdown() {
+    const container = document.getElementById('country-select-container');
+    const searchInput = document.getElementById('country-search');
+    const optionsWrapper = container ? container.querySelector('.custom-select-options-wrapper') : null;
+    const optionsList = document.getElementById('country-options-list');
+    const hiddenInput = document.getElementById('q1b');
+
+    if (!container || !searchInput || !optionsList || !hiddenInput) return;
+
+    // Detect if RTL / Hebrew (to keep Israel at top)
+    const isRtl = document.documentElement.dir === 'rtl' || document.documentElement.lang === 'he';
+    let sortedCountries;
+    if (isRtl) {
+        // Hebrew: Israel at the top, then alphabetically sorted rest
+        sortedCountries = ["Israel", ...countriesList.filter(c => c !== "Israel").sort()];
+    } else {
+        // English: Everything sorted alphabetically
+        sortedCountries = [...countriesList].sort();
+    }
+
+    function renderOptions(filterText = "") {
+        optionsList.innerHTML = '';
+        const searchVal = filterText.toLowerCase().trim();
+        const filtered = sortedCountries.filter(country => 
+            country.toLowerCase().includes(searchVal)
+        );
+
+        if (filtered.length === 0) {
+            const noResultsLi = document.createElement('li');
+            noResultsLi.className = 'custom-select-option no-results';
+            noResultsLi.innerText = isRtl ? 'אין תוצאות מתאימות' : 'No matching results';
+            optionsList.appendChild(noResultsLi);
+            return;
+        }
+
+        filtered.forEach(country => {
+            const li = document.createElement('li');
+            li.className = 'custom-select-option';
+            if (hiddenInput.value === country) {
+                li.classList.add('selected');
+            }
+            li.innerText = country;
+            li.addEventListener('click', () => {
+                hiddenInput.value = country;
+                searchInput.value = country;
+                
+                // Trigger change event to save the state
+                hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+                hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+                closeDropdown();
+            });
+            optionsList.appendChild(li);
+        });
+    }
+
+    function openDropdown() {
+        container.classList.add('open');
+        optionsWrapper.style.display = 'block';
+        if (typeof swiper !== 'undefined') {
+            swiper.allowTouchMove = false;
+        }
+    }
+
+    function closeDropdown() {
+        container.classList.remove('open');
+        optionsWrapper.style.display = 'none';
+        if (typeof swiper !== 'undefined') {
+            swiper.allowTouchMove = true;
+        }
+    }
+
+    searchInput.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openDropdown();
+        renderOptions(searchInput.value);
+    });
+
+    searchInput.addEventListener('focus', () => {
+        openDropdown();
+    });
+
+    searchInput.addEventListener('input', () => {
+        openDropdown();
+        renderOptions(searchInput.value);
+        
+        const typedVal = searchInput.value.trim().toLowerCase();
+        const matchingCountry = sortedCountries.find(c => c.toLowerCase() === typedVal);
+        if (matchingCountry) {
+            hiddenInput.value = matchingCountry;
+            hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+        } else {
+            hiddenInput.value = '';
+            hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!container.contains(e.target)) {
+            closeDropdown();
+            if (hiddenInput.value) {
+                searchInput.value = hiddenInput.value;
+            } else {
+                searchInput.value = '';
+            }
+        }
+    });
+
+    renderOptions();
+
+    optionsWrapper.addEventListener('touchstart', (e) => {
+        e.stopPropagation();
+    });
+}
+
+// Victory Audio Visibility/Focus Handlers (Page Visibility API - onPause/onResume behavior)
+function handleVisibilityChange() {
+    if (!successAudio) return;
+    const isSuccessActive = successOverlay && successOverlay.style.display === 'flex';
+    if (isSuccessActive) {
+        if (document.hidden) {
+            successAudio.pause();
+        } else {
+            successAudio.play().catch(e => console.error("Audio play failed:", e));
+        }
+    }
+}
+
+document.addEventListener('visibilitychange', handleVisibilityChange);
+window.addEventListener('blur', () => {
+    if (successAudio && successOverlay && successOverlay.style.display === 'flex') {
+        successAudio.pause();
+    }
+});
+window.addEventListener('focus', () => {
+    if (successAudio && successOverlay && successOverlay.style.display === 'flex' && !document.hidden) {
+        successAudio.play().catch(e => console.error("Audio play failed:", e));
+    }
+});
 
 // Setup auto-save event listeners
 form.addEventListener('input', saveFormState);
@@ -780,5 +990,9 @@ form.addEventListener('change', saveFormState);
 // Trigger check after DOMContentLoaded / init
 document.addEventListener('DOMContentLoaded', () => {
     setupCTSplitLayout();
+    setupSearchableCountryDropdown();
     checkRestoreState();
 });
+
+// Handle resize event dynamically for CT layouts
+window.addEventListener('resize', setupCTSplitLayout);
