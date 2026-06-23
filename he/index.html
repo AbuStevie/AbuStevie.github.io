@@ -56,9 +56,6 @@
                             <li>משך הזמן המוערך הוא כ-30 דקות</li>
                             <li>השאלון מותאם גם לטלפון וטאבלטים</li>
                         </ul>
-                        <p>כאשר מוצגות בפניך שאלות רבות ברירה אנא סמן/י את התשובה הנכונה ביותר לדעתך.<br>
-                        בחלק מהשאלות בשאלון האישי ניתן לסמן יותר מתשובה אחת.</p>
-                        
                         <p>השאלון מועבר במסגרת מחקר שנערך בבית הספר לחינוך באוניברסיטת תל אביב, בהנחיית פרופ' ארנון הרשקוביץ. מילוי השאלון מהווה הסכמה להשתתפות במחקר.</p>
                         <p>לפרטים נוספים, ניתן לפנות לאופיר ונדר ofirvander@mail.tau.ac.il</p>    
                         
@@ -75,10 +72,10 @@
                         <input type="number" id="q1" name="Q01 Age" placeholder="גיל" inputmode="numeric" min="1" max="120" enterkeyhint="next">
                         
                         <p></p>
-                        <label for="q1b" class="question-label">2. מהי ארץ מוצאך? / What is your country of origin?</label>
+                        <label for="q1b" class="question-label">2. מהי ארץ מוצאך?</label>
                         <div class="custom-select-container" id="country-select-container">
                             <div class="custom-select-trigger">
-                                <input type="text" id="country-search" class="custom-select-search" placeholder="הקלד לחיפוש מדינה... / Type to search country..." autocomplete="off">
+                                <input type="text" id="country-search" class="custom-select-search" placeholder="הקלד לחיפוש מדינה..." autocomplete="off">
                                 <span class="custom-select-arrow"></span>
                             </div>
                             <div class="custom-select-options-wrapper" style="display: none;">
@@ -537,7 +534,7 @@
                         <img src="/images/Bebras_GIF.gif" alt="Bebras GIF" class="question-image" loading="lazy">
                         <h3>הוראות:</h3>
                         <p>לעשר השאלות הבאות יש 4 תשובות אפשריות, מהן רק אחת נכונה. אם אינך יודע/ת את התשובה לשאלה, הזן/הזיני את הניחוש הטוב ביותר שלך.</p>
-                        <p> ניתן ללחוץ על התמונה המרכזית, וכל אחת מהתשובות, כדי להגדיל אותן, ולדפדף ביניהן.</p>
+                        <p>ניתן ללחוץ על תמונת השאלה, ועל כל אחת מהתשובות, כדי להגדיל אותן, ולדפדף ביניהן.</p>
                     </div>
                 </div>
 
@@ -550,15 +547,15 @@
                             <img src="/images/PacMan.png" alt="פקמן" class="inline-icon" loading="lazy">
                             צריך לעקוב כדי להגיע לרוח הרפאים 
                             <img src="/images/Ghost.png" alt="רוח הרפאים" class="inline-icon" loading="lazy">.</p>
-                        <p>ההוראה                               
-                            <img src="/images/move forward.png" alt="move forward" class="inline-icon" loading="lazy"> 
+                        <p>ההוראה
+                            <img src="/images/move forward.png" alt="move forward" class="inline-icon" style="height:1.75em;" loading="lazy">
                             מציינת שפקמן צריך לצעוד צעד אחד בכיוון שאליו הוא פונה כרגע.<br>
                             פקמן יכול לפנות ימינה, שמאלה, למעלה או למטה. כרגע פקמן נמצא במשבצת A1 על גבי הלוח.</p>
                             <a href="/images/example grid.png" data-fancybox="example-gallery" data-caption="הלוח של השאלה">
                             <img src="/images/example grid.png" alt="תמונה ראשית לדוגמה" class="question-image" loading="lazy">
                             </a>
                         <p>אילו הוראות תיתן לפקמן כדי שיגיע לרוח הרפאים שבמשבצת C3?<br>
-                        בחר את התשובה הנכונה (בדוגמה זו התשובה הנכונה היא 3).</p>
+                        <strong>בחר את התשובה הנכונה (בדוגמה זו התשובה הנכונה היא 3).</strong></p>
                         
                         <!-- 2. The Answer Options -->
                         <div class="options readonly-example image-answer-options">
@@ -621,7 +618,7 @@
                         <label class="question-label">שאלה 22:</label>
                         <p>פקמן מתחיל במשבצת A5 על גבי הלוח.<br>
                         אילו הוראות תיתן לפקמן כדי שיגיע לרוח הרפאים שבמשבצת A1?</p>
-                        <p>לא לשכוח לסמן את התשובה הנכונה בסיום !</p>
+                        <p>ניתן ללחוץ על כל אחת מהתשובות כדי להגדיל.<br>לא לשכוח לסמן את התשובה הנכונה בסיום !</p>
                         <a href="/images/CTt1_main.png" data-fancybox="q21-gallery" data-caption="הלוח של השאלה">
                             <img src="/images/CTt1_main.png" alt="CTt1_main" class="question-image" loading="lazy">
                         </a>
@@ -984,6 +981,12 @@
                     <div class="slide-content"  tabindex="-1">
                         <label class="question-label">שאלה 31 (בהמשך לשאלה 30):</label>
                         <p>בסיום ההנחיות, לאיזה כיוון תפנה המכונית?</p>
+                        <a href="/images/CTt9_board.png" data-fancybox="q30-gallery" data-caption="הלוח של השאלה">
+                            <img src="/images/CTt9_board.png" alt="CTt9_board" class="question-image" loading="lazy">
+                        </a>
+                        <a href="/images/CTt9_code.png" data-fancybox="q30-gallery" data-caption="בלוק הקוד של השאלה">
+                            <img src="/images/CTt9_code.png" alt="CTt9_code" class="question-image" loading="lazy">
+                        </a>
                         <div class="options">
                             <div class="option"><input type="radio" id="q30a" name="Q31 CTt10" value="Up" ><label for="q30a">למעלה</label></div>
                             <div class="option"><input type="radio" id="q30b" name="Q31 CTt10" value="Left"><label for="q30b">שמאלה</label></div>
@@ -997,8 +1000,7 @@
                 <!-- SLIDE 28: Final Submission Screen -->
                 <div class="swiper-slide">
                     <div class="slide-content" tabindex="-1">
-                        <h2>תודה על השתתפותך</h2>
-                        <p>זהו סוף השאלון.</p>
+                        <h2 style="text-align: center;">תודה על השתתפותך!</h2>
                         <p>אם את/ה רוצה להשתתף בהגרלה לקופון לרכישת מוצרים - הכנס/י כתובת אימייל.</p>
                         <p><strong>בכל מקרה - יש ללחוץ על הכפתור הירוק כדי לשלוח את התשובות.</strong></p>
                         

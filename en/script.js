@@ -94,6 +94,9 @@ const swiper = new Swiper('.swiper', {
     mousewheel: false,
     rewind: false,
 
+    // --- Fix: allow native vertical scroll inside slide-content ---
+    touchStartPreventDefault: false,
+
     // --- Balanced Swipe Feel Settings ---
     grabCursor: true,   // Shows a "grab" hand cursor on desktop.
     threshold: 10,      // User must drag at least 10px to start a swipe.

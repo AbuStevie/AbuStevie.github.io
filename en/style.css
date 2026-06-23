@@ -66,6 +66,11 @@ he {
     display: none;
 }
 
+/* Form must have 100% height so .swiper { height: 100% } resolves correctly */
+#research-form {
+    height: 100%;
+}
+
 /* The main swiper container */
 .swiper {
     width: 100%;
@@ -104,7 +109,10 @@ he {
     padding: 20px;
     text-align: left;         /* <-- LTR text alignment */
     touch-action: pan-y;      /* KEEP THIS: Makes the content area swipeable. */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
+.slide-content::-webkit-scrollbar { display: none; }
 
 /* Question and Image Styles */
 .question-label {
@@ -509,7 +517,7 @@ textarea {
 
 /* Styles the "expecting" gif */
 .final-slide-gif {
-    max-width: 250px;
+    max-width: 500px;
     margin: 20px auto;
     display: block;
     border-radius: 10px;
@@ -734,7 +742,10 @@ textarea {
         padding-left: 15px;
         height: 100%;
         touch-action: pan-y;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
+    .ct-left-column::-webkit-scrollbar { display: none; }
 
     .ct-right-column {
         flex: 1;
@@ -743,21 +754,25 @@ textarea {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         height: 100%;
+        overflow-y: auto;
         background-color: #ffffff;
         border: 1px solid #e2e8f0;
         border-radius: 12px;
         padding: 20px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
+    .ct-right-column::-webkit-scrollbar { display: none; }
 
     .ct-right-column img.question-image {
-        max-height: 70vh;
+        max-height: 45vh;
         max-width: 100%;
         width: auto;
         object-fit: contain;
-        margin: 0;
+        margin: 0 0 10px 0;
     }
 
     /* Answers in 2x2 grid on desktop */
@@ -822,7 +837,10 @@ textarea {
         padding: 15px 5px;
         touch-action: pan-y;
         -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
+    .ct-left-column::-webkit-scrollbar { display: none; }
 }
 
 /* --- Custom Searchable Select Styling --- */
