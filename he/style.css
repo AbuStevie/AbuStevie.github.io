@@ -29,28 +29,28 @@ he {
 }
 
 #q1 {
-    font-size: 1.2em; /* Slightly larger font */
-    padding: 8px 12px; /* Good amount of internal spacing */
-    width: 40px; /* Set a comfortable width */
-    height: 40px; /* You can also set a fixed height if needed, though padding/font-size usually suffice */
-    border: 1px solid #ccc; /* Make sure borders are visible, adjust as needed */
-    border-radius: 4px; /* Optional: slightly rounded corners */
+    font-size: 1.2em;
+    padding: 4px 10px;
+    width: 40px;
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 #q10 {
-    font-size: 1.2em; /* Slightly larger font */
-    padding: 8px 12px; /* Good amount of internal spacing */
-    width: 120px; /* Set a comfortable width */
-    height: 40px; /* You can also set a fixed height if needed, though padding/font-size usually suffice */
-    border: 1px solid #ccc; /* Make sure borders are visible, adjust as needed */
-    border-radius: 4px; /* Optional: slightly rounded corners */
+    font-size: 1.2em;
+    padding: 4px 10px;
+    width: 120px;
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 #q11 {
-    font-size: 1.2em; /* Slightly larger font */
-    padding: 8px 12px; /* Good amount of internal spacing */
-    width: 120px; /* Set a comfortable width */
-    height: 40px; /* You can also set a fixed height if needed, though padding/font-size usually suffice */
-    border: 1px solid #ccc; /* Make sure borders are visible, adjust as needed */
-    border-radius: 4px; /* Optional: slightly rounded corners */
+    font-size: 1.2em;
+    padding: 4px 10px;
+    width: 120px;
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 /* --- Styling for the "Other" text input --- */
@@ -381,6 +381,7 @@ textarea {
     width: 44px !important;
     height: 44px !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    opacity: 0.5 !important;
 }
 
 /* Hover effect for desktop */
@@ -525,7 +526,7 @@ textarea {
 
 /* Styles the "expecting" gif */
 .final-slide-gif {
-    max-width: 500px;
+    max-width: min(500px, 100%);
     margin: 20px auto;
     display: block;
     border-radius: 10px;
