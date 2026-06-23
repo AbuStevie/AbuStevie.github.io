@@ -80,6 +80,7 @@ he {
 
 /* Individual slide styling */
 .swiper-slide {
+    position: relative;       /* ADDED: allows absolute positioning of child slide-content */
     display: flex;
     justify-content: center;
     align-items: stretch;     /* CHANGED from center to stretch: ensures child stretches and is properly constrained */
@@ -91,11 +92,14 @@ he {
 
 /* Content within a slide. */
 .slide-content {
+    position: absolute;       /* CHANGED: absolutely position inside swiper-slide to bypass flexbox height bugs */
+    top: 20px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     box-sizing: border-box;
-    width: 100%;
+    width: calc(100% - 40px);
     max-width: 800px;
-    height: 100%;
-    min-height: 0;            /* ADDED: allows flex child to shrink below content size and trigger overflow-y */
     overflow-y: auto;         /* Allows vertical scrolling */
     padding: 20px;
     text-align: right;        /* <-- ADDED: Ensure text aligns to the right */
@@ -767,6 +771,13 @@ textarea {
 
 /* Mobile Styles (max-width: 768px) */
 @media (max-width: 768px) {
+    .slide-content {
+        top: 10px;
+        bottom: 10px;
+        width: calc(100% - 20px);
+        padding: 10px;
+    }
+
     .swiper-slide:has(.ct-split-layout) {
         align-items: flex-start; /* Align content to top */
         padding: 10px;
@@ -775,8 +786,8 @@ textarea {
     .slide-content.ct-split-layout {
         display: flex;
         flex-direction: column;
-        height: 100%;
-        max-height: 100%;
+        height: auto;             /* CHANGED from 100% to auto to respect top/bottom absolute bounds */
+        max-height: none;         /* CHANGED to none to let absolute positioning control bounds */
         padding: 0;
         overflow: hidden; /* Scroll in columns, not wrapper */
     }
