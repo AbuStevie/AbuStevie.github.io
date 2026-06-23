@@ -31,7 +31,7 @@ he {
 #q1 {
     font-size: 1.2em; /* Slightly larger font */
     padding: 8px 12px; /* Good amount of internal spacing */
-    width: 40px; /* Set a comfortable width */
+    width: 75px; /* Set a comfortable width */
     height: 40px; /* You can also set a fixed height if needed, though padding/font-size usually suffice */
     border: 1px solid #ccc; /* Make sure borders are visible, adjust as needed */
     border-radius: 4px; /* Optional: slightly rounded corners */
@@ -64,6 +64,14 @@ he {
 }
 .hidden {
     display: none;
+}
+/* Always show "other" input — dim when not selected */
+.other-text-input.always-visible {
+    display: inline !important;
+}
+.other-text-input.always-visible.hidden {
+    opacity: 0.35;
+    pointer-events: none;
 }
 
 /* Form must have 100% height so .swiper { height: 100% } resolves correctly */
