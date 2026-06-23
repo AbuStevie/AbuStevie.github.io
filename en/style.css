@@ -1,3 +1,48 @@
+/* === Onboarding Overlays === */
+.onboarding-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 110px;
+    background: linear-gradient(to bottom, rgba(255, 80, 80, 0) 0%, rgba(255, 80, 80, 0.18) 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 18px;
+    pointer-events: none;
+    z-index: 50;
+    transition: opacity 0.4s ease;
+}
+.onboarding-overlay.fade-out {
+    opacity: 0;
+}
+.onboarding-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    animation: onboarding-pulse 1.6s ease-in-out infinite;
+}
+.onboarding-arrow {
+    font-size: 2em;
+    color: rgba(180, 30, 30, 0.8);
+    line-height: 1;
+}
+.onboarding-text {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: rgba(150, 20, 20, 0.85);
+    background: rgba(255, 255, 255, 0.7);
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+@keyframes onboarding-pulse {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(-5px); opacity: 0.7; }
+}
+
 /* Make the slider take up the full screen */
 html, body {
     position: relative;

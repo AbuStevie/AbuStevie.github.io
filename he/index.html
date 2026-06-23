@@ -45,8 +45,21 @@
             <div class="swiper-wrapper">
 
                 <!-- SLIDE 1: Welcome Screen -->
-                <div class="swiper-slide">
+                <div class="swiper-slide" id="slide-1-onboarding">
                     <div class="slide-content"  tabindex="-1">
+                        <!-- Onboarding overlays -->
+                        <div id="onboarding-scroll" class="onboarding-overlay">
+                            <div class="onboarding-hint">
+                                <span class="onboarding-arrow">↓</span>
+                                <span class="onboarding-text">גללו למטה לקריאה</span>
+                            </div>
+                        </div>
+                        <div id="onboarding-nav" class="onboarding-overlay" style="display:none;">
+                            <div class="onboarding-hint">
+                                <span class="onboarding-arrow onboarding-arrow-left">→</span>
+                                <span class="onboarding-text">להמשך — החליקו או לחצו על החץ</span>
+                            </div>
+                        </div>
                         <h1>חשיבה חישובית בקרב מפיקי מוזיקה אלקטרונית</h1>
                         <img src="/images/Welcome_GIF.gif" alt="Welcome GIF" class="question-image">
                         <p>שאלון זה מיועד לבעלי רקע בהפקה מוזיקלית אלקטרונית (עם תוכנות DAW), ונועד למדוד את עמדותיך וכישוריך בנוגע לפתרון בעיות מורכבות.</p>

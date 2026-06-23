@@ -45,8 +45,21 @@
             <div class="swiper-wrapper">
 
                 <!-- SLIDE 1: Welcome Screen -->
-                <div class="swiper-slide">
+                <div class="swiper-slide" id="slide-1-onboarding">
                     <div class="slide-content"  tabindex="-1">
+                        <!-- Onboarding overlays -->
+                        <div id="onboarding-scroll" class="onboarding-overlay">
+                            <div class="onboarding-hint">
+                                <span class="onboarding-arrow">↓</span>
+                                <span class="onboarding-text">Scroll down to read</span>
+                            </div>
+                        </div>
+                        <div id="onboarding-nav" class="onboarding-overlay" style="display:none;">
+                            <div class="onboarding-hint">
+                                <span class="onboarding-arrow">←</span>
+                                <span class="onboarding-text">To continue — swipe or press the arrow</span>
+                            </div>
+                        </div>
                         <h1>Computational Thinking Among Electronic Music Producers</h1>
                         <img src="/images/Welcome_GIF.gif" alt="Welcome GIF" class="question-image">
                         <p>This questionnaire is intended for individuals with a background in electronic music production (using DAW software) and aims to measure your attitudes and skills regarding complex problem-solving.</p>

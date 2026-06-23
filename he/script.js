@@ -112,6 +112,8 @@ const swiper = new Swiper('.swiper', {
             // Initial progress bar update will happen after checkRestoreState
         },
         slideChange: (swiper) => {
+            // Hide onboarding nav overlay on first slide change
+            if (window._onboardingHideNav) window._onboardingHideNav();
             // Instantly scroll the entire window to the top on any slide change.
             window.scrollTo({ top: 0, behavior: 'auto' });
             updateTabIndex(swiper);
@@ -999,3 +1001,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Handle resize event dynamically for CT layouts
 window.addEventListener('resize', setupCTSplitLayout);
+
+// === Onboarding overlay logic ===
+(function() {
+    const scrollOverlay = document.getElementById('onboarding-scroll');
+    const navOverlay = document.getElementById('onboarding-nav');
+    if (!scrollOverlay || !navOverlay) return;
+
+    const slide1Content = document.querySelector('#slide-1-onboarding .slide-content');
+    let scrollDone = false;
+    let navDone = false;
+
+    function hideOverlay(el, cb) {
+        el.classList.add('fade-out');
+        setTimeout(() => { el.style.display = 'none'; if (cb) cb(); }, 400);
+    }
+
+    // Phase 1: hide scroll hint on first scroll, show nav hint
+    if (slide1Content) {
+        slide1Content.addEventListener('scroll', function onScroll() {
+            if (scrollDone) return;
+            scrollDone = true;
+            slide1Content.removeEventListener('scroll', onScroll);
+            hideOverlay(scrollOverlay, () => {
+                if (navDone) return;
+                navOverlay.style.display = 'flex';
+            });
+        }, { passive: true });
+    }
+
+    // Also hide scroll hint after 4s if user doesn't scroll (content fits screen)
+    setTimeout(() => {
+        if (!scrollDone) {
+            scrollDone = true;
+            hideOverlay(scrollOverlay, () => {
+                if (navDone) return;
+                navOverlay.style.display = 'flex';
+            });
+        }
+    }, 4000);
+
+    // Phase 2: hide nav hint on slide change
+    document.addEventListener('swiper-slide-changed', () => {
+        if (navDone) return;
+        navDone = true;
+        hideOverlay(navOverlay);
+    });
+
+    // Hook into Swiper slideChange event
+    const origSlideChange = window._onboardingSlideChange;
+    window._onboardingHideNav = function() {
+        if (navDone) return;
+        navDone = true;
+        hideOverlay(navOverlay);
+    };
+})();
